@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_dashboard" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base { html, body { margin: 0; padding: 0; } body { overscroll-behavior: none; } main > :first-child { margin-top: 0 !important; } main > :last-child { margin-bottom: 0 !important; } } ::-webkit-scrollbar { display: none; }</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { "colors": { "secondary": "#b4c5ff", "on-background": "#dfe2ee", "primary-fixed": "#c9e6ff", "on-surface-variant": "#bec8d2", "primary-fixed-dim": "#89ceff", "inverse-surface": "#dfe2ee", "surface-tint": "#89ceff", "on-tertiary-fixed": "#2c0051", "error-container": "#93000a", "inverse-on-surface": "#2c3039", "on-secondary-fixed-variant": "#003ea8", "on-error-container": "#ffdad6", "on-surface": "#dfe2ee", "outline": "#88929b", "surface-variant": "#31353e", "on-primary-fixed": "#001e2f", "on-secondary-container": "#cdd7ff", "on-tertiary-fixed-variant": "#6900b3", "on-primary": "#00344d", "tertiary-container": "#bf7dff", "on-secondary": "#002a78", "on-secondary-fixed": "#00174b", "background": "#0f131b", "on-primary-container": "#003751", "surface-container-low": "#181c24", "surface-bright": "#353942", "on-tertiary": "#490080", "on-tertiary-container": "#4d0087", "error": "#ffb4ab", "primary-container": "#0ea5e9", "surface-container-lowest": "#0a0e16", "on-primary-fixed-variant": "#004c6e", "surface-dim": "#0f131b", "secondary-container": "#0053db", "on-error": "#690005", "surface": "#0f131b", "secondary-fixed-dim": "#b4c5ff", "surface-container-high": "#262a33", "tertiary": "#ddb7ff", "surface-container": "#1c2028", "primary": "#89ceff", "outline-variant": "#3e4850", "secondary-fixed": "#dbe1ff", "surface-container-highest": "#31353e", "tertiary-fixed": "#f0dbff", "tertiary-fixed-dim": "#ddb7ff", "inverse-primary": "#006591" }, "borderRadius": { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, "spacing": { "space-md": "0.5rem", "margin": "0.5rem", "space-sm": "0.25rem", "space-xl": "1rem", "gutter": "0.5rem", "margin-mobile": "0.25rem", "gutter-mobile": "0.25rem", "space-lg": "0.75rem", "space-xs": "0.125rem" }, "fontFamily": { "code-dense": [ "JetBrains Mono" ], "label-md": [ "JetBrains Mono" ], "label-lg": [ "JetBrains Mono" ], "label-sm": [ "JetBrains Mono" ], "headline-lg": [ "Inter" ], "body-md": [ "Inter" ], "body-sm": [ "Inter" ], "headline-sm": [ "Inter" ], "headline-md": [ "Inter" ], "headline-lg-mobile": [ "Inter" ], "body-lg": [ "Inter" ] }, "fontSize": { "code-dense": [ "9px", { "lineHeight": "12px", "letterSpacing": "0.02em", "fontWeight": "400" } ], "label-md": [ "11px", { "lineHeight": "14px", "letterSpacing": "-0.015em", "fontWeight": "500" } ], "label-lg": [ "12px", { "lineHeight": "16px", "letterSpacing": "-0.02em", "fontWeight": "500" } ], "label-sm": [ "10px", { "lineHeight": "12px", "letterSpacing": "0em", "fontWeight": "500" } ], "headline-lg": [ "18px", { "lineHeight": "24px", "letterSpacing": "-0.01em", "fontWeight": "600" } ], "body-md": [ "12px", { "lineHeight": "16px", "letterSpacing": "0em", "fontWeight": "400" } ], "body-sm": [ "11px", { "lineHeight": "15px", "letterSpacing": "0.01em", "fontWeight": "400" } ], "headline-sm": [ "13px", { "lineHeight": "18px", "letterSpacing": "0em", "fontWeight": "600" } ], "headline-md": [ "15px", { "lineHeight": "20px", "letterSpacing": "-0.005em", "fontWeight": "600" } ], "headline-lg-mobile": [ "16px", { "lineHeight": "22px", "letterSpacing": "-0.01em", "fontWeight": "600" } ], "body-lg": [ "13px", { "lineHeight": "18px", "letterSpacing": "0em", "fontWeight": "400" } ] } } } };</script></head><body class="bg-background text-on-surface antialiased selection:bg-primary-container selection:text-on-primary-container min-h-screen"><header class="fixed top-0 left-0 right-0 z-50 h-14 bg-surface-container-lowest border-b border-outline-variant"><div class="h-14 w-full px-space-md flex items-center justify-between gap-space-md"><div class="flex items-center gap-space-lg flex-shrink-0"><div class="flex items-center gap-space-md"><img alt="SatelliteSense Radar Reticle Logo" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1WRwykct3bJ46UrYF60qwO5dswWdIYmsuWEPOqtJ1--jdne5UEZDTwoZVFSRU7vQyQ3X2T3jc6tVho67oeXRWvnR6m3-6jh6OI4eQMF5IF2iYSuwiJiBJUUiPOFjwLfTzfa5AeE85lvWZEfzNoY9bbxWKSmF_h1fU5-swuq1YkeyQNTnZ4kssDwS0VRPnfHXJ1wyqJxjp1PQF0fsGFnjxVjy2DEkXf2b28eAKaKTIzkDDmGswUk0wNVfVU"/><div class="flex flex-col"><div class="flex items-center gap-space-xs"><span class="font-headline-sm text-headline-sm text-on-surface font-bold tracking-tight uppercase">SatelliteSense</span><span class="font-code-dense text-code-dense px-1 py-0.5 bg-surface-container-high text-primary border border-outline-variant">v2.4-EO</span></div><span class="font-code-dense text-code-dense text-on-surface-variant uppercase tracking-wider">Multimodal Reasoning OS</span></div></div><div class="h-6 w-px bg-outline-variant hidden sm:block"></div><div class="hidden xl:flex items-center gap-space-sm font-label-sm text-label-sm"><div class="flex items-center bg-surface-container-low border border-outline-variant px-space-sm py-1 gap-space-xs"><span class="w-1.5 h-1.5 rounded-full bg-primary"></span><span class="text-on-surface-variant font-code-dense text-code-dense">CRS:</span><span class="text-primary font-label-sm text-label-sm">EPSG:4326</span><span class="text-outline text-[10px]">|</span><span class="text-on-surface font-code-dense text-code-dense">45°25'12"N 12°19'48"E</span></div><div class="flex items-center bg-surface-container-low border border-outline-variant px-space-sm py-1 gap-space-xs"><span class="text-on-surface-variant font-code-dense text-code-dense">GSD:</span><span class="text-on-surface font-code-dense text-code-dense">0.50m/px</span><span class="text-outline text-[10px]">|</span><span class="text-on-surface-variant font-code-dense text-code-dense">SUN:</span><span class="text-on-surface font-code-dense text-code-dense">58.4° EL</span></div><div class="flex items-center bg-surface-container-low border border-outline-variant px-space-sm py-1 gap-space-xs"><span class="px-1 bg-surface-container-highest text-primary font-code-dense text-code-dense">RGB+NIR</span><span class="text-on-surface-variant font-code-dense text-code-dense">WV-3 / S2A</span></div></div></div><div class="flex items-center gap-space-md flex-shrink-0"><div class="hidden lg:flex items-center gap-space-sm"><div class="flex items-center bg-surface-container-low border border-outline-variant px-space-sm py-1 gap-space-xs"><span class="text-on-surface-variant font-code-dense text-code-dense uppercase">CLIP Conf:</span><span class="text-primary font-label-sm text-label-sm font-bold">94.2%</span><div class="w-12 h-1.5 bg-surface-variant rounded-none overflow-hidden ml-1"><div class="bg-primary h-full w-[94.2%]"></div></div></div><div class="flex items-center bg-surface-container-low border border-outline-variant px-space-sm py-1 gap-space-xs"><span class="text-on-surface-variant font-code-dense text-code-dense uppercase">VRAM:</span><span class="text-on-surface font-code-dense text-code-dense">18.4 / 24 GB</span></div></div><div class="flex items-center gap-space-xs"><button class="h-8 px-space-md bg-surface-container border border-outline-variant text-on-surface hover:bg-surface-container-high hover:text-on-surface font-label-md text-label-md flex items-center gap-1 transition-colors" type="button"><span class="material-symbols-outlined text-[16px] text-primary">satellite_alt</span><span class="hidden md:inline font-code-dense text-code-dense">SCENE INGEST</span></button><button class="h-8 px-space-md bg-primary-container text-on-primary hover:bg-primary hover:text-on-primary-fixed font-label-md text-label-md flex items-center gap-1 transition-colors" type="button"><span class="material-symbols-outlined text-[16px]">bolt</span><span class="font-code-dense text-code-dense font-bold uppercase">Run CLIP</span></button></div><div class="h-6 w-px bg-outline-variant"></div><div class="flex items-center gap-space-xs"><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></div></header><aside class="fixed left-0 top-14 bottom-0 w-64 bg-surface-container-lowest border-r border-outline-variant z-40 flex flex-col justify-between"><div class="flex flex-col"><div class="px-space-md py-space-sm border-b border-outline-variant bg-surface-container-low flex items-center justify-between"><span class="font-code-dense text-code-dense uppercase tracking-wider text-on-surface-variant">Workspaces &amp; Engines</span><span class="px-1 py-0.5 bg-surface-container-high text-primary font-code-dense text-code-dense border border-outline-variant">LIVE</span></div><nav class="flex flex-col py-space-xs" data-active-classes="bg-primary-container text-on-primary font-semibold border-l-2 border-primary"><a class="flex items-center gap-space-md px-space-md py-space-sm text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors font-label-md text-label-md" data-path="single-analysis" href="#"><span class="material-symbols-outlined text-[18px]">save_as</span><span>Single Analysis</span></a><a aria-current="page" class="flex items-center gap-space-md px-space-md py-space-sm transition-colors bg-primary-container text-on-primary font-semibold border-l-2 border-primary" data-path="claim-verification" href="#"><span class="material-symbols-outlined text-[18px]">fact_check</span><span>Claim Verification</span></a><a class="flex items-center gap-space-md px-space-md py-space-sm text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors font-label-md text-label-md" data-path="scene-graph" href="#"><span class="material-symbols-outlined text-[18px]">hub</span><span>Scene Graph</span></a><a class="flex items-center gap-space-md px-space-md py-space-sm text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors font-label-md text-label-md" data-path="temporal-comparison" href="#"><span class="material-symbols-outlined text-[18px]">history_toggle_off</span><span>Temporal Comparison</span></a><a class="flex items-center gap-space-md px-space-md py-space-sm text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors font-label-md text-label-md" data-path="analysis-history" href="#"><span class="material-symbols-outlined text-[18px]">dataset</span><span>Analysis History</span></a><a class="flex items-center gap-space-md px-space-md py-space-sm text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors font-label-md text-label-md" data-path="experiments-and-benchmark" href="#"><span class="material-symbols-outlined text-[18px]">science</span><span>Experiments &amp; Benchmark</span></a></nav><div class="mt-space-sm px-space-md py-space-xs border-t border-outline-variant"><div class="font-code-dense text-code-dense text-on-surface-variant uppercase mb-space-xs tracking-wider">Active Pipeline</div><div class="bg-surface-container-low border border-outline-variant p-space-sm space-y-1"><div class="flex justify-between font-code-dense text-code-dense"><span class="text-on-surface-variant">Backbone</span><span class="text-primary">RemoteCLIP-ViT/L</span></div><div class="flex justify-between font-code-dense text-code-dense"><span class="text-on-surface-variant">Resolution</span><span class="text-on-surface">1024x1024</span></div><div class="flex justify-between font-code-dense text-code-dense"><span class="text-on-surface-variant">Tokenizer</span><span class="text-on-surface">Bio-Geo-WordPiece</span></div></div></div></div><div class="p-space-md border-t border-outline-variant bg-surface-container-lowest"><div class="flex items-center justify-between text-on-surface-variant font-code-dense text-code-dense mb-space-xs"><span>NODE TELEMETRY</span><span class="text-primary">ONLINE</span></div><div class="flex items-center gap-space-sm text-on-surface-variant font-code-dense text-code-dense"><span class="material-symbols-outlined text-[14px] text-primary">dns</span><span>gpu-cluster-eu-04</span></div></div></aside><div class="pl-64"><main class="relative pt-14 bg-background min-h-screen"><div class="flex flex-col w-full">
+<!-- Sub-header Calibration Bar -->
+<div class="w-full bg-surface-container-lowest px-space-md py-space-xs flex flex-wrap items-center justify-between gap-space-sm">
+<div class="flex items-center gap-space-md">
+<div class="flex items-center gap-space-xs">
+<span class="w-2 h-2 rounded-full bg-primary-container animate-pulse"></span>
+<span class="font-headline-sm text-headline-sm text-on-surface uppercase tracking-tight">Claim Verification Studio</span>
+</div>
+<span class="px-1.5 py-0.5 bg-surface-container-high text-primary font-code-dense text-code-dense">TASK: EO-VQA-GROUNDING</span>
+<span class="font-code-dense text-code-dense text-on-surface-variant hidden md:inline">SCENE: SUEZ_CANAL_KM152_ANCHORAGE</span>
+</div>
+<div class="flex items-center gap-space-sm flex-wrap font-code-dense text-code-dense">
+<div class="flex items-center bg-surface-container-low px-space-sm py-1 gap-space-xs">
+<span class="text-on-surface-variant">ECE:</span>
+<span class="text-primary font-bold">0.021</span>
+</div>
+<div class="flex items-center bg-surface-container-low px-space-sm py-1 gap-space-xs">
+<span class="text-on-surface-variant">TEMP SCALING T:</span>
+<span class="text-on-surface font-bold">1.14</span>
+</div>
+<div class="flex items-center bg-surface-container-low px-space-sm py-1 gap-space-xs">
+<span class="text-on-surface-variant">MODEL:</span>
+<span class="text-secondary font-bold">GeoCLIP-v3.2-Ground</span>
+</div>
+<button class="h-6 px-2 bg-primary-container text-on-primary font-code-dense text-code-dense font-bold uppercase flex items-center gap-1 hover:bg-primary transition-colors">
+<span class="material-symbols-outlined text-[13px]">refresh</span>
+        Re-Infer
+      </button>
+</div>
+</div>
+<!-- Main Split Layout (60% GIS Canvas / 40% Evidence Inspector) -->
+<div class="w-full grid grid-cols-1 xl:grid-cols-12 gap-0 relative">
+<!-- LEFT/CENTER SATELLITE WORKSPACE (approx 60% -> 7 cols on xl) -->
+<div class="xl:col-span-7 flex flex-col relative bg-surface-container-lowest overflow-hidden">
+<!-- Top HUD Toolbar -->
+<div class="h-10 bg-surface-container px-space-md flex items-center justify-between text-on-surface-variant font-code-dense text-code-dense z-20">
+<div class="flex items-center gap-space-md">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-primary text-[16px]">layers</span>
+<span class="text-on-surface font-semibold">WV-3 8-BAND SUPER-RES</span>
+</div>
+<span class="text-outline">|</span>
+<div class="flex items-center gap-1">
+<span class="px-1.5 py-0.5 bg-surface-container-lowest text-primary font-bold">RGB</span>
+<span class="px-1.5 py-0.5 bg-surface-container-high text-on-surface-variant hover:text-on-surface cursor-pointer">NDTI</span>
+<span class="px-1.5 py-0.5 bg-surface-container-high text-on-surface-variant hover:text-on-surface cursor-pointer">SWIR-DIR</span>
+<span class="px-1.5 py-0.5 bg-surface-container-high text-on-surface-variant hover:text-on-surface cursor-pointer">ATTN-MAP</span>
+</div>
+</div>
+<div class="flex items-center gap-space-md">
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px] text-primary">zoom_in</span>
+<span class="text-on-surface">18.4x (0.31m/px)</span>
+</div>
+<div class="flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-primary-container"></span>
+<span class="text-on-surface">RAD: TOA-CALIB</span>
+</div>
+</div>
+</div>
+<!-- Viewport Imagery Container -->
+<div class="relative w-full h-[620px] xl:h-[calc(100vh-140px)] bg-surface-container-lowest overflow-hidden select-none group" id="viewport-canvas">
+<!-- Satellite Base Raster -->
+<img class="w-full h-full object-cover pointer-events-none filter brightness-95 contrast-105" data-alt="Ultra high-resolution satellite overhead orthomosaic of the Suez Canal Great Bitter Lake Southern Anchorage fairway, deep navy and turquoise water channels with sandy golden desert shorelines, massive container ships anchored in calm water with crisp ship wake shadows, clear daytime sunlight from northwest, sharp technical satellite imagery" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDmSTqnO2K59TmcZ5q11IPc0gbRPCDVDsUamaf5OTZXN-VsCDCmVayi7xp2iF7oTXBfJdzedIO47rjgW4qHNYvOmASYSECJ76MsR7WSqaOXQYxzwYPBFEab1ZEO1m6IaoScz3BoFJHwiTKWmAkmyKeEux8O63Fu2X-ZW5gGMDfmDvk9guGyjw2dvrhdsiN2b2TuflMD7cEMWgJgTRAewgHd_1QN9uvzIIEJBiu5P9g2PFDIo48KJRABJw"/>
+<!-- Scan Grid Overlay (SVG) -->
+<svg class="absolute inset-0 w-full h-full pointer-events-none opacity-20" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<pattern height="60" id="grid-pattern" patternunits="userSpaceOnUse" width="60">
+<path d="M 60 0 L 0 0 0 60" fill="none" stroke="#89ceff" stroke-dasharray="2 4" stroke-width="0.5"></path>
+<circle cx="0" cy="0" fill="#89ceff" r="1.5"></circle>
+</pattern>
+</defs>
+<rect fill="url(#grid-pattern)" height="100%" width="100%"></rect>
+</svg>
+<!-- Coordinate Reticle Center Accent -->
+<div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none opacity-40">
+<svg class="w-24 h-24 text-primary" fill="none" stroke="currentColor" viewbox="0 0 100 100">
+<circle cx="50" cy="50" r="30" stroke-dasharray="3 3" stroke-width="1"></circle>
+<line stroke-width="1.5" x1="50" x2="50" y1="10" y2="35"></line>
+<line stroke-width="1.5" x1="50" x2="50" y1="65" y2="90"></line>
+<line stroke-width="1.5" x1="10" x2="35" y1="50" y2="50"></line>
+<line stroke-width="1.5" x1="65" x2="90" y1="50" y2="50"></line>
+</svg>
+</div>
+<!-- ================= BOUNDING BOXES & GROUNDING MASKS ================= -->
+<!-- Region [C1]: Cargo Vessel #1 (Cyan #38bdf8 / Primary) -->
+<div class="absolute left-[18%] top-[24%] w-[34%] h-[20%] border-2 border-primary bg-primary/10 transition-all duration-200 cursor-pointer hover:bg-primary/20" id="bbox-c1">
+<!-- Top Badge -->
+<div class="absolute -top-6 left-0 bg-primary-container text-on-primary font-code-dense text-code-dense font-bold px-1.5 py-0.5 flex items-center gap-1 shadow-sm">
+<span class="w-1.5 h-1.5 bg-on-primary"></span>
+<span>[C1] CARGO_VESSEL #1</span>
+<span class="bg-surface-container-lowest text-primary px-1 font-normal">96.2%</span>
+</div>
+<!-- Corner Reticles -->
+<div class="absolute -top-1 -left-1 w-2 h-2 border-t-2 border-l-2 border-primary-fixed"></div>
+<div class="absolute -top-1 -right-1 w-2 h-2 border-t-2 border-r-2 border-primary-fixed"></div>
+<div class="absolute -bottom-1 -left-1 w-2 h-2 border-b-2 border-l-2 border-primary-fixed"></div>
+<div class="absolute -bottom-1 -right-1 w-2 h-2 border-b-2 border-r-2 border-primary-fixed"></div>
+<!-- Metrology Line & Tag -->
+<div class="absolute -bottom-5 right-2 font-code-dense text-code-dense text-primary bg-surface-container-lowest/90 px-1">
+            L: 398.2m | D: 14.5m
+          </div>
+</div>
+<!-- Region [C2]: Tugboat Escort (Emerald #10b981) -->
+<div class="absolute left-[47%] top-[38%] w-[18%] h-[14%] border-2 border-emerald-400 bg-emerald-400/10 transition-all duration-200 cursor-pointer hover:bg-emerald-400/20" id="bbox-c2">
+<div class="absolute -top-6 left-0 bg-emerald-500 text-on-primary-fixed font-code-dense text-code-dense font-bold px-1.5 py-0.5 flex items-center gap-1">
+<span class="w-1.5 h-1.5 bg-black"></span>
+<span>[C2] TUG_ESCORT (2x)</span>
+<span class="bg-surface-container-lowest text-emerald-300 px-1 font-normal">91.5%</span>
+</div>
+<div class="absolute top-1 left-2 font-code-dense text-code-dense text-emerald-300 bg-surface-container-lowest/80 px-1">
+            DUAL AZIMUTH STERN
+          </div>
+</div>
+<!-- Region [C3]: Dredging Vessel with Sediment Plume (Amber #f59e0b) -->
+<div class="absolute left-[62%] top-[54%] w-[26%] h-[24%] border-2 border-amber-400 bg-amber-400/10 transition-all duration-200 cursor-pointer hover:bg-amber-400/20" id="bbox-c3">
+<div class="absolute -top-6 left-0 bg-amber-500 text-on-primary-fixed font-code-dense text-code-dense font-bold px-1.5 py-0.5 flex items-center gap-1">
+<span class="w-1.5 h-1.5 bg-black"></span>
+<span>[C3] HOPPER_DREDGER</span>
+<span class="bg-surface-container-lowest text-amber-300 px-1 font-normal">87.0%</span>
+</div>
+<!-- Feathered Turbidity Mask Overlay Representation -->
+<div class="absolute inset-0 bg-gradient-to-tr from-amber-500/25 via-amber-300/10 to-transparent pointer-events-none"></div>
+<div class="absolute bottom-2 left-2 font-code-dense text-code-dense text-amber-300 bg-surface-container-lowest/80 px-1">
+            NDTI: +0.38 (PLUME ACTIVE)
+          </div>
+</div>
+<!-- Region [C4]: Fuel Slick / Oil Sheen Claim (Red/Unverified Dashed #ef4444) -->
+<div class="absolute left-[38%] top-[66%] w-[22%] h-[18%] border-2 border-dashed border-red-500 bg-red-500/15 transition-all duration-200 cursor-pointer hover:bg-red-500/25" id="bbox-c4">
+<div class="absolute -top-6 left-0 bg-error text-on-error font-code-dense text-code-dense font-bold px-1.5 py-0.5 flex items-center gap-1">
+<span class="material-symbols-outlined text-[12px]">close</span>
+<span>[C4] CLAIM: OIL_SHEEN</span>
+<span class="bg-surface-container-lowest text-error px-1 font-normal">REFUTED 12.4%</span>
+</div>
+<div class="absolute bottom-1 right-1 font-code-dense text-code-dense text-error bg-surface-container-lowest/90 px-1 text-right">
+            ALT: CIRRUS CLOUD SHADOW
+          </div>
+</div>
+<!-- Dynamic Reticle Hover Probe (Floating Top-Right HUD) -->
+<div class="absolute top-4 right-4 bg-surface-container-low/95 p-space-sm font-code-dense text-code-dense text-on-surface shadow-md pointer-events-none w-52 space-y-1">
+<div class="flex items-center justify-between text-on-surface-variant">
+<span>ACTIVE RETICLE PROBE</span>
+<span class="text-primary animate-ping">●</span>
+</div>
+<div class="h-px bg-surface-container-highest my-0.5"></div>
+<div class="flex justify-between"><span class="text-on-surface-variant">GEO:</span><span class="text-primary">30°01'44.2"N 32°33'18.8"E</span></div>
+<div class="flex justify-between"><span class="text-on-surface-variant">ELEV:</span><span class="text-on-surface">-18.4m (Bathymetry)</span></div>
+<div class="flex justify-between"><span class="text-on-surface-variant">DN (NIR/Red):</span><span class="text-on-surface">0.082 / 0.141</span></div>
+<div class="flex justify-between"><span class="text-on-surface-variant">CLIP SIMILARITY:</span><span class="text-primary font-bold">0.892 (High)</span></div>
+</div>
+<!-- Floating Magnifier / Lens PIP Preview (Bottom-Left) -->
+<div class="absolute bottom-4 left-4 bg-surface-container-low p-space-xs shadow-xl flex flex-col w-48">
+<div class="flex items-center justify-between font-code-dense text-code-dense px-1 py-0.5 text-on-surface-variant bg-surface-container-lowest">
+<span>PIXEL LENS [C3 PLUME]</span>
+<span class="text-primary font-bold">4.0x</span>
+</div>
+<div class="relative w-full h-28 overflow-hidden bg-surface-container-lowest">
+<img class="w-full h-full object-cover filter contrast-125" data-alt="Extreme close up satellite pixel zoom of sediment turbidity plume and dredging vessel water wake in the Suez Canal, detailed water spectral dispersion" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDXN42hM444SViO5fpmJpQFm4Dee8cCLQflN26diJVEZl1Yv42zDtv9e52K-got-r_AuQT_oAv-SHWuebxGWK7u2rc5145wCl5A26HeiHkjxPQZ2ZKtg2Jq7vFlRmAUopqCbQsjMxXuWBaXLlm8Ez4RBzs9U05L1jefNKENWLrNoxjYCl_wmLWcaN5h4yi9dkOe3BMeartEB4FWDt10lc76dxtwC1IHSQAJD0MH88EFK1-kmvx9P3odkw"/>
+<div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+<span class="text-primary text-[18px] opacity-75 font-mono">+</span>
+</div>
+<div class="absolute bottom-0 inset-x-0 bg-surface-container-lowest/80 text-center font-code-dense text-code-dense text-primary py-0.5">
+              NDTI MASK: PASS (0.38)
+            </div>
+</div>
+</div>
+<!-- Floating Scale Bar & Sun Telemetry (Bottom-Right) -->
+<div class="absolute bottom-4 right-4 bg-surface-container-lowest/90 px-space-sm py-1 font-code-dense text-code-dense text-on-surface-variant flex items-center gap-space-md">
+<div class="flex items-center gap-1">
+<div class="w-16 h-1 bg-primary relative">
+<div class="absolute -top-1 left-0 w-0.5 h-3 bg-primary"></div>
+<div class="absolute -top-1 right-0 w-0.5 h-3 bg-primary"></div>
+</div>
+<span class="text-on-surface">200m</span>
+</div>
+<span>|</span>
+<span>SUN AZ: 142.6°</span>
+<span>|</span>
+<span class="text-primary">CLOUD: 1.2%</span>
+</div>
+</div>
+<!-- Bottom GIS Status Strip -->
+<div class="h-7 bg-surface-container-lowest px-space-md flex items-center justify-between text-on-surface-variant font-code-dense text-code-dense">
+<div class="flex items-center gap-space-md">
+<span class="flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-primary-container"></span>CRS: EPSG:32636 (UTM 36N)</span>
+<span class="hidden sm:inline">PROJECTION: Transverse Mercator</span>
+<span class="hidden md:inline">DATUM: WGS84</span>
+</div>
+<div class="flex items-center gap-space-md">
+<span>GROUNDING IoU THRESH: 0.70</span>
+<span class="text-primary font-bold">VERIFICATION RUN: COMPLETE</span>
+</div>
+</div>
+</div>
+<!-- RIGHT PANEL: CLAIM VERIFICATION & CONTEXTUAL EVIDENCE INSPECTOR (approx 40% -> 5 cols on xl) -->
+<div class="xl:col-span-5 flex flex-col bg-surface-container-low min-h-full">
+<!-- Panel Header -->
+<div class="p-space-md bg-surface-container flex items-center justify-between">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-primary text-[18px]">verified_user</span>
+<div class="flex flex-col">
+<span class="font-headline-sm text-headline-sm text-on-surface">Evidence &amp; Claim Engine</span>
+<span class="font-code-dense text-code-dense text-on-surface-variant">Natural Language to EO Visual Grounding</span>
+</div>
+</div>
+<span class="px-2 py-0.5 bg-primary-container text-on-primary font-code-dense text-code-dense font-bold uppercase">
+          4 CLAIMS EVALUATED
+        </span>
+</div>
+<!-- Generated Primary Caption Card -->
+<div class="p-space-md bg-surface-container-lowest">
+<div class="flex items-center justify-between mb-space-xs font-code-dense text-code-dense">
+<span class="text-primary flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">auto_awesome</span>
+            SYNTHESIZED CAPTION (HYPOTHESIS)
+          </span>
+<span class="text-on-surface-variant">SCORE: 0.941</span>
+</div>
+<div class="p-space-sm bg-surface-container text-on-surface font-body-md text-body-md leading-relaxed">
+          “<span class="text-primary font-semibold">At least four ultra-large container carriers</span> are anchored in the bypass fairway, accompanied by <span class="text-emerald-300 font-semibold">auxiliary harbor tugs</span> and an <span class="text-amber-300 font-semibold">active suction hopper dredger</span> near the eastern embankment, with <span class="text-error font-semibold">no confirmed fuel surface contamination</span>.”
+        </div>
+</div>
+<!-- Interactive Claims Breakdown List -->
+<div class="p-space-md flex flex-col gap-space-sm flex-1">
+<div class="flex items-center justify-between font-code-dense text-code-dense text-on-surface-variant">
+<span class="uppercase font-semibold tracking-wider">Decomposed Verification Claims</span>
+<span>CLICK REGION TO INSPECT</span>
+</div>
+<!-- Claim #1: Verified -->
+<div class="claim-card p-space-sm bg-surface-container cursor-pointer transition-all hover:bg-surface-container-high ring-1 ring-primary/40" onclick="selectClaim('c1')">
+<div class="flex items-start justify-between gap-space-sm">
+<div class="flex items-center gap-space-xs">
+<span class="px-1.5 py-0.5 bg-primary font-code-dense text-code-dense text-on-primary font-bold">C1</span>
+<span class="font-headline-sm text-headline-sm text-on-surface font-medium">Four ultra-large container vessels anchored in queue</span>
+</div>
+<span class="px-2 py-0.5 bg-surface-container-lowest text-primary font-code-dense text-code-dense font-bold flex items-center gap-1 flex-shrink-0">
+<span class="material-symbols-outlined text-[13px] text-primary">check_circle</span>
+              VERIFIED
+            </span>
+</div>
+<div class="mt-space-sm grid grid-cols-2 gap-space-xs font-code-dense text-code-dense bg-surface-container-low p-space-xs">
+<div class="flex justify-between">
+<span class="text-on-surface-variant">Calibrated Conf:</span>
+<span class="text-primary font-bold">96.2%</span>
+</div>
+<div class="flex justify-between">
+<span class="text-on-surface-variant">Grounding IoU:</span>
+<span class="text-on-surface">0.88</span>
+</div>
+</div>
+<div class="mt-space-xs text-on-surface-variant font-body-sm text-body-sm">
+<span class="text-primary font-code-dense text-code-dense uppercase">Evidence:</span> 
+            Visual match on 4 hulls &gt;300m length; wake absent, stationary anchor chain displacement vectors detected on synthetic aperture radar correlation.
+          </div>
+</div>
+<!-- Claim #2: Verified -->
+<div class="claim-card p-space-sm bg-surface-container cursor-pointer transition-all hover:bg-surface-container-high" onclick="selectClaim('c2')">
+<div class="flex items-start justify-between gap-space-sm">
+<div class="flex items-center gap-space-xs">
+<span class="px-1.5 py-0.5 bg-emerald-500 font-code-dense text-code-dense text-on-primary-fixed font-bold">C2</span>
+<span class="font-headline-sm text-headline-sm text-on-surface font-medium">Auxiliary harbor tugs positioned alongside lead vessel</span>
+</div>
+<span class="px-2 py-0.5 bg-surface-container-lowest text-emerald-400 font-code-dense text-code-dense font-bold flex items-center gap-1 flex-shrink-0">
+<span class="material-symbols-outlined text-[13px] text-emerald-400">check_circle</span>
+              VERIFIED
+            </span>
+</div>
+<div class="mt-space-sm grid grid-cols-2 gap-space-xs font-code-dense text-code-dense bg-surface-container-low p-space-xs">
+<div class="flex justify-between">
+<span class="text-on-surface-variant">Calibrated Conf:</span>
+<span class="text-emerald-400 font-bold">91.5%</span>
+</div>
+<div class="flex justify-between">
+<span class="text-on-surface-variant">Grounding IoU:</span>
+<span class="text-on-surface">0.82</span>
+</div>
+</div>
+<div class="mt-space-xs text-on-surface-variant font-body-sm text-body-sm">
+<span class="text-emerald-400 font-code-dense text-code-dense uppercase">Evidence:</span> 
+            High-frequency vessel signatures matching 30m azimuth-stern tug configuration stationed at bow &amp; stern quadrants of lead carrier.
+          </div>
+</div>
+<!-- Claim #3: Verified -->
+<div class="claim-card p-space-sm bg-surface-container cursor-pointer transition-all hover:bg-surface-container-high" onclick="selectClaim('c3')">
+<div class="flex items-start justify-between gap-space-sm">
+<div class="flex items-center gap-space-xs">
+<span class="px-1.5 py-0.5 bg-amber-500 font-code-dense text-code-dense text-on-primary-fixed font-bold">C3</span>
+<span class="font-headline-sm text-headline-sm text-on-surface font-medium">Active dredging operations near eastern embankment</span>
+</div>
+<span class="px-2 py-0.5 bg-surface-container-lowest text-amber-400 font-code-dense text-code-dense font-bold flex items-center gap-1 flex-shrink-0">
+<span class="material-symbols-outlined text-[13px] text-amber-400">check_circle</span>
+              VERIFIED
+            </span>
+</div>
+<div class="mt-space-sm grid grid-cols-2 gap-space-xs font-code-dense text-code-dense bg-surface-container-low p-space-xs">
+<div class="flex justify-between">
+<span class="text-on-surface-variant">Calibrated Conf:</span>
+<span class="text-amber-400 font-bold">87.0%</span>
+</div>
+<div class="flex justify-between">
+<span class="text-on-surface-variant">Grounding IoU:</span>
+<span class="text-on-surface">0.79</span>
+</div>
+</div>
+<div class="mt-space-xs text-on-surface-variant font-body-sm text-body-sm">
+<span class="text-amber-400 font-code-dense text-code-dense uppercase">Evidence:</span> 
+            Turbidity plume identified via NDTI index (+0.38) trailing hopper dredger stern with distinct water column backscatter shift.
+          </div>
+</div>
+<!-- Claim #4: Refuted -->
+<div class="claim-card p-space-sm bg-surface-container cursor-pointer transition-all hover:bg-surface-container-high" onclick="selectClaim('c4')">
+<div class="flex items-start justify-between gap-space-sm">
+<div class="flex items-center gap-space-xs">
+<span class="px-1.5 py-0.5 bg-error font-code-dense text-code-dense text-on-error font-bold">C4</span>
+<span class="font-headline-sm text-headline-sm text-on-surface font-medium">Surface oil sheen reported south of dredging zone</span>
+</div>
+<span class="px-2 py-0.5 bg-surface-container-lowest text-error font-code-dense text-code-dense font-bold flex items-center gap-1 flex-shrink-0">
+<span class="material-symbols-outlined text-[13px] text-error">cancel</span>
+              REFUTED
+            </span>
+</div>
+<div class="mt-space-sm grid grid-cols-2 gap-space-xs font-code-dense text-code-dense bg-surface-container-low p-space-xs">
+<div class="flex justify-between">
+<span class="text-on-surface-variant">Calibrated Conf:</span>
+<span class="text-error font-bold">12.4% (Mismatch)</span>
+</div>
+<div class="flex justify-between">
+<span class="text-on-surface-variant">False Pos Prob:</span>
+<span class="text-on-surface">87.6%</span>
+</div>
+</div>
+<div class="mt-space-xs text-on-surface-variant font-body-sm text-body-sm">
+<span class="text-error font-code-dense text-code-dense uppercase">Evidence:</span> 
+            Spectral band ratio (SWIR/NIR: 0.12) is consistent with thin cirrus cloud shadow. Hydrocarbon absorption features at 1.73μm and 2.30μm are absent.
+          </div>
+</div>
+</div>
+<!-- Evidence Inspector Detail Drawer (Active Selection) -->
+<div class="p-space-md bg-surface-container-lowest mt-space-sm">
+<div class="flex items-center justify-between mb-space-sm">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-primary text-[16px]">analytics</span>
+<span class="font-headline-sm text-headline-sm text-on-surface uppercase tracking-tight">Spectral &amp; Cross-Attention Inspector</span>
+</div>
+<span class="px-2 py-0.5 bg-primary-container text-on-primary font-code-dense text-code-dense font-bold" id="active-inspector-tag">
+            ACTIVE: [C1] CARGO_VESSEL #1
+          </span>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-space-md">
+<!-- Crop Thumbnail & Heatmap -->
+<div class="flex flex-col gap-space-xs">
+<div class="flex items-center justify-between font-code-dense text-code-dense text-on-surface-variant">
+<span>CLIP CROSS-ATTN OVERLAY</span>
+<span class="text-primary">LAYER 11/12</span>
+</div>
+<div class="relative w-full h-36 bg-surface-container-high overflow-hidden group">
+<img class="w-full h-full object-cover" data-alt="Technical high magnification false color satellite sensor crop of container carrier ship deck in harbor basin, with heat map cross attention activation gradient in cyan and yellow" id="inspector-img" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAQY3iOTzeHn82ZD62W4HVwZe4jeGHhTNvwhcbeq2oXx0RLP35CJOvQxe6K2fGGmL7M1KXb1k8TnJ9VXus77PzhI_xARZlSNJXmF1FMjibzElP0UaEH1JduKZ6r3W4J52i_-5Td1UpY_i5_HNUuV2c_864VGmovRXW-3KSchqfxhJ__zjx7DWLzD9DDkO-at4kabVkBesdPNdsnhcdkDXueAApY3E6BgFALS46JWv_dlolyYCQCu8CAUA"/>
+<div class="absolute inset-0 bg-gradient-to-t from-surface-container-lowest via-transparent to-transparent opacity-80 pointer-events-none"></div>
+<div class="absolute bottom-2 left-2 right-2 flex justify-between font-code-dense text-code-dense text-on-surface">
+<span>PEAK TOKEN: 'container carriers'</span>
+<span class="text-primary font-bold">0.962</span>
+</div>
+</div>
+</div>
+<!-- Spectral Signature Curve (Inline SVG Chart) -->
+<div class="flex flex-col gap-space-xs">
+<div class="flex items-center justify-between font-code-dense text-code-dense text-on-surface-variant">
+<span>SPECTRAL PROFILE (λ vs Refl.)</span>
+<span class="text-on-surface font-code-dense">400nm - 2300nm</span>
+</div>
+<div class="w-full h-36 bg-surface-container p-2 flex flex-col justify-between">
+<!-- Inline SVG Curve Chart -->
+<svg class="w-full h-24 overflow-visible" preserveaspectratio="none" viewbox="0 0 200 80">
+<!-- Gridlines -->
+<line stroke="#3e4850" stroke-dasharray="2 2" stroke-width="0.5" x1="0" x2="200" y1="20" y2="20"></line>
+<line stroke="#3e4850" stroke-dasharray="2 2" stroke-width="0.5" x1="0" x2="200" y1="40" y2="40"></line>
+<line stroke="#3e4850" stroke-dasharray="2 2" stroke-width="0.5" x1="0" x2="200" y1="60" y2="60"></line>
+<!-- Target Signature Curve (Primary Cyan) -->
+<path d="M 0,72 Q 25,60 50,45 T 100,32 T 150,22 T 200,18" fill="none" stroke="#89ceff" stroke-width="2"></path>
+<!-- Reference Baseline Curve (Muted) -->
+<path d="M 0,78 Q 30,75 60,70 T 120,68 T 170,66 T 200,65" fill="none" stroke="#88929b" stroke-dasharray="3 3" stroke-width="1"></path>
+<!-- Sample Points -->
+<circle cx="50" cy="45" fill="#0ea5e9" r="2.5"></circle>
+<circle cx="100" cy="32" fill="#0ea5e9" r="2.5"></circle>
+<circle cx="150" cy="22" fill="#0ea5e9" r="2.5"></circle>
+</svg>
+<!-- Chart Legends & Values -->
+<div class="flex items-center justify-between font-code-dense text-code-dense text-on-surface-variant pt-1 border-t border-surface-container-highest">
+<span class="flex items-center gap-1 text-primary">
+<span class="w-2 h-0.5 bg-primary"></span> Steel/Deck Reflectance
+                </span>
+<span class="flex items-center gap-1 text-on-surface-variant">
+<span class="w-2 h-0.5 bg-outline"></span> Water Background
+                </span>
+</div>
+</div>
+</div>
+</div>
+<!-- Metric Badges Row -->
+<div class="mt-space-md grid grid-cols-2 sm:grid-cols-4 gap-space-sm font-code-dense text-code-dense">
+<div class="bg-surface-container p-space-xs">
+<span class="text-on-surface-variant block">GROUNDING IOU</span>
+<span class="text-primary font-bold text-headline-sm">0.884</span>
+</div>
+<div class="bg-surface-container p-space-xs">
+<span class="text-on-surface-variant block">CALIB CONF</span>
+<span class="text-primary font-bold text-headline-sm">96.2%</span>
+</div>
+<div class="bg-surface-container p-space-xs">
+<span class="text-on-surface-variant block">ALIGNMENT</span>
+<span class="text-on-surface font-bold text-headline-sm">HIGH</span>
+</div>
+<div class="bg-surface-container p-space-xs">
+<span class="text-on-surface-variant block">VERDICT</span>
+<span class="text-primary-container font-bold text-headline-sm">CONFIRMED</span>
+</div>
+</div>
+<!-- Action Footer -->
+<div class="mt-space-md flex items-center justify-between gap-space-sm">
+<button class="h-8 px-space-md bg-surface-container text-on-surface font-code-dense text-code-dense flex items-center gap-1 hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined text-[15px]">download</span>
+            Export Grounding JSON
+          </button>
+<div class="flex items-center gap-space-xs">
+<button class="h-8 px-space-md bg-surface-container text-on-surface font-code-dense text-code-dense flex items-center gap-1 hover:bg-surface-container-high transition-colors">
+              Flag Ambiguity
+            </button>
+<button class="h-8 px-space-md bg-primary-container text-on-primary font-code-dense text-code-dense font-bold uppercase flex items-center gap-1 hover:bg-primary transition-colors">
+<span class="material-symbols-outlined text-[15px]">send</span>
+              Commit Verification
+            </button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<script>
+  function selectClaim(claimId) {
+    // Reset all bboxes visual state
+    ['c1', 'c2', 'c3', 'c4'].forEach(id => {
+      const el = document.getElementById('bbox-' + id);
+      if (el) {
+        el.classList.remove('ring-4', 'ring-white', 'scale-[1.02]');
+      }
+    });
+
+    // Highlight selected bounding box
+    const activeEl = document.getElementById('bbox-' + claimId);
+    if (activeEl) {
+      activeEl.classList.add('ring-4', 'ring-white', 'scale-[1.02]');
+    }
+
+    // Update active inspector label
+    const tag = document.getElementById('active-inspector-tag');
+    if (tag) {
+      if (claimId === 'c1') tag.innerText = 'ACTIVE: [C1] CARGO_VESSEL #1';
+      if (claimId === 'c2') tag.innerText = 'ACTIVE: [C2] TUG_ESCORT (2x)';
+      if (claimId === 'c3') tag.innerText = 'ACTIVE: [C3] HOPPER_DREDGER';
+      if (claimId === 'c4') tag.innerText = 'ACTIVE: [C4] REFUTED OIL_SHEEN';
+    }
+  }
+</script></main></div></body></html>

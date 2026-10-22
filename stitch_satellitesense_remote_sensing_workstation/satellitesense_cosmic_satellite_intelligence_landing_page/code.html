@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+
+<html class="dark scroll-smooth" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>SatelliteSense — Reasoning-Guided Satellite Image Intelligence</title>
+<!-- Google Fonts: Inter & JetBrains Mono for aerospace telemetry -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&amp;family=JetBrains+Mono:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS v3 with Forms & Container Queries -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          },
+          colors: {
+            space: {
+              black: '#020307',
+              void: '#060913',
+              glow: '#38bdf8',
+              atmospheric: '#60a5fa',
+              radar: '#38bdf8',
+              cyber: '#0ea5e9'
+            }
+          },
+          animation: {
+            'satellite-drift': 'orbitalDrift 28s ease-in-out infinite alternate',
+            'pulse-glow': 'pulseGlow 4s ease-in-out infinite',
+            'radar-spin': 'radarSweep 3s linear infinite',
+            'limb-breathe': 'limbAtmosphere 7s ease-in-out infinite alternate'
+          },
+          keyframes: {
+            orbitalDrift: {
+              '0%': { transform: 'translate(0px, 0px) rotate(0deg)' },
+              '50%': { transform: 'translate(-12px, -8px) rotate(-1.5deg)' },
+              '100%': { transform: 'translate(10px, -18px) rotate(2deg)' }
+            },
+            pulseGlow: {
+              '0%, 100%': { opacity: '0.85', filter: 'drop-shadow(0 0 35px rgba(125,211,252,0.65)) drop-shadow(0 0 75px rgba(56,189,248,0.4))' },
+              '50%': { opacity: '1', filter: 'drop-shadow(0 0 50px rgba(186,230,253,0.95)) drop-shadow(0 0 110px rgba(56,189,248,0.7))' }
+            },
+            radarSweep: {
+              '0%': { transform: 'rotate(0deg)' },
+              '100%': { transform: 'rotate(360deg)' }
+            },
+            limbAtmosphere: {
+              '0%': { opacity: '0.9' },
+              '100%': { opacity: '1' }
+            }
+          }
+        }
+      }
+    }
+  </script>
+<!-- BEGIN: Custom Atmospheric & Glowing Typography Styles -->
+<style data-purpose="glow-typography">
+    /* Exact title luminescence from Reference Image */
+    .hero-title-glow {
+      color: #ffffff;
+      text-shadow: 
+        0 0 18px rgba(186, 230, 253, 0.95),
+        0 0 38px rgba(56, 189, 248, 0.75),
+        0 0 70px rgba(14, 165, 233, 0.55),
+        0 0 120px rgba(3, 105, 161, 0.45);
+      letter-spacing: -0.035em;
+    }
+
+    .badge-backdrop {
+      background-color: rgba(2, 4, 10, 0.88);
+      box-shadow: 0 0 25px rgba(0, 0, 0, 0.9), inset 0 0 0 1px rgba(255, 255, 255, 0.16);
+    }
+
+    .badge-backdrop:hover {
+      box-shadow: 0 0 30px rgba(56, 189, 248, 0.25), inset 0 0 0 1px rgba(125, 211, 252, 0.4);
+    }
+  </style>
+<style data-purpose="earth-rendering">
+    /* Deep realistic atmospheric limb gradient mimicking the visual input */
+    .earth-curvature {
+      position: absolute;
+      left: -20%;
+      right: -20%;
+      bottom: -620px;
+      height: 1050px;
+      border-radius: 50% 50% 0 0 / 100% 100% 0 0;
+      background: radial-gradient(ellipse at 50% 0%, #1e4b85 0%, #0d274f 24%, #081734 46%, #030a17 72%, #01040a 100%);
+      box-shadow: 
+        0 -10px 40px rgba(125, 211, 252, 0.5),
+        0 -35px 120px rgba(56, 189, 248, 0.42),
+        0 -80px 220px rgba(14, 116, 144, 0.28);
+    }
+
+    /* Atmospheric horizon haze line */
+    .earth-airglow-rim {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 8px;
+      border-radius: 50% 50% 0 0 / 100% 100% 0 0;
+      background: linear-gradient(90deg, 
+        rgba(56,189,248,0.05) 0%, 
+        rgba(147,197,253,0.7) 20%, 
+        rgba(255,255,255,0.98) 50%, 
+        rgba(147,197,253,0.7) 80%, 
+        rgba(56,189,248,0.05) 100%);
+      filter: blur(1.5px);
+    }
+
+    .earth-cloud-texture {
+      background-image: 
+        radial-gradient(ellipse at 25% 30%, rgba(255,255,255,0.18) 0%, transparent 45%),
+        radial-gradient(ellipse at 70% 35%, rgba(255,255,255,0.14) 0%, transparent 50%),
+        radial-gradient(ellipse at 45% 20%, rgba(255,255,255,0.22) 0%, transparent 35%),
+        radial-gradient(ellipse at 85% 45%, rgba(255,255,255,0.12) 0%, transparent 40%);
+    }
+
+    /* Star field canvas overlay */
+    .star-bg {
+      background-image: 
+        radial-gradient(1px 1px at 20px 30px, #ffffff, rgba(0,0,0,0)),
+        radial-gradient(1.5px 1.5px at 140px 90px, rgba(255,255,255,0.85), rgba(0,0,0,0)),
+        radial-gradient(1px 1px at 300px 210px, #e2e8f0, rgba(0,0,0,0)),
+        radial-gradient(2px 2px at 520px 80px, rgba(224,242,254,0.9), rgba(0,0,0,0)),
+        radial-gradient(1px 1px at 780px 180px, #ffffff, rgba(0,0,0,0)),
+        radial-gradient(1.5px 1.5px at 940px 60px, rgba(186,230,253,0.8), rgba(0,0,0,0)),
+        radial-gradient(1px 1px at 1120px 140px, #ffffff, rgba(0,0,0,0)),
+        radial-gradient(1px 1px at 450px 320px, #cbd5e1, rgba(0,0,0,0)),
+        radial-gradient(2px 2px at 1240px 260px, #ffffff, rgba(0,0,0,0));
+      background-size: 1300px 600px;
+    }
+  </style>
+<style data-purpose="hud-telemetry">
+    .glass-hud {
+      background: rgba(3, 7, 18, 0.72);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .reticle-grid {
+      background-size: 24px 24px;
+      background-image: 
+        linear-gradient(to right, rgba(56, 189, 248, 0.04) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(56, 189, 248, 0.04) 1px, transparent 1px);
+    }
+  </style>
+<!-- END: Custom Atmospheric Styles -->
+</head>
+<body class="bg-[#010307] text-slate-100 font-sans min-h-screen overflow-x-hidden selection:bg-sky-500/30 selection:text-sky-200">
+<!-- BEGIN: Master Hero Cosmic Section (Matches visual layout of IMAGE_2) -->
+<section class="relative w-full min-h-screen flex flex-col justify-between overflow-hidden star-bg" data-purpose="hero-viewport">
+<!-- Deep Space Ambient Gradients -->
+<div class="pointer-events-none absolute inset-0 bg-gradient-to-b from-[#010206] via-transparent to-transparent opacity-90 z-0"></div>
+<!-- BEGIN: Top Flight Telemetry & Navigation Bar -->
+<header class="relative z-30 w-full px-5 py-4 border-b border-white/5 glass-hud" data-purpose="telemetry-header">
+<div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-4">
+<!-- Logo & Model Status -->
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-lg bg-sky-500/10 border border-sky-400/30 flex items-center justify-center text-sky-400 font-bold shadow-[0_0_15px_rgba(56,189,248,0.3)]">
+<svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24">
+<circle cx="12" cy="12" r="3"></circle>
+<path d="M4.93 4.93a10 10 0 0 1 14.14 0"></path>
+<path d="M7.76 7.76a6 6 0 0 1 8.48 0"></path>
+<path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path>
+</svg>
+</div>
+<div class="flex flex-col">
+<div class="flex items-center gap-2">
+<span class="font-extrabold tracking-tight text-white text-sm">SatelliteSense</span>
+<span class="px-1.5 py-0.5 text-[9px] uppercase tracking-wider font-mono rounded bg-sky-500/20 text-sky-300 border border-sky-500/30 font-semibold">v2.4-EO REASONING</span>
+</div>
+<span class="text-[10px] text-slate-400 font-mono tracking-tight">Earth Observation Reasoning &amp; Multimodal Captioning</span>
+</div>
+</div>
+<!-- Live Sensor Flight Telemetry HUD (Desktop) -->
+<div class="hidden xl:flex items-center gap-6 px-4 py-1.5 rounded-full bg-black/40 border border-white/5 font-mono text-[11px] text-slate-300">
+<div class="flex items-center gap-1.5">
+<span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+<span class="text-slate-400">CRS:</span>
+<span class="text-sky-300 font-semibold">WGS 84 / UTM 31N</span>
+</div>
+<span class="text-slate-700">|</span>
+<div class="flex items-center gap-1.5">
+<span class="text-slate-400">ORBIT:</span>
+<span class="text-emerald-300">SSO (705 KM)</span>
+</div>
+<span class="text-slate-700">|</span>
+<div class="flex items-center gap-1.5">
+<span class="text-slate-400">GSD:</span>
+<span class="text-amber-300">0.31m NADIR</span>
+</div>
+<span class="text-slate-700">|</span>
+<div class="flex items-center gap-1.5">
+<span class="text-slate-400">SPECTRAL:</span>
+<span class="text-sky-400">13 BANDS (VNIR/SWIR)</span>
+</div>
+</div>
+<!-- Action Links & Workstation Entry -->
+<div class="flex items-center gap-3">
+<a class="text-xs text-slate-300 hover:text-white px-3 py-1.5 rounded transition font-medium" href="#features-specs">Specs</a>
+<a class="text-xs text-slate-300 hover:text-white px-3 py-1.5 rounded transition font-medium" href="#model-architecture">Architecture</a>
+<a class="relative group inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-sky-500 text-slate-950 font-semibold text-xs tracking-wide transition-all shadow-[0_0_20px_rgba(56,189,248,0.4)] hover:shadow-[0_0_30px_rgba(56,189,248,0.7)] hover:bg-sky-400" href="#interactive-suite">
+<span>DEMO WORKSTATION</span>
+<svg class="w-3.5 h-3.5 transition-transform group-hover:translate-x-0.5" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<path d="M14 5l7 7m0 0l-7 7m7-7H3" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"></path>
+</svg>
+</a>
+</div>
+</div>
+</header>
+<!-- END: Top Flight Telemetry & Navigation Bar -->
+<!-- BEGIN: Upper Right Sputnik Orbital Satellite Object (Accurately positioned as in IMAGE_2) -->
+<div class="absolute right-[9%] md:right-[14%] top-[12%] md:top-[16%] z-20 pointer-events-none select-none animate-satellite-drift" data-purpose="orbital-satellite">
+<div class="relative w-28 h-28 md:w-36 md:h-36 flex items-center justify-center">
+<!-- SVG Representation of the classic orbital probe from reference image with reflective hull & extended trailing antennae -->
+<svg class="w-full h-full drop-shadow-[0_0_12px_rgba(224,242,254,0.4)]" fill="none" viewbox="0 0 160 160" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<radialgradient cx="42%" cy="38%" id="satelliteHull" r="58%">
+<stop offset="0%" stop-color="#ffffff"></stop>
+<stop offset="25%" stop-color="#cbd5e1"></stop>
+<stop offset="60%" stop-color="#475569"></stop>
+<stop offset="90%" stop-color="#0f172a"></stop>
+<stop offset="100%" stop-color="#020617"></stop>
+</radialgradient>
+<lineargradient id="antennaSheen" x1="0%" x2="100%" y1="0%" y2="100%">
+<stop offset="0%" stop-color="#ffffff" stop-opacity="0.9"></stop>
+<stop offset="60%" stop-color="#94a3b8" stop-opacity="0.6"></stop>
+<stop offset="100%" stop-color="#334155" stop-opacity="0.2"></stop>
+</lineargradient>
+</defs>
+<!-- Long trailing communication antennas matching Sputnik arrangement -->
+<!-- Antenna 1 (Back Upper Left) -->
+<line stroke="url(#antennaSheen)" stroke-linecap="round" stroke-width="1.3" x1="72" x2="12" y1="78" y2="28"></line>
+<!-- Antenna 2 (Back Upper Mid) -->
+<line stroke="url(#antennaSheen)" stroke-linecap="round" stroke-width="1.1" x1="76" x2="28" y1="84" y2="46"></line>
+<!-- Antenna 3 (Lower Left Strut) -->
+<line stroke="url(#antennaSheen)" stroke-linecap="round" stroke-width="1.4" x1="79" x2="48" y1="92" y2="148"></line>
+<!-- Antenna 4 (Lower Mid Strut) -->
+<line stroke="url(#antennaSheen)" stroke-linecap="round" stroke-width="1.1" x1="84" x2="72" y1="96" y2="152"></line>
+<!-- High-specular reflective sphere sphere body -->
+<circle cx="85" cy="82" fill="url(#satelliteHull)" r="21"></circle>
+<!-- Ambient orbital horizon reflective highlight ring -->
+<ellipse cx="82" cy="80" fill="none" rx="19" ry="19" stroke="rgba(186, 230, 253, 0.45)" stroke-width="0.8"></ellipse>
+<!-- Intense solar glint point -->
+<circle cx="77" cy="74" fill="#ffffff" filter="drop-shadow(0 0 4px #ffffff)" r="2.8"></circle>
+<circle cx="78" cy="75" fill="none" r="5" stroke="rgba(255,255,255,0.7)" stroke-width="0.5"></circle>
+<!-- Small telemetry beacon pulse -->
+<circle class="animate-ping" cx="94" cy="92" fill="#38bdf8" r="1.5" style="animation-duration: 2.2s;"></circle>
+</svg>
+<!-- Orbital Ephemeris Coordinate HUD Tag -->
+<div class="absolute -bottom-6 -left-12 font-mono text-[9px] text-sky-400/80 tracking-widest whitespace-nowrap bg-black/70 px-2 py-0.5 rounded border border-sky-400/20 backdrop-blur-sm hidden sm:block">
+          PRN: 04 • NORAD 00002 • 7.42 km/s
+        </div>
+</div>
+</div>
+<!-- END: Upper Right Sputnik Orbital Satellite Object -->
+<!-- BEGIN: Iconic Central Title & Reasoning Badge (Mirrors IMAGE_2) -->
+<main class="relative z-20 flex-1 flex flex-col items-center justify-center text-center px-4 pt-10 pb-28 md:pb-36" data-purpose="centerpiece-display">
+<!-- Core Title: Large Luminous White Typography with atmospheric blue cyan edge glow -->
+<h1 class="hero-title-glow text-6xl sm:text-7xl md:text-8xl lg:text-[104px] font-extrabold tracking-tight select-none mb-6 leading-none">
+        SatelliteSense
+      </h1>
+<!-- Rectangular Badge: "Reasoning-Guided Satellite Image Intelligence" -->
+<div class="badge-backdrop border border-white/20 px-6 sm:px-8 py-2.5 sm:py-3 rounded-none sm:rounded-sm transition-all duration-300">
+<p class="text-white text-xs sm:text-sm md:text-base font-semibold tracking-wide sm:tracking-wider uppercase">
+          Reasoning-Guided Satellite Image Intelligence
+        </p>
+</div>
+<!-- Action Cluster & Mission Capabilities -->
+<div class="mt-8 flex flex-col sm:flex-row items-center gap-4 z-30">
+<a class="group relative px-6 py-3 rounded-lg bg-sky-500 hover:bg-sky-400 text-slate-950 font-bold text-xs uppercase tracking-widest shadow-[0_0_35px_rgba(56,189,248,0.5)] transition-all duration-200 flex items-center gap-2" href="#interactive-suite">
+<svg class="w-4 h-4 text-slate-950" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<path d="M13 10V3L4 14h7v7l9-11h-7z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"></path>
+</svg>
+<span>Launch Explorer [W]</span>
+</a>
+<a class="px-5 py-3 rounded-lg bg-white/5 hover:bg-white/10 text-slate-200 border border-white/15 font-mono text-xs tracking-wider transition-all duration-200 flex items-center gap-2 backdrop-blur-md" href="#features-specs">
+<svg class="w-4 h-4 text-sky-400" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24">
+<polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+<polyline points="2 17 12 22 22 17"></polyline>
+<polyline points="2 12 12 17 22 12"></polyline>
+</svg>
+<span>13-Band Radiometric Engine</span>
+</a>
+</div>
+<!-- Downward Prompt / Scroll Signal -->
+<a class="mt-10 inline-flex flex-col items-center text-slate-400 hover:text-sky-300 transition-colors group" href="#satellite-drawer">
+<span class="text-[11px] font-mono tracking-widest uppercase mb-1">Explore Earth Limb Telemetry &amp; Search</span>
+<svg class="w-4 h-4 text-sky-400 animate-bounce" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<path d="M19 14l-7 7m0 0l-7-7m7 7V3" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+</a>
+</main>
+<!-- END: Iconic Central Title & Reasoning Badge -->
+<!-- BEGIN: Hyper-realistic Photorealistic Earth Limb & Atmosphere (Spans lower 35-40%) -->
+<div class="absolute inset-x-0 bottom-0 pointer-events-none z-10 overflow-hidden h-[42vh] md:h-[46vh]" data-purpose="photorealistic-earth-limb">
+<!-- Luminous Curved Earth Horizon -->
+<div class="earth-curvature earth-cloud-texture">
+<!-- Bright upper atmospheric white/blue rim line -->
+<div class="earth-airglow-rim"></div>
+<!-- Realistic Aurora / Continental glow traces -->
+<div class="absolute top-8 inset-x-0 h-40 bg-gradient-to-b from-sky-400/25 via-blue-600/10 to-transparent"></div>
+<!-- Continental cluster silhouettes with city lights / nocturnal cluster highlights -->
+<div class="relative w-full h-full opacity-60">
+<div class="absolute top-16 left-[20%] w-32 h-16 bg-amber-200/20 blur-[1px] rounded-full"></div>
+<div class="absolute top-24 left-[24%] w-2 h-2 bg-amber-300 rounded-full shadow-[0_0_8px_#fde047]"></div>
+<div class="absolute top-20 left-[27%] w-1.5 h-1.5 bg-amber-200 rounded-full shadow-[0_0_6px_#fde047]"></div>
+<div class="absolute top-28 left-[45%] w-48 h-20 bg-sky-200/15 blur-sm"></div>
+<div class="absolute top-36 left-[50%] w-2 h-2 bg-amber-400 rounded-full shadow-[0_0_8px_#fbbf24]"></div>
+<div class="absolute top-32 left-[53%] w-1.5 h-1.5 bg-amber-300 rounded-full shadow-[0_0_8px_#fbbf24]"></div>
+<div class="absolute top-22 right-[25%] w-64 h-24 bg-white/10 blur-md rounded-full"></div>
+</div>
+</div>
+</div>
+<!-- END: Hyper-realistic Earth Limb -->
+<!-- BEGIN: Floating Quick Ingestion Banner (Docked over earth atmosphere) -->
+<div class="relative z-30 max-w-5xl mx-auto w-full px-4 mb-4" data-purpose="orbit-telemetry-drawer" id="satellite-drawer">
+<div class="glass-hud p-3 sm:p-4 rounded-xl shadow-2xl flex flex-col md:flex-row items-center justify-between gap-3 border border-sky-400/20">
+<div class="flex items-center gap-3 w-full md:w-auto">
+<div class="w-8 h-8 rounded bg-sky-500/20 border border-sky-400/40 flex items-center justify-center shrink-0">
+<svg class="w-4 h-4 text-sky-300" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+</div>
+<div class="w-full sm:w-80">
+<input class="w-full bg-black/60 border border-white/10 text-xs rounded-md px-3 py-1.5 text-white placeholder-slate-400 focus:outline-none focus:border-sky-400 focus:ring-1 focus:ring-sky-400 font-mono" placeholder="Search AOI, MGRS (e.g. 31UCT), or Lat/Lon..." type="text"/>
+</div>
+</div>
+<!-- Sensor Target Selector Chips -->
+<div class="flex items-center flex-wrap gap-2 text-[11px] font-mono w-full md:w-auto justify-end">
+<span class="text-slate-400 text-[10px] uppercase">Constellations:</span>
+<span class="px-2 py-0.5 rounded bg-sky-950/80 border border-sky-500/30 text-sky-300">Sentinel-2 MSI</span>
+<span class="px-2 py-0.5 rounded bg-slate-900 border border-slate-700 text-slate-300">Landsat 8/9 OLI</span>
+<span class="px-2 py-0.5 rounded bg-slate-900 border border-slate-700 text-slate-300">WorldView-3</span>
+<span class="px-2 py-0.5 rounded bg-emerald-950/80 border border-emerald-500/30 text-emerald-300">Sentinel-1 SAR</span>
+</div>
+</div>
+</div>
+<!-- END: Floating Quick Ingestion Banner -->
+</section>
+<!-- END: Master Hero Cosmic Section -->
+<!-- BEGIN: Reasoning-Guided Capabilities & Architecture Section -->
+<section class="relative z-20 bg-[#02050c] border-t border-white/10 py-20 px-4 reticle-grid" data-purpose="eo-capabilities" id="features-specs">
+<div class="max-w-7xl mx-auto">
+<!-- Section Header -->
+<div class="text-center max-w-3xl mx-auto mb-16">
+<div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-sky-500/10 border border-sky-500/30 text-sky-400 font-mono text-xs uppercase tracking-wider mb-4">
+<span>Multimodal EO-VQA &amp; Grounding</span>
+</div>
+<h2 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
+          Not Generic Vision. Specifically Engineered for Remote Sensing.
+        </h2>
+<p class="mt-4 text-slate-400 text-sm sm:text-base leading-relaxed">
+          Standard LLMs fail on overhead Nadir imagery, radiometric bands, and multi-temporal SAR signatures. SatelliteSense injects domain-specific spatial coordinate tokens, GSD calibration, and zero-shot geospatial reasoning.
+        </p>
+</div>
+<!-- Feature Grid Cards -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+<!-- Card 1: Multi-band Radiometry -->
+<div class="glass-hud p-6 rounded-xl border border-white/10 hover:border-sky-400/40 transition-all duration-300">
+<div class="w-10 h-10 rounded-lg bg-sky-500/10 border border-sky-400/30 flex items-center justify-center text-sky-400 mb-4">
+<svg class="w-5 h-5" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<path d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+</div>
+<h3 class="text-white font-bold text-base mb-2">13-Band Radiometric Analysis</h3>
+<p class="text-slate-400 text-xs leading-relaxed">
+            Directly ingests SWIR-1, SWIR-2, RedEdge, and NIR reflectance bands to reason over moisture stress, mineral composition, and burn severity beyond RGB limits.
+          </p>
+<div class="mt-4 pt-3 border-t border-white/5 font-mono text-[10px] text-sky-300">
+            • NDVI / NDWI / NBR Native Inference
+          </div>
+</div>
+<!-- Card 2: Spatial Grounding & Token-to-Pixel -->
+<div class="glass-hud p-6 rounded-xl border border-white/10 hover:border-sky-400/40 transition-all duration-300">
+<div class="w-10 h-10 rounded-lg bg-sky-500/10 border border-sky-400/30 flex items-center justify-center text-sky-400 mb-4">
+<svg class="w-5 h-5" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<path d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+<path d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+</div>
+<h3 class="text-white font-bold text-base mb-2">Token-to-Pixel Grounding</h3>
+<p class="text-slate-400 text-xs leading-relaxed">
+            Outputs continuous bounding polygons with real-world UTM coordinates. Every reasoning claim maps precisely to georeferenced raster pixels.
+          </p>
+<div class="mt-4 pt-3 border-t border-white/5 font-mono text-[10px] text-sky-300">
+            • Sub-pixel IoU Calibration &lt;0.2m
+          </div>
+</div>
+<!-- Card 3: SAR Complex Scattering Decomposition -->
+<div class="glass-hud p-6 rounded-xl border border-white/10 hover:border-sky-400/40 transition-all duration-300">
+<div class="w-10 h-10 rounded-lg bg-emerald-500/10 border border-emerald-400/30 flex items-center justify-center text-emerald-400 mb-4">
+<svg class="w-5 h-5" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<path d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+</div>
+<h3 class="text-white font-bold text-base mb-2">SAR &amp; All-Weather Sensing</h3>
+<p class="text-slate-400 text-xs leading-relaxed">
+            Interprets Sentinel-1 VV/VH backscatter amplitude &amp; phase coherence to penetrate dense cloud cover, detect vessel wakes, and map structural flood deltas.
+          </p>
+<div class="mt-4 pt-3 border-t border-white/5 font-mono text-[10px] text-emerald-300">
+            • Polarimetric Pauli / Cloude-Pottier
+          </div>
+</div>
+<!-- Card 4: Chain-of-Thought EO Reasoning -->
+<div class="glass-hud p-6 rounded-xl border border-white/10 hover:border-sky-400/40 transition-all duration-300">
+<div class="w-10 h-10 rounded-lg bg-sky-500/10 border border-sky-400/30 flex items-center justify-center text-sky-400 mb-4">
+<svg class="w-5 h-5" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<path d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+</div>
+<h3 class="text-white font-bold text-base mb-2">Claim-Verified Scene Graphs</h3>
+<p class="text-slate-400 text-xs leading-relaxed">
+            Constructs formal hierarchical topological assertions ("Aircraft parked adjacent to Hangar 04 with active GPU cart") with traceable uncertainty scores.
+          </p>
+<div class="mt-4 pt-3 border-t border-white/5 font-mono text-[10px] text-sky-300">
+            • 98.4% Hallucination Elimination
+          </div>
+</div>
+</div>
+</div>
+</section>
+<!-- END: Reasoning-Guided Capabilities -->
+<!-- BEGIN: Live Reasoning Interactive Workstation Preview -->
+<section class="relative z-20 bg-[#01040a] py-20 px-4 border-t border-white/5" data-purpose="workstation-preview" id="interactive-suite">
+<div class="max-w-7xl mx-auto">
+<!-- Workstation Header -->
+<div class="flex flex-col md:flex-row md:items-end justify-between mb-8 pb-4 border-b border-white/10 gap-4">
+<div>
+<span class="text-sky-400 font-mono text-xs uppercase tracking-widest">Interactive Inference Sandbox</span>
+<h3 class="text-2xl sm:text-3xl font-extrabold text-white mt-1">Satellite Image Captioning &amp; Grounding Suite</h3>
+</div>
+<div class="flex items-center gap-3 font-mono text-xs">
+<span class="px-2.5 py-1 rounded bg-slate-900 border border-slate-700 text-slate-300">Target: Port of Rotterdam (Maasvlakte 2)</span>
+<span class="px-2.5 py-1 rounded bg-sky-500/20 text-sky-300 border border-sky-400/30">GSD: 0.35m</span>
+</div>
+</div>
+<!-- Main Workstation Layout Mockup -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+<!-- Left: Imagery Raster Canvas Mockup -->
+<div class="lg:col-span-7 glass-hud rounded-xl overflow-hidden border border-white/10 shadow-2xl relative">
+<!-- Raster Viewport Header -->
+<div class="bg-black/80 px-4 py-2.5 border-b border-white/10 flex items-center justify-between text-xs font-mono">
+<div class="flex items-center gap-2 text-slate-300">
+<span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+<span>RASTER_VIEWPORT: ROTTERDAM_S2_L2A.TIF</span>
+</div>
+<div class="flex items-center gap-2 text-slate-400">
+<span>Bands: B04 (Red), B03 (Green), B02 (Blue), B08 (NIR)</span>
+</div>
+</div>
+<!-- Synthetic Overhead Satellite Raster View with Bounding Targets -->
+<div class="relative aspect-video w-full bg-[#081b29] overflow-hidden flex items-center justify-center p-6">
+<!-- Simulated Deep Port/Harbor Overhead Map Pattern -->
+<div class="absolute inset-0 opacity-40 bg-[radial-gradient(#1e3a8a_1px,transparent_1px)] [background-size:16px_16px]"></div>
+<!-- Port Quay Mockup Graphic -->
+<div class="relative w-full h-full border border-sky-500/20 bg-slate-950/70 p-4 rounded-lg flex flex-col justify-between">
+<!-- Container Vessel Target Box 1 -->
+<div class="relative w-3/4 h-24 border-2 border-sky-400 bg-sky-500/10 rounded p-2 shadow-[0_0_15px_rgba(56,189,248,0.3)]">
+<div class="absolute -top-3 left-2 bg-sky-500 text-slate-950 font-mono text-[9px] font-bold px-1.5 py-0.2 rounded">
+                  OBJ_01: ULTRA_LARGE_CONTAINER_VESSEL [L=398m]
+                </div>
+<div class="text-[10px] font-mono text-slate-300 flex justify-between mt-1">
+<span>DRAFT ESTIMATE: 15.8m</span>
+<span class="text-sky-300">BERTH: 42-ALPHA</span>
+</div>
+<!-- 3 Gantry Cranes Bounding Boxes inside vessel boundary -->
+<div class="flex gap-4 mt-3">
+<div class="border border-amber-400 bg-amber-400/20 text-amber-300 text-[8px] font-mono px-1 py-0.5 rounded">
+                    STS_CRANE_1 [ACTIVE]
+                  </div>
+<div class="border border-amber-400 bg-amber-400/20 text-amber-300 text-[8px] font-mono px-1 py-0.5 rounded">
+                    STS_CRANE_2 [ACTIVE]
+                  </div>
+<div class="border border-amber-400 bg-amber-400/20 text-amber-300 text-[8px] font-mono px-1 py-0.5 rounded">
+                    STS_CRANE_3 [STANDBY]
+                  </div>
+</div>
+</div>
+<!-- Storage Tanks Terminal Target Box 2 -->
+<div class="w-1/2 h-16 border border-emerald-400 bg-emerald-500/10 rounded p-2 flex items-center justify-between">
+<div>
+<div class="text-emerald-300 font-mono text-[10px] font-bold">CRYOGENIC LNG SPHERES (×4)</div>
+<div class="text-slate-400 font-mono text-[9px]">CAPACITY OCCUPANCY: 82% ± 3.4%</div>
+</div>
+<span class="text-[9px] font-mono bg-emerald-950 text-emerald-300 px-1 rounded border border-emerald-500/40">CONF: 99.1%</span>
+</div>
+</div>
+<!-- Coordinate Crosshair Overlay -->
+<div class="absolute top-4 right-4 font-mono text-[10px] text-right text-slate-400 bg-black/60 px-2.5 py-1.5 rounded border border-white/10">
+<div>LAT: 51.9542° N</div>
+<div>LON: 4.0298° E</div>
+<div class="text-sky-400">SUN AZIMUTH: 162.4°</div>
+</div>
+</div>
+<!-- Raster Control Toolbar -->
+<div class="bg-black/90 p-3 border-t border-white/10 flex flex-wrap items-center justify-between gap-2 text-xs">
+<div class="flex items-center gap-2">
+<button class="px-2.5 py-1 rounded bg-white/10 hover:bg-white/20 text-white font-mono text-[11px]">RGB Natural</button>
+<button class="px-2.5 py-1 rounded bg-sky-950 text-sky-300 border border-sky-500/40 font-mono text-[11px]">NIR False Color (8-4-3)</button>
+<button class="px-2.5 py-1 rounded bg-white/10 hover:bg-white/20 text-slate-300 font-mono text-[11px]">NDVI Index</button>
+</div>
+<span class="text-slate-400 font-mono text-[10px]">Cloud Coverage: 0.04%</span>
+</div>
+</div>
+<!-- Right: Real-Time Reasoning Chain & Output Terminal -->
+<div class="lg:col-span-5 glass-hud rounded-xl p-5 border border-white/10 shadow-2xl flex flex-col justify-between">
+<div>
+<!-- Terminal Header -->
+<div class="flex items-center justify-between pb-3 border-b border-white/10">
+<div class="flex items-center gap-2">
+<span class="w-3 h-3 rounded-full bg-sky-500"></span>
+<span class="font-bold text-white text-xs uppercase tracking-wider">SatelliteSense EO-VQA Agent</span>
+</div>
+<span class="text-[10px] font-mono text-emerald-400 bg-emerald-950/60 px-2 py-0.5 rounded border border-emerald-500/30">REASONING COMPLETE</span>
+</div>
+<!-- Prompt Query -->
+<div class="mt-4 p-3 rounded-lg bg-black/50 border border-white/5 font-mono text-xs">
+<span class="text-sky-400 font-semibold">EO_QUERY:</span>
+<p class="text-slate-200 mt-1">"Identify all maritime assets berthed at Quay 42, determine operational activity via gantry crane shadow cast, and estimate liquid bulk storage status."</p>
+</div>
+<!-- Chain-of-Thought Steps -->
+<div class="mt-4 space-y-2.5 font-mono text-[11px]">
+<div class="p-2.5 rounded bg-sky-950/20 border-l-2 border-sky-400 text-slate-300">
+<span class="text-sky-300 font-bold block mb-1">Step 1: Sun-Angle &amp; GSD Geometry Alignment</span>
+                Solar elevation at 48.2° yields a shadow multiplier of 0.89x. Bounding box calibration confirms 398m vessel length consistent with 24,000 TEU Megamax container carrier.
+              </div>
+<div class="p-2.5 rounded bg-sky-950/20 border-l-2 border-emerald-400 text-slate-300">
+<span class="text-emerald-300 font-bold block mb-1">Step 2: Activity Verification via High-Bay Crane Shadows</span>
+                Gantry booms #1 and #2 extended directly over ship bays 14 and 22. Trolley positions verify active loading/unloading operations.
+              </div>
+<div class="p-2.5 rounded bg-sky-950/20 border-l-2 border-purple-400 text-slate-300">
+<span class="text-purple-300 font-bold block mb-1">Step 3: Multi-spectral Shadow Differential</span>
+                SWIR band 11 reflectance confirms zero oil spill or petrochemical sheen detected in water boundary basin [p &lt; 0.001].
+              </div>
+</div>
+<!-- Final Synthesized Caption -->
+<div class="mt-5 p-3.5 rounded-lg bg-sky-500/10 border border-sky-400/30">
+<div class="text-[10px] font-mono uppercase tracking-wider text-sky-400 font-bold mb-1">Synthesized Grounded Caption:</div>
+<p class="text-xs text-white leading-relaxed font-sans">
+                "Berth 42 hosts a fully moored 398m Ultra-Large Container Vessel actively serviced by two STS gantry cranes at forward container holds. Adjacent LNG cryogenic tank cluster registers 82% capacity with nominal thermal stability across SWIR telemetry."
+              </p>
+</div>
+</div>
+<!-- Export & Benchmark Footnote -->
+<div class="mt-6 pt-4 border-t border-white/10 flex items-center justify-between text-xs">
+<span class="text-slate-400 font-mono text-[10px]">Lat/Lon Grounding: ±0.18m UTM</span>
+<button class="px-3 py-1.5 rounded bg-white text-slate-900 font-semibold text-xs hover:bg-slate-200 transition">
+              Export GeoJSON &amp; STAC
+            </button>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- END: Live Reasoning Interactive Workstation Preview -->
+<!-- BEGIN: STAC Data Catalog & Constellation Matrix -->
+<section class="py-16 px-4 bg-[#020409] border-t border-white/5" data-purpose="constellation-matrix">
+<div class="max-w-7xl mx-auto">
+<div class="text-center mb-10">
+<h4 class="text-lg font-bold text-white uppercase tracking-wider font-mono">Supported Multi-Sensor Constellations</h4>
+<p class="text-slate-400 text-xs mt-1">Direct API integration with AWS Earth, Planetary Computer, and ESA Copernicus STAC APIs.</p>
+</div>
+<div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-3">
+<div class="glass-hud p-4 rounded-lg text-center border border-white/5">
+<div class="font-bold text-white text-sm">Sentinel-2</div>
+<div class="text-[10px] text-sky-400 font-mono mt-1">10m • 13 Bands</div>
+<div class="text-[9px] text-slate-400 mt-0.5">ESA Copernicus</div>
+</div>
+<div class="glass-hud p-4 rounded-lg text-center border border-white/5">
+<div class="font-bold text-white text-sm">Landsat 9</div>
+<div class="text-[10px] text-sky-400 font-mono mt-1">15/30m • OLI-2/TIRS</div>
+<div class="text-[9px] text-slate-400 mt-0.5">USGS / NASA</div>
+</div>
+<div class="glass-hud p-4 rounded-lg text-center border border-white/5">
+<div class="font-bold text-white text-sm">WorldView-3</div>
+<div class="text-[10px] text-sky-400 font-mono mt-1">0.31m • VNIR+SWIR</div>
+<div class="text-[9px] text-slate-400 mt-0.5">Maxar Intelligence</div>
+</div>
+<div class="glass-hud p-4 rounded-lg text-center border border-white/5">
+<div class="font-bold text-white text-sm">PlanetScope</div>
+<div class="text-[10px] text-sky-400 font-mono mt-1">3.0m • Daily 8-Band</div>
+<div class="text-[9px] text-slate-400 mt-0.5">Planet Labs</div>
+</div>
+<div class="glass-hud p-4 rounded-lg text-center border border-white/5">
+<div class="font-bold text-white text-sm">Sentinel-1</div>
+<div class="text-[10px] text-emerald-400 font-mono mt-1">C-Band SAR • VV+VH</div>
+<div class="text-[9px] text-slate-400 mt-0.5">Cloud-Penetrating</div>
+</div>
+<div class="glass-hud p-4 rounded-lg text-center border border-white/5">
+<div class="font-bold text-white text-sm">NAIP Aerial</div>
+<div class="text-[10px] text-sky-400 font-mono mt-1">0.6m • 4-Band High-Res</div>
+<div class="text-[9px] text-slate-400 mt-0.5">USDA Orthoimagery</div>
+</div>
+</div>
+</div>
+</section>
+<!-- END: STAC Data Catalog Matrix -->
+<!-- BEGIN: Aerospace Footer -->
+<footer class="relative z-20 border-t border-white/10 bg-[#010206] py-12 px-4" data-purpose="site-footer">
+<div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
+<!-- Brand & Mission statement -->
+<div class="flex items-center gap-3">
+<div class="w-7 h-7 rounded bg-sky-500/20 border border-sky-400/40 flex items-center justify-center text-sky-300 font-mono text-xs">
+          🛰
+        </div>
+<div>
+<div class="font-bold text-white text-sm tracking-tight">SatelliteSense Technologies</div>
+<p class="text-[11px] text-slate-400">Autonomous reasoning models for high-resolution planetary observation.</p>
+</div>
+</div>
+<!-- Compliance & Coordinates -->
+<div class="font-mono text-[11px] text-slate-400 text-center md:text-right">
+<div>ORBITAL_EPOCH: J2000.0 • SYSTEM: READY</div>
+<div class="text-slate-400 text-[10px] mt-0.5">© 2025 SatelliteSense Project. Released under Open Geospatial Reasoning Protocols.</div>
+</div>
+</div>
+</footer>
+<!-- END: Aerospace Footer -->
+</body></html>

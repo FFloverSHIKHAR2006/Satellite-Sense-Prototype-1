@@ -1,0 +1,278 @@
+import { CaptionReviewRow } from "@/types/workstation";
+
+export const SAMPLE_CAPTION_REVIEW_FIXTURES: CaptionReviewRow[] = [
+  {
+    image_id: "scene_playground_stadium_01",
+    image_src: "/images/stadium_playground.jpg",
+    filename: "playground_stadium_01.jpg",
+    resolution_px: "1024 × 1024 px",
+    sensor: "Aerial Ortho",
+    gsd_m: "0.5m",
+    acquisition_date: "2024-05-14",
+    is_fixture_data: true,
+    candidates: [
+      {
+        candidate_id: 1,
+        source: "domain_adapted",
+        model_label: "Candidate 1",
+        caption_text: "An old court is surrounded by white houses.",
+        confidence: 0.88,
+        is_calibrated: true,
+        status: "verified",
+        evidence_patch_ids: [1, 2],
+        evidence_regions: [
+          {
+            patch_id: 1,
+            bbox: [340, 280, 300, 420],
+            label: "Oval athletic court",
+          },
+          {
+            patch_id: 2,
+            bbox: [30, 20, 500, 220],
+            label: "White residential houses",
+          },
+        ],
+      },
+      {
+        candidate_id: 2,
+        source: "domain_adapted",
+        model_label: "Candidate 2",
+        caption_text: "A playground is surrounded by many trees and long buildings.",
+        confidence: 0.84,
+        is_calibrated: true,
+        status: "verified",
+        evidence_patch_ids: [3, 4],
+        evidence_regions: [
+          {
+            patch_id: 3,
+            bbox: [650, 220, 300, 600],
+            label: "Dense surrounding trees",
+          },
+          {
+            patch_id: 4,
+            bbox: [20, 510, 130, 240],
+            label: "Long residential buildings",
+          },
+        ],
+      },
+      {
+        candidate_id: 3,
+        source: "domain_adapted",
+        model_label: "Candidate 3",
+        caption_text: "A playground with basketball fields next to it is surrounded by many green trees and buildings.",
+        confidence: 0.92,
+        is_calibrated: true,
+        status: "verified",
+        evidence_patch_ids: [1, 5, 3],
+        evidence_regions: [
+          {
+            patch_id: 1,
+            bbox: [340, 280, 300, 420],
+            label: "Central playground stadium",
+          },
+          {
+            patch_id: 5,
+            bbox: [705, 450, 95, 160],
+            label: "Adjacent basketball & tennis courts",
+          },
+          {
+            patch_id: 3,
+            bbox: [650, 220, 300, 600],
+            label: "Green tree perimeter",
+          },
+        ],
+      },
+      {
+        candidate_id: 4,
+        source: "domain_adapted",
+        model_label: "Candidate 4",
+        caption_text: "Many green trees and several long buildings are around a playground.",
+        confidence: 0.79,
+        is_calibrated: true,
+        status: "verified",
+        evidence_patch_ids: [3, 4],
+        evidence_regions: [
+          {
+            patch_id: 3,
+            bbox: [650, 220, 300, 600],
+            label: "Perimeter green trees",
+          },
+          {
+            patch_id: 4,
+            bbox: [20, 510, 130, 240],
+            label: "Long perimeter buildings",
+          },
+        ],
+      },
+      {
+        candidate_id: 5,
+        source: "domain_adapted",
+        model_label: "Candidate 5",
+        caption_text: "This narrow, oval football field and closing basketball court, tennis court, parking lot together form this area, with plants wreathing it.",
+        confidence: 0.95,
+        is_calibrated: true,
+        status: "verified",
+        evidence_patch_ids: [1, 5, 6],
+        evidence_regions: [
+          {
+            patch_id: 1,
+            bbox: [340, 280, 300, 420],
+            label: "Oval football field and running track",
+          },
+          {
+            patch_id: 5,
+            bbox: [705, 450, 95, 160],
+            label: "Basketball and tennis court complex",
+          },
+          {
+            patch_id: 6,
+            bbox: [30, 800, 200, 190],
+            label: "Parking lot area with plants",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    image_id: "scene_airport_planes_02",
+    image_src: "/images/airport_planes.jpg",
+    filename: "airport_apron_planes_02.jpg",
+    resolution_px: "1024 × 1024 px",
+    sensor: "Commercial Satellite",
+    gsd_m: "0.5m",
+    acquisition_date: "2024-06-22",
+    is_fixture_data: true,
+    candidates: [
+      {
+        candidate_id: 1,
+        source: "domain_adapted",
+        model_label: "Candidate 1",
+        caption_text: "Four planes are stopped on the open space between the parking lot.",
+        confidence: 0.91,
+        is_calibrated: true,
+        status: "verified",
+        evidence_patch_ids: [10, 11],
+        evidence_regions: [
+          {
+            patch_id: 10,
+            bbox: [320, 280, 430, 420],
+            label: "Four stopped planes on apron",
+          },
+          {
+            patch_id: 11,
+            bbox: [40, 330, 240, 500],
+            label: "Vehicle parking lot with cars",
+          },
+        ],
+      },
+      {
+        candidate_id: 2,
+        source: "domain_adapted",
+        model_label: "Candidate 2",
+        caption_text: "Four white planes are between two white buildings.",
+        confidence: 0.89,
+        is_calibrated: true,
+        status: "verified",
+        evidence_patch_ids: [10, 12, 13],
+        evidence_regions: [
+          {
+            patch_id: 10,
+            bbox: [320, 280, 430, 420],
+            label: "Four white airplanes",
+          },
+          {
+            patch_id: 12,
+            bbox: [140, 0, 340, 330],
+            label: "First airport terminal building",
+          },
+          {
+            patch_id: 13,
+            bbox: [550, 610, 400, 350],
+            label: "Second airport terminal building",
+          },
+        ],
+      },
+      {
+        candidate_id: 3,
+        source: "domain_adapted",
+        model_label: "Candidate 3",
+        caption_text: "Some cars and two buildings are near four planes.",
+        confidence: 0.85,
+        is_calibrated: true,
+        status: "verified",
+        evidence_patch_ids: [10, 11, 12],
+        evidence_regions: [
+          {
+            patch_id: 10,
+            bbox: [320, 280, 430, 420],
+            label: "Four airplanes",
+          },
+          {
+            patch_id: 11,
+            bbox: [40, 330, 240, 500],
+            label: "Parked cars in lots and service apron",
+          },
+          {
+            patch_id: 12,
+            bbox: [140, 0, 340, 330],
+            label: "Terminal buildings near planes",
+          },
+        ],
+      },
+      {
+        candidate_id: 4,
+        source: "domain_adapted",
+        model_label: "Candidate 4",
+        caption_text: "Four planes are parked next to two buildings on an airport.",
+        confidence: 0.94,
+        is_calibrated: true,
+        status: "verified",
+        evidence_patch_ids: [10, 12, 13],
+        evidence_regions: [
+          {
+            patch_id: 10,
+            bbox: [320, 280, 430, 420],
+            label: "Parked airplanes",
+          },
+          {
+            patch_id: 12,
+            bbox: [140, 0, 340, 330],
+            label: "Airport building 1",
+          },
+          {
+            patch_id: 13,
+            bbox: [550, 610, 400, 350],
+            label: "Airport building 2",
+          },
+        ],
+      },
+      {
+        candidate_id: 5,
+        source: "domain_adapted",
+        model_label: "Candidate 5",
+        caption_text: "Four white planes are between two white buildings.",
+        confidence: 0.89,
+        is_calibrated: true,
+        status: "verified",
+        evidence_patch_ids: [10, 12, 13],
+        evidence_regions: [
+          {
+            patch_id: 10,
+            bbox: [320, 280, 430, 420],
+            label: "Four white planes",
+          },
+          {
+            patch_id: 12,
+            bbox: [140, 0, 340, 330],
+            label: "White building (Northwest)",
+          },
+          {
+            patch_id: 13,
+            bbox: [550, 610, 400, 350],
+            label: "White building (Southeast)",
+          },
+        ],
+      },
+    ],
+  },
+];

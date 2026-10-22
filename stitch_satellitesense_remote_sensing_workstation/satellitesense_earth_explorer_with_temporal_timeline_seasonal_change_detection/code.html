@@ -1,0 +1,1098 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_blank" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base { html, body { margin: 0; padding: 0; } body { overscroll-behavior: none; } main > :first-child { margin-top: 0 !important; } main > :last-child { margin-bottom: 0 !important; } } ::-webkit-scrollbar { display: none; }
+.map-grab { cursor: grab; }
+.map-grabbing { cursor: grabbing; }
+@keyframes pulseFast { 0%, 100% { opacity: 0.9; } 50% { opacity: 0.3; } }
+.animate-pulse-fast { animation: pulseFast 1.2s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
+</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { "colors": { "secondary": "#b4c5ff", "on-background": "#dfe2ee", "primary-fixed": "#c9e6ff", "on-surface-variant": "#bec8d2", "primary-fixed-dim": "#89ceff", "inverse-surface": "#dfe2ee", "surface-tint": "#89ceff", "on-tertiary-fixed": "#2c0051", "error-container": "#93000a", "inverse-on-surface": "#2c3039", "on-secondary-fixed-variant": "#003ea8", "on-error-container": "#ffdad6", "on-surface": "#dfe2ee", "outline": "#88929b", "surface-variant": "#31353e", "on-primary-fixed": "#001e2f", "on-secondary-container": "#cdd7ff", "on-tertiary-fixed-variant": "#6900b3", "on-primary": "#00344d", "tertiary-container": "#bf7dff", "on-secondary": "#002a78", "on-secondary-fixed": "#00174b", "background": "#0f131b", "on-primary-container": "#003751", "surface-container-low": "#181c24", "surface-bright": "#353942", "on-tertiary": "#490080", "on-tertiary-container": "#4d0087", "error": "#ffb4ab", "primary-container": "#0ea5e9", "surface-container-lowest": "#0a0e16", "on-primary-fixed-variant": "#004c6e", "surface-dim": "#0f131b", "secondary-container": "#0053db", "on-error": "#690005", "surface": "#0f131b", "secondary-fixed-dim": "#b4c5ff", "surface-container-high": "#262a33", "tertiary": "#ddb7ff", "surface-container": "#1c2028", "primary": "#89ceff", "outline-variant": "#3e4850", "secondary-fixed": "#dbe1ff", "surface-container-highest": "#31353e", "tertiary-fixed": "#f0dbff", "tertiary-fixed-dim": "#ddb7ff", "inverse-primary": "#006591" }, "borderRadius": { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, "spacing": { "space-md": "0.5rem", "margin": "0.5rem", "space-sm": "0.25rem", "space-xl": "1rem", "gutter": "0.5rem", "margin-mobile": "0.25rem", "gutter-mobile": "0.25rem", "space-lg": "0.75rem", "space-xs": "0.125rem" }, "fontFamily": { "code-dense": [ "JetBrains Mono" ], "label-md": [ "JetBrains Mono" ], "label-lg": [ "JetBrains Mono" ], "label-sm": [ "JetBrains Mono" ], "headline-lg": [ "Inter" ], "body-md": [ "Inter" ], "body-sm": [ "Inter" ], "headline-sm": [ "Inter" ], "headline-md": [ "Inter" ], "headline-lg-mobile": [ "Inter" ], "body-lg": [ "Inter" ] }, "fontSize": { "code-dense": [ "9px", { "lineHeight": "12px", "letterSpacing": "0.02em", "fontWeight": "400" } ], "label-md": [ "11px", { "lineHeight": "14px", "letterSpacing": "-0.015em", "fontWeight": "500" } ], "label-lg": [ "12px", { "lineHeight": "16px", "letterSpacing": "-0.02em", "fontWeight": "500" } ], "label-sm": [ "10px", { "lineHeight": "12px", "letterSpacing": "0em", "fontWeight": "500" } ], "headline-lg": [ "18px", { "lineHeight": "24px", "letterSpacing": "-0.01em", "fontWeight": "600" } ], "body-md": [ "12px", { "lineHeight": "16px", "letterSpacing": "0em", "fontWeight": "400" } ], "body-sm": [ "11px", { "lineHeight": "15px", "letterSpacing": "0.01em", "fontWeight": "400" } ], "headline-sm": [ "13px", { "lineHeight": "18px", "letterSpacing": "0em", "fontWeight": "600" } ], "headline-md": [ "15px", { "lineHeight": "20px", "letterSpacing": "-0.005em", "fontWeight": "600" } ], "headline-lg-mobile": [ "16px", { "lineHeight": "22px", "letterSpacing": "-0.01em", "fontWeight": "600" } ], "body-lg": [ "13px", { "lineHeight": "18px", "letterSpacing": "0em", "fontWeight": "400" } ] } } } };</script></head><body class="bg-background font-body text-on-surface antialiased"><main class="w-full min-h-screen flex items-center justify-center p-space-md bg-background"><div class="flex flex-col w-full relative min-h-screen overflow-hidden select-none bg-surface-container-lowest text-on-surface font-body-md">
+<!-- Subtle Vector Starfield & Orbital Trajectory Canvas -->
+<div class="absolute inset-0 pointer-events-none z-0">
+<svg class="w-full h-full opacity-60" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<radialgradient cx="50%" cy="110%" id="spaceAtmosphere" r="70%">
+<stop offset="0%" stop-color="#0ea5e9" stop-opacity="0.32"></stop>
+<stop offset="45%" stop-color="#0053db" stop-opacity="0.12"></stop>
+<stop offset="100%" stop-color="#0a0e16" stop-opacity="0"></stop>
+</radialgradient>
+<lineargradient id="orbitalTrackGrad" x1="0%" x2="100%" y1="0%" y2="100%">
+<stop offset="0%" stop-color="#89ceff" stop-opacity="0.0"></stop>
+<stop offset="50%" stop-color="#89ceff" stop-opacity="0.5"></stop>
+<stop offset="100%" stop-color="#89ceff" stop-opacity="0.0"></stop>
+</lineargradient>
+</defs>
+<!-- Atmospheric Glow Horizon Base -->
+<rect fill="url(#spaceAtmosphere)" height="100%" width="100%"></rect>
+<!-- Star Clusters (Calibrated Astrometric Plot) -->
+<g fill="#dfe2ee" opacity="0.75">
+<circle cx="8%" cy="14%" r="0.7"></circle>
+<circle cx="12%" cy="9%" opacity="0.9" r="1.1"></circle>
+<circle cx="18%" cy="24%" r="0.6"></circle>
+<circle cx="27%" cy="17%" r="0.8"></circle>
+<circle cx="34%" cy="8%" r="1.2"></circle>
+<circle cx="42%" cy="22%" r="0.5"></circle>
+<circle cx="51%" cy="12%" opacity="0.8" r="0.9"></circle>
+<circle cx="63%" cy="6%" opacity="0.95" r="1.4"></circle>
+<circle cx="72%" cy="19%" r="0.7"></circle>
+<circle cx="83%" cy="11%" r="1.0"></circle>
+<circle cx="91%" cy="28%" r="0.8"></circle>
+<circle cx="94%" cy="14%" r="0.6"></circle>
+<circle cx="78%" cy="33%" r="0.5"></circle>
+<circle cx="15%" cy="39%" r="0.8"></circle>
+<circle cx="4%" cy="48%" r="1.0"></circle>
+</g>
+<!-- Orbital Vector Splines -->
+<path d="M-100,320 Q 720,-40 1600,480" fill="none" stroke="url(#orbitalTrackGrad)" stroke-dasharray="4,8" stroke-width="1.2"></path>
+<path d="M-50,600 Q 860,180 1800,680" fill="none" stroke="#2563eb" stroke-opacity="0.25" stroke-width="1"></path>
+<circle cx="632" cy="118" fill="#0ea5e9" r="3"></circle>
+<text fill="#89ceff" font-family="JetBrains Mono" font-size="9" letter-spacing="0.1em" x="645" y="122">LEO-SAT S2A [ALT: 786KM | INC: 98.62°]</text>
+</svg>
+</div>
+<!-- Perspective Earth Horizon Arc -->
+<div class="absolute inset-x-0 bottom-0 h-[491px] z-0 pointer-events-none flex items-end justify-center overflow-hidden">
+<!-- Outer Glow Rim -->
+<div class="w-[170vw] h-[170vw] rounded-full bg-gradient-to-t from-surface-container-lowest via-surface-container-low to-primary-container/20 opacity-90 blur-xl transform translate-y-[86%] pointer-events-none"></div>
+<!-- Calibrated Limb Light Ray -->
+<div class="absolute w-[150vw] h-[150vw] rounded-full border-t border-primary/40 transform translate-y-[83%]"></div>
+<div class="absolute w-[148vw] h-[148vw] rounded-full border-t border-primary-fixed-dim/20 transform translate-y-[82.7%]"></div>
+<!-- Earth Surface High-Res Backdrop Image Mask -->
+<div class="absolute w-[140vw] h-[768px] bottom-[-22vh] rounded-t-[100%] overflow-hidden shadow-2xl bg-surface-container-lowest">
+<div class="w-full h-full bg-cover bg-center opacity-40" data-alt="Photorealistic orbital satellite view looking obliquely down onto Earth's curvature, showing dense cloud vortices, deep navy ocean expanse, and glowing night city grids along continental borders, lit by intense blue atmospheric limb ray." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCpEu25-hKE552a29S0bYVSIyorDt7S7T877IzZlhNY9ubM7CQUfl6s0cKmKA6MlWvvzl3vpuIfgsfq6kn-eLbvFDKp1wlyrtlwiQbtZhyLLP0JW8LIbHM1X-wTv9uyIzNv8sy1DRh6-YKU82Qk1Ios0GCQ1xEyS6ixAr-sV0CSPR77F1flbDq4hxWcgeCi2-uf7AepLA-OLM3sXRvD9BeSKmYDH-Jqn1SwaWkZf0e0CsqsVOr8I7OcIg')"></div>
+</div>
+</div>
+<!-- Primary Top Telemetry Rail -->
+<header class="relative z-30 w-full flex items-center justify-between px-space-xl py-space-sm bg-surface-container-lowest/80 backdrop-blur-md">
+<div class="flex items-center gap-space-lg">
+<div class="flex items-center gap-space-sm">
+<span class="w-2 h-2 bg-primary-container"></span>
+<span class="font-headline-sm text-headline-sm tracking-tight text-on-surface">SatelliteSense</span>
+<span class="font-code-dense text-code-dense text-primary bg-surface-container px-1 py-0.5 ml-1">v4.8.2-PROD</span>
+</div>
+<div class="h-3 w-px bg-surface-variant"></div>
+<div class="flex items-center gap-space-md font-label-sm text-label-sm text-outline">
+<span>SENSOR: <span class="text-on-surface">SENTINEL-2 / LANDSAT-9 / WORLDVIEW-3</span></span>
+<span>•</span>
+<span>CRS: <span class="text-on-surface">WGS 84 / UTM ZONE 31N</span></span>
+<span>•</span>
+<span>ORBIT: <span class="text-primary-fixed-dim">SUN-SYNCHRONOUS</span></span>
+</div>
+</div>
+<div class="flex items-center gap-space-md">
+<div class="flex items-center gap-space-xs font-label-sm text-label-sm bg-surface-container-low px-space-md py-1">
+<span class="w-1.5 h-1.5 bg-primary rounded-full animate-pulse"></span>
+<span class="text-outline">STREAM:</span>
+<span class="text-primary font-code-dense">COPERNICUS OPEN ACCESS HUB [NOMINAL]</span>
+</div>
+<button class="flex items-center gap-space-xs bg-surface-container text-on-surface px-space-md py-1 text-label-md font-label-md hover:bg-surface-container-high transition-colors" id="viewToggleBtn">
+<span class="material-symbols-outlined text-label-md">tune</span>
+<span>MODE: TELEMETRY VIEW</span>
+</button>
+</div>
+</header>
+<!-- Main Viewport Container with Dynamic State Switch -->
+<div class="relative z-20 flex-1 flex flex-col justify-between p-space-xl max-w-7xl mx-auto w-full">
+<!-- Hero Operational HUD (When in Landing Launch Mode) -->
+<div class="flex flex-col items-center text-center mt-space-xl transition-all duration-500" id="landingHud">
+<div class="inline-flex items-center gap-space-sm bg-surface-container-low px-space-lg py-1 mb-space-md shadow-sm">
+<span class="material-symbols-outlined text-primary text-headline-sm">satellite_alt</span>
+<span class="font-label-md text-label-md tracking-wider text-secondary uppercase">Autonomous Geospatial Intelligence Platform</span>
+<span class="h-2 w-px bg-surface-variant"></span>
+<span class="font-code-dense text-code-dense text-outline">GSD: 0.3m – 10.0m</span>
+</div>
+<h1 class="font-headline-lg text-headline-lg tracking-tight text-on-surface max-w-3xl">
+        High-Resolution Planetary Sensing, Automated Multimodal Alignment &amp; Ground Truth Validation
+      </h1>
+<p class="font-body-md text-body-md text-outline max-w-2xl mt-space-sm mb-space-lg">
+        Ingest radiometric GeoTIFFs, Sentinel SAFEs, and commercial SAR constellations. Interrogate features with zero-shot CLIP vision-language models and pixel-probe radiometric verification.
+      </p>
+<!-- Launch Workstation Callout -->
+<div class="flex items-center gap-space-md">
+<button class="flex items-center gap-space-sm bg-primary-container text-on-primary-fixed font-label-lg text-label-lg px-space-xl py-space-md font-semibold tracking-wider hover:bg-primary-fixed-dim transition-all active:scale-[0.99] shadow-lg" id="launchWorkstationBtn">
+<span class="material-symbols-outlined text-headline-md">rocket_launch</span>
+<span>LAUNCH EXPLORER WORKSTATION</span>
+<span class="font-code-dense text-code-dense ml-space-sm bg-on-primary-fixed text-primary px-1.5 py-0.5">PRESS [W]</span>
+</button>
+<button class="flex items-center gap-space-sm bg-surface-container text-on-surface hover:bg-surface-container-high font-label-lg text-label-lg px-space-lg py-space-md transition-all" id="quickInspectBtn">
+<span class="material-symbols-outlined text-headline-md">layers</span>
+<span>DIRECT RASTER PROBE</span>
+</button>
+</div>
+<!-- Quick Metrics Strip -->
+<div class="grid grid-cols-4 gap-space-md w-full max-w-3xl mt-space-xl">
+<div class="bg-surface-container-low p-space-md text-left">
+<div class="font-label-sm text-label-sm text-outline">ACTIVE CONSTELLATIONS</div>
+<div class="font-headline-md text-headline-md text-primary font-code-dense mt-1">14 SATELLITES</div>
+<div class="font-code-dense text-code-dense text-on-surface-variant mt-0.5">S2A/B, L8/9, Sentinel-1C</div>
+</div>
+<div class="bg-surface-container-low p-space-md text-left">
+<div class="font-label-sm text-label-sm text-outline">GROUND RESOLUTION</div>
+<div class="font-headline-md text-headline-md text-primary font-code-dense mt-1">0.31m NADIR</div>
+<div class="font-code-dense text-code-dense text-on-surface-variant mt-0.5">Maxar Legion Panchromatic</div>
+</div>
+<div class="bg-surface-container-low p-space-md text-left">
+<div class="font-label-sm text-label-sm text-outline">SPECTRAL FIDELITY</div>
+<div class="font-headline-md text-headline-md text-primary font-code-dense mt-1">13 BANDS</div>
+<div class="font-code-dense text-code-dense text-on-surface-variant mt-0.5">VNIR / SWIR1 / SWIR2</div>
+</div>
+<div class="bg-surface-container-low p-space-md text-left">
+<div class="font-label-sm text-label-sm text-outline">ZERO-SHOT ACCURACY</div>
+<div class="font-headline-md text-headline-md text-primary font-code-dense mt-1">94.8% F1</div>
+<div class="font-code-dense text-code-dense text-on-surface-variant mt-0.5">CLIP-GeoGround v2.1</div>
+</div>
+</div>
+</div>
+<!-- Google Earth-Style Geospatial Explorer Interface Overlay -->
+<div class="flex flex-col gap-space-md w-full my-auto transition-all duration-300" id="explorerWorkspace">
+<!-- Top Floating Search & Coordinate Reticle Bar -->
+<div class="w-full bg-surface-container-low/95 backdrop-blur-md p-space-md flex flex-wrap lg:flex-nowrap items-center gap-space-md shadow-2xl">
+<div class="flex items-center gap-space-sm text-primary pl-space-sm">
+<span class="material-symbols-outlined text-headline-lg">travel_explore</span>
+<span class="font-label-sm text-label-sm tracking-widest text-secondary font-semibold uppercase">SPATIAL RETICLE</span>
+</div>
+<div class="flex-1 min-w-[280px] relative">
+<input class="w-full bg-surface-container-lowest text-primary font-code-dense text-label-md px-space-lg py-2 focus:outline-none focus:bg-surface-container" id="aoiSearchInput" placeholder="Search coordinate, AOI, place name, or GeoTIFF scene (e.g. Port of Rotterdam / Suez Canal / B04_T31UET)..." type="text" value="51.9542° N, 04.1428° E (Port of Rotterdam Container Terminal)"/>
+<span class="absolute right-3 top-2.5 font-code-dense text-code-dense text-outline">EPSG:4326</span>
+</div>
+<div class="flex items-center gap-space-sm">
+<button class="bg-surface-container hover:bg-surface-container-high px-space-md py-2 font-label-md text-label-md text-on-surface flex items-center gap-space-xs" id="reCenterBtn">
+<span class="material-symbols-outlined text-label-md">my_location</span>
+<span>RE-CENTER</span>
+</button>
+<button class="bg-primary-container text-on-primary-fixed hover:bg-primary-fixed-dim px-space-lg py-2 font-label-md text-label-md font-semibold tracking-wide flex items-center gap-space-xs" id="targetAcquisitionBtn">
+<span class="material-symbols-outlined text-label-md">radar</span>
+<span>TARGET ACQUISITION</span>
+</button>
+</div>
+</div>
+<!-- Main Operational Split: Left Controls / Center Map Canvas / Right Verification -->
+<div class="grid grid-cols-12 gap-space-md min-h-[520px]">
+<!-- Left Side: Ingestion Zone & Target AOI Presets (3 Cols) -->
+<div class="col-span-12 lg:col-span-3 flex flex-col gap-space-md h-full">
+<!-- Ingestion Drop Box -->
+<div class="bg-surface-container-low p-space-md flex flex-col justify-between flex-1">
+<div>
+<div class="flex items-center justify-between mb-space-sm">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-outline">RASTER INGESTION</span>
+<span class="font-code-dense text-code-dense text-primary">DRAG &amp; DROP</span>
+</div>
+<div class="bg-surface-container-lowest p-space-lg text-center flex flex-col items-center justify-center cursor-pointer hover:bg-surface-container transition-all">
+<span class="material-symbols-outlined text-headline-lg text-primary mb-1">cloud_upload</span>
+<span class="font-label-md text-label-md text-on-surface font-semibold">Drop GeoTIFF / S2 SAFE</span>
+<span class="font-code-dense text-code-dense text-outline mt-1">Supports COG, Landsat 8/9, NITF, Maxar</span>
+</div>
+</div>
+<!-- Pipeline Check -->
+<div class="mt-space-md space-y-1">
+<div class="flex items-center justify-between text-code-dense font-code-dense">
+<span class="text-outline">RADIOMETRIC CALIBRATION:</span>
+<span class="text-primary">TOA / BOA [AUTO]</span>
+</div>
+<div class="flex items-center justify-between text-code-dense font-code-dense">
+<span class="text-outline">ALIGNMENT CONFIDENCE:</span>
+<span class="text-secondary">99.2% CLOUD SCRUBBED</span>
+</div>
+</div>
+</div>
+<!-- Quick AOI Presets -->
+<div class="bg-surface-container-low p-space-md h-1/2 flex flex-col">
+<div class="font-label-sm text-label-sm text-outline uppercase tracking-wider mb-space-sm flex items-center justify-between">
+<span>TARGET AOI PRESETS</span>
+<span class="font-code-dense text-code-dense text-secondary">4 READY</span>
+</div>
+<div class="flex-1 overflow-y-auto space-y-1 pr-1" id="presetList">
+<!-- Preset 1 -->
+<button class="w-full text-left p-1.5 bg-surface-container hover:bg-surface-container-high transition-colors flex items-center justify-between group border-l-2 border-primary aoi-btn active-preset" data-preset="rotterdam" onclick="selectPreset('rotterdam')">
+<div class="min-w-0">
+<div class="font-label-md text-label-md text-on-surface truncate group-hover:text-primary">Port of Rotterdam Terminal</div>
+<div class="font-code-dense text-code-dense text-outline">51.954° N, 4.142° E • Container Stack</div>
+</div>
+<span class="font-code-dense text-code-dense text-primary bg-surface-container-lowest px-1">WV3</span>
+</button>
+<!-- Preset 2 -->
+<button class="w-full text-left p-1.5 bg-surface-container hover:bg-surface-container-high transition-colors flex items-center justify-between group border-l-2 border-transparent aoi-btn" data-preset="amazon" onclick="selectPreset('amazon')">
+<div class="min-w-0">
+<div class="font-label-md text-label-md text-on-surface truncate group-hover:text-primary">Amazon Rainforest Sector 7B</div>
+<div class="font-code-dense text-code-dense text-outline">9.123° S, 62.812° W • Deforestation Matrix</div>
+</div>
+<span class="font-code-dense text-code-dense text-primary bg-surface-container-lowest px-1">L9</span>
+</button>
+<!-- Preset 3 -->
+<button class="w-full text-left p-1.5 bg-surface-container hover:bg-surface-container-high transition-colors flex items-center justify-between group border-l-2 border-transparent aoi-btn" data-preset="ukraine" onclick="selectPreset('ukraine')">
+<div class="min-w-0">
+<div class="font-label-md text-label-md text-on-surface truncate group-hover:text-primary">Ukraine Agricultural Buffer</div>
+<div class="font-code-dense text-code-dense text-outline">48.379° N, 31.165° E • NDVI Harvest Trace</div>
+</div>
+<span class="font-code-dense text-code-dense text-primary bg-surface-container-lowest px-1">S2A</span>
+</button>
+<!-- Preset 4 -->
+<button class="w-full text-left p-1.5 bg-surface-container hover:bg-surface-container-high transition-colors flex items-center justify-between group border-l-2 border-transparent aoi-btn" data-preset="solar" onclick="selectPreset('solar')">
+<div class="min-w-0">
+<div class="font-label-md text-label-md text-on-surface truncate group-hover:text-primary">Nevada Desert Solar Array</div>
+<div class="font-code-dense text-code-dense text-outline">35.801° N, 114.982° W • Photovoltaic Field</div>
+</div>
+<span class="font-code-dense text-code-dense text-primary bg-surface-container-lowest px-1">S2B</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Center GIS Explorer Spatial Canvas (6 Cols) -->
+<div class="col-span-12 lg:col-span-6 bg-surface-container-lowest relative flex flex-col overflow-hidden shadow-inner group border border-surface-container-high select-none">
+<!-- Satellite Spectral Layer Selector Toolbar -->
+<div class="relative z-20 bg-surface-container-low/95 border-b border-surface-container-highest/60 px-space-md py-1 flex items-center justify-between overflow-x-auto gap-space-xs text-code-dense font-code-dense backdrop-blur-md">
+<div class="flex items-center gap-1">
+<span class="text-outline uppercase text-[10px] tracking-wider mr-1 hidden sm:inline flex items-center gap-1">
+<span class="material-symbols-outlined text-[13px] text-primary">layers</span>LAYER:
+</span>
+<button class="layer-pill px-2 py-0.5 bg-primary-container text-on-primary-fixed font-bold tracking-tight rounded-none transition-colors border border-primary-container" data-layer="rgb" onclick="switchLayer('rgb')">
+RGB (WV-3 0.3m)
+</button>
+<button class="layer-pill px-2 py-0.5 bg-surface-container hover:bg-surface-container-high text-on-surface-variant transition-colors border border-transparent" data-layer="nir" onclick="switchLayer('nir')">
+FALSE COLOR NIR (S2)
+</button>
+<button class="layer-pill px-2 py-0.5 bg-surface-container hover:bg-surface-container-high text-on-surface-variant transition-colors border border-transparent" data-layer="ndvi" onclick="switchLayer('ndvi')">
+NDVI INDEX
+</button>
+<button class="layer-pill px-2 py-0.5 bg-surface-container hover:bg-surface-container-high text-on-surface-variant transition-colors border border-transparent" data-layer="sar" onclick="switchLayer('sar')">
+SAR AMPLITUDE (S1)
+</button>
+</div>
+<div class="text-[10px] text-outline hidden md:flex items-center gap-1">
+<span class="w-1.5 h-1.5 bg-emerald-400 rounded-full animate-ping"></span>
+<span class="text-on-surface font-semibold" id="activeSensorLabel">WV-3 PAN-SHARPENED</span>
+</div>
+</div>
+<!-- Seasonal Change Detection Mode Toolbar & Difference Badges -->
+<div class="relative z-20 bg-surface-container-lowest/90 border-b border-surface-container-high/60 px-space-md py-1 flex flex-wrap items-center justify-between text-code-dense font-code-dense backdrop-blur-md gap-1">
+<div class="flex items-center gap-1">
+<span class="text-outline uppercase text-[9px] tracking-wider flex items-center gap-1">
+<span class="material-symbols-outlined text-[12px] text-secondary">compare</span>MODE:
+</span>
+<button class="change-mode-pill px-1.5 py-0.5 bg-primary-container text-on-primary-fixed font-semibold text-[9px] border border-primary-container" data-cmode="single" onclick="setChangeMode('single')">SINGLE EPOCH</button>
+<button class="change-mode-pill px-1.5 py-0.5 bg-surface-container hover:bg-surface-container-high text-on-surface text-[9px] border border-transparent" data-cmode="diff" onclick="setChangeMode('diff')">DIFFERENCE MASK</button>
+<button class="change-mode-pill px-1.5 py-0.5 bg-surface-container hover:bg-surface-container-high text-on-surface text-[9px] border border-transparent" data-cmode="swipe" onclick="setChangeMode('swipe')">SWIPE / SPLIT</button>
+<button class="change-mode-pill px-1.5 py-0.5 bg-surface-container hover:bg-surface-container-high text-on-surface text-[9px] border border-transparent" data-cmode="blink" onclick="setChangeMode('blink')">BLINK COMPARE</button>
+</div>
+<!-- Realtime Change Delta Indicator -->
+<div class="flex items-center gap-2 text-[9px]">
+<span class="text-outline">SPECTRAL DELTA:</span>
+<span class="font-bold text-error px-1 bg-error-container/40 border border-error/40 flex items-center gap-1" id="deltaBadgeCanopy">
+<span class="w-1 h-1 bg-error rounded-full"></span>LOSS -18.4%
+</span>
+<span class="font-bold text-primary px-1 bg-primary-container/20 border border-primary/40 flex items-center gap-1" id="deltaBadgeBuilt">
+<span class="w-1 h-1 bg-primary rounded-full"></span>EXPANSION +12.4k m²
+</span>
+</div>
+</div>
+<!-- Live Earth Satellite Orthophoto Layer Canvas -->
+<div class="w-full flex-1 relative overflow-hidden map-grab min-h-[340px]" id="mapViewport">
+<!-- Movable & Zoomable Satellite Layer Graphic (Realistic Earth Orthophoto) -->
+<div class="absolute inset-0 transition-transform duration-75 origin-center will-change-transform" id="satelliteLayerContainer">
+<div class="w-full h-full bg-cover bg-center transition-all duration-300" id="satelliteImage" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCR-GedhgGKVJ5kieY4dHBbmwBxWnh8gR9-ZmHo6QLRZqcWVSSJzeXTkIviBPK6Ei_Tky0y2MziHIS9MhFJ47mryNnFTBTyJaBY5QcmYAvhdw3GAfGbK6s4VMoaMgwHd-0p7Py6GMPiosE37EL4vyxjM7Y2YhTZwzVP4rAzOIRyr8euQVVjh4gNV-jrAURYd3gGf-Bb0tt8xPIWYJVDvHOphSl_qeYoEydy6RN2WaftSFz5zVoJ3X92Dg');"></div>
+<!-- Satellite Sensor Scanline & Orthophoto Grid Overlay -->
+<div class="absolute inset-0 pointer-events-none opacity-20 mix-blend-overlay" style="background-size: 32px 32px; background-image: linear-gradient(to right, rgba(137, 206, 255, 0.25) 1px, transparent 1px), linear-gradient(to bottom, rgba(137, 206, 255, 0.25) 1px, transparent 1px);"></div>
+<!-- Temporal Vector Change Masks Overlay (Coral Red: Loss / Emerald: Growth / Cyan: New Infrastructure) -->
+<div class="absolute inset-0 pointer-events-none transition-opacity duration-300 opacity-0" id="changeMaskOverlay">
+<!-- Loss polygon (Coral / Red) -->
+<svg class="w-full h-full" xmlns="http://www.w3.org/2000/svg">
+<!-- Deforestation / Canopy loss zone -->
+<polygon fill="rgba(255, 100, 100, 0.35)" points="120,90 220,110 260,210 180,240 100,180" stroke="#ff6b6b" stroke-dasharray="3,3" stroke-width="1.5"></polygon>
+<text fill="#ffb4ab" font-family="JetBrains Mono" font-size="9" font-weight="bold" x="130" y="150">VEG LOSS [-18.4%]</text>
+<!-- Built Infrastructure expansion zone (Cyan) -->
+<polygon fill="rgba(14, 165, 233, 0.3)" points="340,160 480,140 510,270 380,290" stroke="#89ceff" stroke-width="1.5"></polygon>
+<text fill="#89ceff" font-family="JetBrains Mono" font-size="9" font-weight="bold" x="360" y="210">EXPANSION [+12,400m²]</text>
+<!-- Seasonal Biomass / Revegetation zone (Emerald Green) -->
+<circle cx="280" cy="310" fill="rgba(52, 211, 153, 0.28)" r="45" stroke="#34d399" stroke-width="1.5"></circle>
+<text fill="#34d399" font-family="JetBrains Mono" font-size="9" font-weight="bold" x="245" y="315">BIOMASS [+8.2%]</text>
+</svg>
+</div>
+<!-- Swipe Compare Split Shutter Handle (Visible in swipe mode) -->
+<div class="absolute top-0 bottom-0 pointer-events-none hidden" id="swipeSplitDivider" style="left: 50%;">
+<div class="w-0.5 h-full bg-primary shadow-[0_0_8px_#0ea5e9]"></div>
+<div class="absolute top-1/2 -left-3 -translate-y-1/2 w-6 h-6 rounded-full bg-primary-container text-on-primary-fixed flex items-center justify-center font-bold text-[10px] shadow-lg border border-primary">
+    ⇔
+  </div>
+</div>
+</div>
+<!-- Center Tactical Reticle -->
+<div class="absolute inset-0 pointer-events-none flex items-center justify-center opacity-70">
+<div class="relative w-12 h-12">
+<div class="absolute inset-0 border border-primary/30 rounded-full"></div>
+<div class="absolute top-1/2 left-0 right-0 h-px bg-primary/40 -translate-y-1/2"></div>
+<div class="absolute left-1/2 top-0 bottom-0 w-px bg-primary/40 -translate-x-1/2"></div>
+<div class="absolute top-1/2 left-1/2 w-1.5 h-1.5 -translate-x-1/2 -translate-y-1/2 bg-primary rounded-full"></div>
+</div>
+</div>
+<!-- Vector Bounding Box Overlay for AI Object Detections (Follows Active Target) -->
+<div class="absolute top-1/4 left-1/3 w-36 h-28 pointer-events-none transition-all duration-300" id="targetBoundingBox">
+<div class="w-full h-full relative border border-primary bg-primary-container/15 shadow-[0_0_12px_rgba(14,165,233,0.3)]">
+<div class="absolute -top-5 left-0 bg-primary px-1.5 py-0.5 text-on-primary-fixed font-code-dense text-[9px] uppercase tracking-wider font-bold flex items-center gap-1 shadow">
+<span class="w-1.5 h-1.5 bg-on-primary-fixed rounded-full animate-ping"></span>
+<span id="targetBboxLabel">CARGO_VESSEL: 0.984</span>
+</div>
+<div class="absolute bottom-1 right-1 text-primary font-code-dense text-[9px] bg-surface-container-lowest/80 px-1" id="targetBboxSub">
+400m LOA
+</div>
+<!-- Corner crosshairs -->
+<div class="absolute -top-1 -left-1 w-2 h-2 border-t-2 border-l-2 border-primary"></div>
+<div class="absolute -top-1 -right-1 w-2 h-2 border-t-2 border-r-2 border-primary"></div>
+<div class="absolute -bottom-1 -left-1 w-2 h-2 border-b-2 border-l-2 border-primary"></div>
+<div class="absolute -bottom-1 -right-1 w-2 h-2 border-b-2 border-r-2 border-primary"></div>
+</div>
+</div>
+<!-- Cursor & Telemetry Precision Readout (Top Left) -->
+<div class="absolute top-3 left-3 bg-surface-container-lowest/90 border border-surface-container-high/60 px-space-md py-space-sm backdrop-blur-md pointer-events-none z-10 shadow-lg">
+<div class="font-code-dense text-code-dense text-primary flex items-center gap-1.5">
+<span class="material-symbols-outlined text-xs">location_searching</span>
+<span id="telemetryLat">LAT: 51.954201° N</span>
+</div>
+<div class="font-code-dense text-code-dense text-primary ml-4" id="telemetryLon">LON: 04.142839° E</div>
+<div class="font-code-dense text-code-dense text-outline mt-0.5" id="telemetryElev">ELEV: +2.1m MSL | <span class="text-secondary" id="telemetryGsd">GSD: 0.31m/px</span></div>
+<div class="font-code-dense text-code-dense text-secondary">SUN AZ: 148.2° | ELEV: 42.1°</div>
+</div>
+<!-- Dynamic Map Scale Bar (Bottom Left) -->
+<div class="absolute bottom-16 left-3 flex flex-col gap-1 bg-surface-container-lowest/90 border border-surface-container-high/60 px-space-md py-1.5 backdrop-blur-md pointer-events-none z-10 shadow">
+<div class="flex items-center justify-between text-code-dense font-code-dense text-[9px]">
+<span class="text-outline">SCALE</span>
+<span class="text-primary font-bold" id="scaleBarLabel">50 METERS</span>
+</div>
+<div class="w-24 h-1.5 bg-surface-container border border-primary/40 flex">
+<div class="w-1/2 h-full bg-primary"></div>
+<div class="w-1/2 h-full bg-surface-container-highest"></div>
+</div>
+</div>
+<!-- Interactive Floating Zoom & View Control HUD (Bottom Right) -->
+<div class="absolute right-3 bottom-16 flex flex-col items-center gap-1.5 bg-surface-container-lowest/95 border border-surface-container-high/80 backdrop-blur-md p-1.5 z-10 shadow-2xl">
+<!-- Zoom In -->
+<button class="w-7 h-7 flex items-center justify-center bg-surface-container hover:bg-surface-container-high text-on-surface hover:text-primary transition-colors active:scale-95" id="zoomInBtn" title="Zoom In (+)">
+<span class="material-symbols-outlined text-[16px]">add</span>
+</button>
+<!-- Interactive Vertical Zoom Slider -->
+<div class="py-1 flex flex-col items-center">
+<input class="w-16 h-1 accent-primary bg-surface-container-highest cursor-pointer -rotate-90 my-6" id="zoomSlider" max="32" min="8" step="0.5" type="range" value="17.5"/>
+</div>
+<!-- Zoom Out -->
+<button class="w-7 h-7 flex items-center justify-center bg-surface-container hover:bg-surface-container-high text-on-surface hover:text-primary transition-colors active:scale-95" id="zoomOutBtn" title="Zoom Out (-)">
+<span class="material-symbols-outlined text-[16px]">remove</span>
+</button>
+<div class="w-full h-px bg-surface-variant my-0.5"></div>
+<!-- Live Zoom Level Badge -->
+<div class="font-code-dense text-[9px] text-primary font-bold px-1" id="zoomBadge">
+17.5x
+</div>
+<!-- Reset View / Recenter -->
+<button class="w-7 h-7 flex items-center justify-center bg-surface-container hover:bg-surface-container-high text-on-surface hover:text-primary transition-colors" id="mapResetBtn" title="Reset View">
+<span class="material-symbols-outlined text-[16px]">center_focus_strong</span>
+</button>
+<!-- Compass North indicator -->
+<button class="w-7 h-7 flex items-center justify-center bg-surface-container hover:bg-surface-container-high text-on-surface hover:text-primary transition-colors" title="Orient North">
+<span class="material-symbols-outlined text-[16px] text-error">north</span>
+</button>
+</div>
+<!-- Integrated Temporal Timeline Bar & Multi-Epoch Scrubbing Slider HUD -->
+<div class="absolute inset-x-0 bottom-0 z-20 bg-surface-container-lowest/95 border-t border-surface-container-high/80 backdrop-blur-md p-2 flex flex-col gap-1.5 shadow-2xl">
+<div class="flex items-center justify-between text-code-dense font-code-dense text-[10px]">
+<div class="flex items-center gap-2">
+<!-- Play/Pause Timelapse Button -->
+<button class="flex items-center gap-1 bg-primary-container text-on-primary-fixed px-2 py-0.5 font-bold hover:bg-primary-fixed-dim transition-colors" id="timelapsePlayBtn">
+<span class="material-symbols-outlined text-[14px]" id="playIcon">play_arrow</span>
+<span id="playLabel">PLAY TIMELAPSE</span>
+</button>
+<button class="bg-surface-container hover:bg-surface-container-high text-primary px-1.5 py-0.5" id="playbackSpeedBtn" title="Cycle playback speed">2x SPEED</button>
+<div class="h-3 w-px bg-surface-variant"></div>
+<span class="text-outline">ACQUISITION:</span>
+<span class="text-primary font-bold" id="currentEpochDate">2024-Q2 (CURRENT EPOCH)</span>
+<span class="text-secondary bg-surface-container px-1" id="currentEpochDelta">ΔT: +365 days</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="text-outline">SENSOR:</span>
+<span class="text-on-surface" id="currentEpochSensor">WV-3 PAN 0.3m</span>
+<span class="text-outline">• CLOUD:</span>
+<span class="text-emerald-400 font-bold" id="currentEpochCloud">&lt; 1.2%</span>
+</div>
+</div>
+<!-- Interactive Scrubbing Track -->
+<div class="relative w-full flex items-center pt-1 pb-1">
+<input class="w-full accent-primary h-1.5 bg-surface-container-highest cursor-pointer rounded-none" id="epochSlider" max="4" min="0" step="1" type="range" value="4"/>
+</div>
+<!-- Epoch Step Labels & Indicators -->
+<div class="grid grid-cols-5 text-center font-code-dense text-[9px] gap-1">
+<button class="epoch-step-btn p-1 bg-surface-container text-outline hover:text-on-surface hover:bg-surface-container-high text-left flex flex-col" data-index="0" onclick="setEpoch(0)">
+<div class="flex items-center justify-between"><span class="font-bold text-on-surface-variant">T1: 2023-Q1</span><span class="text-[8px] text-outline">BASE</span></div>
+<div class="truncate text-[8px] text-outline">Winter / Low Vigor</div>
+</button>
+<button class="epoch-step-btn p-1 bg-surface-container text-outline hover:text-on-surface hover:bg-surface-container-high text-left flex flex-col" data-index="1" onclick="setEpoch(1)">
+<div class="flex items-center justify-between"><span class="font-bold text-on-surface-variant">T2: 2023-Q2</span><span class="text-[8px] text-secondary">+92d</span></div>
+<div class="truncate text-[8px] text-outline">Spring Emergence</div>
+</button>
+<button class="epoch-step-btn p-1 bg-surface-container text-outline hover:text-on-surface hover:bg-surface-container-high text-left flex flex-col" data-index="2" onclick="setEpoch(2)">
+<div class="flex items-center justify-between"><span class="font-bold text-on-surface-variant">T3: 2023-Q3</span><span class="text-[8px] text-secondary">+184d</span></div>
+<div class="truncate text-[8px] text-outline">Summer Peak / Clearings</div>
+</button>
+<button class="epoch-step-btn p-1 bg-surface-container text-outline hover:text-on-surface hover:bg-surface-container-high text-left flex flex-col" data-index="3" onclick="setEpoch(3)">
+<div class="flex items-center justify-between"><span class="font-bold text-on-surface-variant">T4: 2023-Q4</span><span class="text-[8px] text-secondary">+276d</span></div>
+<div class="truncate text-[8px] text-outline">Autumn / Harvest Trace</div>
+</button>
+<button class="epoch-step-btn p-1 bg-primary-container text-on-primary-fixed border border-primary font-bold text-left flex flex-col" data-index="4" onclick="setEpoch(4)">
+<div class="flex items-center justify-between"><span class="font-bold text-on-primary-fixed">T5: 2024-Q2</span><span class="text-[8px] bg-on-primary-fixed text-primary px-1">NOW</span></div>
+<div class="truncate text-[8px] text-on-primary-fixed/80">Active Operations</div>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Side: Multimodal CLIP Grounding & Verification Panel (3 Cols) -->
+<div class="col-span-12 lg:col-span-3 bg-surface-container-low p-space-md flex flex-col justify-between h-full">
+<div>
+<div class="flex items-center justify-between pb-space-xs">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-outline">MULTIMODAL GROUNDING</span>
+<span class="bg-primary-container text-on-primary-fixed font-code-dense text-code-dense px-1 font-bold">CLIP v2</span>
+</div>
+<!-- Target Grounding Preview Thumbnail -->
+<div class="relative w-full h-32 bg-surface-container-lowest my-space-sm overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="High zoom macro satellite close-up showing individual automated gantry cranes and stacked maritime intermodal shipping containers with high fidelity shadows on asphalt." id="inspectorThumb" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBCZwFRl0ZOg36Kih_aiv7SKWK4GjSKtwSLkFjR1qDbDNH9v9Tc4-MTg6InwfwYc7Ollk_KmBSvj3gsHFBUELQWz3D1YU9xjJWZDDqefH18GM1Z0T7LhXvx08Mw1Hd5h_SF6O7RAbF1kS9C7kvpJ1psPgH-xmojGqPOThHz5nN3_iWhfOnkQUdkDWVzfMcwZiaQ1H2yQndtdaYiz2tM_E5knKLmfhx_CzkFm0jtnrWKMXRSnq-lnUExfw"/>
+<div class="absolute bottom-1 right-1 bg-surface-container-lowest/90 px-1 py-0.5 text-code-dense font-code-dense text-primary" id="inspectorFov">
+FOV: 420m x 280m
+              </div>
+</div>
+<!-- Generated Auto-Caption & Verification Claims -->
+<div class="space-y-space-sm mt-space-sm">
+<div class="bg-surface-container-lowest p-space-sm">
+<div class="font-label-sm text-label-sm text-outline flex items-center justify-between">
+<span>AUTO GENERATED CAPTION</span>
+<span class="text-[9px] font-code-dense text-secondary uppercase" id="captionEpochBadge">EPOCH T5</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface mt-0.5 leading-snug" id="inspectorCaption">
+                  "Deep-water container logistics berths with 3 ultra-large container vessels actively engaged in gantry operations."
+                </p>
+<div class="mt-1 flex items-center justify-between font-code-dense text-code-dense text-primary">
+<span>SEMANTIC SIMILARITY:</span>
+<span class="font-bold" id="inspectorScore">0.941</span>
+</div>
+</div>
+<!-- Grounded Multimodal Reasoning & Temporal Assertion Card -->
+<div class="bg-surface-container-lowest border-l-2 border-primary-container p-space-sm">
+<div class="flex items-center justify-between text-[10px] font-code-dense">
+<span class="text-primary font-bold flex items-center gap-1">
+<span class="material-symbols-outlined text-[13px]">history_edu</span>TEMPORAL REASONING
+    </span>
+<span class="text-secondary" id="temporalSpan">2023-Q1 → 2024-Q2</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1 leading-snug" id="temporalAssertionText">
+    "Between 2023-Q1 and 2024-Q2, 3 additional deep-water berths constructed, +41% container throughput footprint, vegetation buffer cleared by 180m."
+  </p>
+<div class="mt-1 grid grid-cols-2 gap-1 text-[9px] font-code-dense text-outline">
+<div>CONFIDENCE: <span class="text-primary font-bold">96.8%</span></div>
+<div>ALIGNED PIXELS: <span class="text-on-surface font-bold">1.42M</span></div>
+</div>
+</div>
+<!-- Claim Verification Checklist -->
+<div class="space-y-1">
+<div class="font-label-sm text-label-sm text-outline uppercase tracking-wider">CLAIM LEVEL AUDIT</div>
+<div class="bg-surface-container p-1.5 flex items-start gap-space-xs">
+<span class="material-symbols-outlined text-primary text-body-md mt-0.5">verified</span>
+<div class="min-w-0">
+<div class="font-label-sm text-label-sm text-on-surface truncate" id="claim1Title">Vessel Count Verification</div>
+<div class="font-code-dense text-code-dense text-outline" id="claim1Desc">Count: 3 confirmed (Error: ±0)</div>
+</div>
+</div>
+<div class="bg-surface-container p-1.5 flex items-start gap-space-xs">
+<span class="material-symbols-outlined text-primary text-body-md mt-0.5">verified</span>
+<div class="min-w-0">
+<div class="font-label-sm text-label-sm text-on-surface truncate" id="claim2Title">Berth Occupancy Density</div>
+<div class="font-code-dense text-code-dense text-outline" id="claim2Desc">87.4% nominal capacity</div>
+</div>
+</div>
+<div class="bg-surface-container p-1.5 flex items-start gap-space-xs">
+<span class="material-symbols-outlined text-secondary text-body-md mt-0.5">schedule</span>
+<div class="min-w-0">
+<div class="font-label-sm text-label-sm text-on-surface truncate" id="claim3Title">Temporal Change Detection</div>
+<div class="font-code-dense text-code-dense text-outline" id="claim3Desc">Delta vs T-48h: +1 ship</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Bottom Action within Inspector -->
+<div class="mt-space-sm pt-space-xs">
+<button class="w-full bg-surface-container hover:bg-surface-container-high text-primary font-label-md text-label-md py-2 flex items-center justify-center gap-space-xs">
+<span class="material-symbols-outlined text-label-md">download_done</span>
+<span>EXPORT STAC CATALOG ITEM</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Bottom Calibration & Telemetry Control Strip -->
+<div class="w-full bg-surface-container-low px-space-lg py-2 flex flex-wrap items-center justify-between text-code-dense font-code-dense shadow-md gap-y-2">
+<div class="flex items-center gap-space-lg flex-wrap">
+<div class="flex items-center gap-space-xs">
+<span class="text-outline">PROJECTION:</span>
+<span class="text-on-surface bg-surface-container px-1 py-0.5">EPSG:3857 (WEB MERCATOR)</span>
+</div>
+<div class="flex items-center gap-space-xs">
+<span class="text-outline">TILE ENGINE:</span>
+<span class="text-primary">GPU / WEBGL2 COG RENDERER</span>
+</div>
+<div class="flex items-center gap-space-sm">
+<span class="text-outline">MAX CLOUD COVER:</span>
+<input class="w-20 accent-primary h-1 bg-surface-container-highest cursor-pointer" max="15" min="0" type="range" value="5"/>
+<span class="text-primary font-bold">≤ 5%</span>
+</div>
+<div class="flex items-center gap-space-xs">
+<span class="text-outline">ATMOSPHERIC CORRECTION:</span>
+<span class="text-on-surface bg-surface-container px-1 py-0.5">SEN2COR v2.9</span>
+</div>
+</div>
+<div class="flex items-center gap-space-md">
+<div class="flex items-center gap-space-xs">
+<span class="w-2 h-2 rounded-none bg-primary"></span>
+<span class="text-outline">MULTIMODAL INFERENCE ENGINE:</span>
+<span class="text-primary font-bold">READY (LATENCY: 42ms)</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Persistent Bottom Coordinates Status -->
+<div class="relative z-20 flex items-center justify-between font-code-dense text-code-dense text-outline mt-space-md">
+<div>ORBITAL EPHEMERIS: TLE VALID [EPOCH 2025-042.8912]</div>
+<div class="flex items-center gap-space-md">
+<span>NADIR SENSOR PITCH: 0.04°</span>
+<span>•</span>
+<span>ROLL: -0.01°</span>
+<span>•</span>
+<span>SATELLITES IN VIEW: 28 GNSS / 6 LEO</span>
+</div>
+</div>
+</div>
+<!-- Interactive State Controller & Map Engine Script -->
+<script>
+    const launchBtn = document.getElementById('launchWorkstationBtn');
+    const viewToggleBtn = document.getElementById('viewToggleBtn');
+    const landingHud = document.getElementById('landingHud');
+    const searchInput = document.getElementById('aoiSearchInput');
+
+    // Telemetry & Map Elements
+    const mapViewport = document.getElementById('mapViewport');
+    const satelliteContainer = document.getElementById('satelliteLayerContainer');
+    const satelliteImage = document.getElementById('satelliteImage');
+    const zoomSlider = document.getElementById('zoomSlider');
+    const zoomBadge = document.getElementById('zoomBadge');
+    const zoomInBtn = document.getElementById('zoomInBtn');
+    const zoomOutBtn = document.getElementById('zoomOutBtn');
+    const mapResetBtn = document.getElementById('mapResetBtn');
+    const reCenterBtn = document.getElementById('reCenterBtn');
+    const telemetryLat = document.getElementById('telemetryLat');
+    const telemetryLon = document.getElementById('telemetryLon');
+    const telemetryGsd = document.getElementById('telemetryGsd');
+    const scaleBarLabel = document.getElementById('scaleBarLabel');
+    const activeSensorLabel = document.getElementById('activeSensorLabel');
+    const targetBoundingBox = document.getElementById('targetBoundingBox');
+    const targetBboxLabel = document.getElementById('targetBboxLabel');
+    const targetBboxSub = document.getElementById('targetBboxSub');
+
+    // Inspector elements
+    const inspectorThumb = document.getElementById('inspectorThumb');
+    const inspectorCaption = document.getElementById('inspectorCaption');
+    const inspectorScore = document.getElementById('inspectorScore');
+    const claim1Title = document.getElementById('claim1Title');
+    const claim1Desc = document.getElementById('claim1Desc');
+    const claim2Title = document.getElementById('claim2Title');
+    const claim2Desc = document.getElementById('claim2Desc');
+    const claim3Title = document.getElementById('claim3Title');
+    const claim3Desc = document.getElementById('claim3Desc');
+
+    // Timeline & Change Detection Elements
+    const epochSlider = document.getElementById('epochSlider');
+    const currentEpochDate = document.getElementById('currentEpochDate');
+    const currentEpochDelta = document.getElementById('currentEpochDelta');
+    const currentEpochSensor = document.getElementById('currentEpochSensor');
+    const currentEpochCloud = document.getElementById('currentEpochCloud');
+    const timelapsePlayBtn = document.getElementById('timelapsePlayBtn');
+    const playIcon = document.getElementById('playIcon');
+    const playLabel = document.getElementById('playLabel');
+    const playbackSpeedBtn = document.getElementById('playbackSpeedBtn');
+    const changeMaskOverlay = document.getElementById('changeMaskOverlay');
+    const swipeSplitDivider = document.getElementById('swipeSplitDivider');
+    const captionEpochBadge = document.getElementById('captionEpochBadge');
+    const temporalSpan = document.getElementById('temporalSpan');
+    const temporalAssertionText = document.getElementById('temporalAssertionText');
+    const deltaBadgeCanopy = document.getElementById('deltaBadgeCanopy');
+    const deltaBadgeBuilt = document.getElementById('deltaBadgeBuilt');
+
+    // Map State
+    let zoomLevel = 17.5;
+    let panX = 0;
+    let panY = 0;
+    let isDragging = false;
+    let startX = 0;
+    let startY = 0;
+    let activeLayer = 'rgb';
+    let activePreset = 'rotterdam';
+
+    // Temporal Epochs Definition
+    const epochs = [
+      {
+        id: "T1",
+        label: "2023-Q1 (WINTER/DRY)",
+        delta: "BASE EPOCH",
+        sensor: "SENTINEL-2A (10m)",
+        cloud: "< 0.4%",
+        filter: "brightness(88%) contrast(105%) hue-rotate(15deg)",
+        metrics: { canopy: "LOSS: BASE", built: "REF AREA", conf: "97.1%" },
+        assertion: "Baseline epoch established. Berths 1 and 2 active, crane tracks terminating at mooring post 14."
+      },
+      {
+        id: "T2",
+        label: "2023-Q2 (SPRING VIGOR)",
+        delta: "ΔT: +92 days",
+        sensor: "SENTINEL-2B (10m)",
+        cloud: "< 1.8%",
+        filter: "brightness(95%) saturate(125%) hue-rotate(5deg)",
+        metrics: { canopy: "LOSS: -3.1%", built: "EXPANSION +2,100 m²", conf: "95.4%" },
+        assertion: "Gradual vegetative green-up on buffer perimeter. Earthwork grading began on north logistics expansion tract."
+      },
+      {
+        id: "T3",
+        label: "2023-Q3 (SUMMER EXPANSION)",
+        delta: "ΔT: +184 days",
+        sensor: "LANDSAT-9 OLI-2",
+        cloud: "< 0.8%",
+        filter: "brightness(104%) saturate(110%) contrast(110%)",
+        metrics: { canopy: "LOSS: -11.6%", built: "EXPANSION +7,800 m²", conf: "98.2%" },
+        assertion: "Active deforestation and paving identified along sector 7. Pier foundation concrete poured with +2 ship docks."
+      },
+      {
+        id: "T4",
+        label: "2023-Q4 (AUTUMN HARVEST)",
+        delta: "ΔT: +276 days",
+        sensor: "WORLDVIEW-3 (0.3m)",
+        cloud: "< 2.1%",
+        filter: "brightness(92%) saturate(90%) sepia(10%)",
+        metrics: { canopy: "LOSS: -15.2%", built: "EXPANSION +9,900 m²", conf: "96.1%" },
+        assertion: "Seasonal vegetation dieback. Gantry crane gantry track extended by 320m with automated freight sorting active."
+      },
+      {
+        id: "T5",
+        label: "2024-Q2 (CURRENT EPOCH)",
+        delta: "ΔT: +365 days",
+        sensor: "WV-3 PAN 0.3m",
+        cloud: "< 1.2%",
+        filter: "none",
+        metrics: { canopy: "LOSS: -18.4%", built: "EXPANSION +12,400 m²", conf: "96.8%" },
+        assertion: "Between 2023-Q1 and 2024-Q2, 3 additional deep-water berths constructed, +41% container throughput footprint, vegetation buffer cleared by 180m."
+      }
+    ];
+
+    let currentEpochIdx = 4;
+    let isPlaying = false;
+    let playInterval = null;
+    let playSpeed = 1200; // 2x speed base
+    let currentChangeMode = 'single';
+
+    // Preset data with realistic imagery and telemetry
+    const presetData = {
+      rotterdam: {
+        name: "Port of Rotterdam Container Terminal",
+        query: "51.9542° N, 04.1428° E (Port of Rotterdam Container Terminal)",
+        lat: "51.954201° N",
+        lon: "04.142839° E",
+        elev: "+2.1m MSL",
+        sensor: "WV-3 PAN-SHARPENED",
+        baseGsd: 0.31,
+        image: "https://lh3.googleusercontent.com/aida-public/AB6AXuCR-GedhgGKVJ5kieY4dHBbmwBxWnh8gR9-ZmHo6QLRZqcWVSSJzeXTkIviBPK6Ei_Tky0y2MziHIS9MhFJ47mryNnFTBTyJaBY5QcmYAvhdw3GAfGbK6s4VMoaMgwHd-0p7Py6GMPiosE37EL4vyxjM7Y2YhTZwzVP4rAzOIRyr8euQVVjh4gNV-jrAURYd3gGf-Bb0tt8xPIWYJVDvHOphSl_qeYoEydy6RN2WaftSFz5zVoJ3X92Dg",
+        thumb: "https://lh3.googleusercontent.com/aida-public/AB6AXuBCZwFRl0ZOg36Kih_aiv7SKWK4GjSKtwSLkFjR1qDbDNH9v9Tc4-MTg6InwfwYc7Ollk_KmBSvj3gsHFBUELQWz3D1YU9xjJWZDDqefH18GM1Z0T7LhXvx08Mw1Hd5h_SF6O7RAbF1kS9C7kvpJ1psPgH-xmojGqPOThHz5nN3_iWhfOnkQUdkDWVzfMcwZiaQ1H2yQndtdaYiz2tM_E5knKLmfhx_CzkFm0jtnrWKMXRSnq-lnUExfw",
+        bbox: { top: "25%", left: "32%", width: "144px", height: "112px", label: "CARGO_VESSEL: 0.984", sub: "400m LOA" },
+        caption: '"Deep-water container logistics berths with 3 ultra-large container vessels actively engaged in gantry operations."',
+        score: "0.941",
+        c1: ["Vessel Count Verification", "Count: 3 confirmed (Error: ±0)"],
+        c2: ["Berth Occupancy Density", "87.4% nominal capacity"],
+        c3: ["Temporal Change Detection", "Delta vs T-48h: +1 ship"]
+      },
+      amazon: {
+        name: "Amazon Rainforest Sector 7B",
+        query: "09.1234° S, 62.8124° W (Amazon Rainforest Deforestation Sector 7B)",
+        lat: "09.123412° S",
+        lon: "62.812489° W",
+        elev: "+142.0m MSL",
+        sensor: "LANDSAT-9 OLI-2",
+        baseGsd: 0.85,
+        image: "https://lh3.googleusercontent.com/aida-public/AB6AXuCpEu25-hKE552a29S0bYVSIyorDt7S7T877IzZlhNY9ubM7CQUfl6s0cKmKA6MlWvvzl3vpuIfgsfq6kn-eLbvFDKp1wlyrtlwiQbtZhyLLP0JW8LIbHM1X-wTv9uyIzNv8sy1DRh6-YKU82Qk1Ios0GCQ1xEyS6ixAr-sV0CSPR77F1flbDq4hxWcgeCi2-uf7AepLA-OLM3sXRvD9BeSKmYDH-Jqn1SwaWkZf0e0CsqsVOr8I7OcIg",
+        thumb: "https://lh3.googleusercontent.com/aida-public/AB6AXuCpEu25-hKE552a29S0bYVSIyorDt7S7T877IzZlhNY9ubM7CQUfl6s0cKmKA6MlWvvzl3vpuIfgsfq6kn-eLbvFDKp1wlyrtlwiQbtZhyLLP0JW8LIbHM1X-wTv9uyIzNv8sy1DRh6-YKU82Qk1Ios0GCQ1xEyS6ixAr-sV0CSPR77F1flbDq4hxWcgeCi2-uf7AepLA-OLM3sXRvD9BeSKmYDH-Jqn1SwaWkZf0e0CsqsVOr8I7OcIg",
+        bbox: { top: "35%", left: "40%", width: "160px", height: "130px", label: "CANOPY_CLEARING: 0.962", sub: "14.2 Hectares" },
+        caption: '"Fishbone deforestation pattern intersecting dense primary rainforest canopy with active clearings along road corridors."',
+        score: "0.962",
+        c1: ["Canopy Loss Area", "14.2 ha detected (Delta: +2.1 ha)"],
+        c2: ["Canopy Density Index", "NDVI drop to 0.28 (stressed)"],
+        c3: ["Illegal Road Trace", "2.4km spur identified"]
+      },
+      ukraine: {
+        name: "Ukraine Agricultural Buffer Zone",
+        query: "48.3791° N, 31.1656° E (Ukraine Agricultural Buffer Zone)",
+        lat: "48.379110° N",
+        lon: "31.165640° E",
+        elev: "+188.5m MSL",
+        sensor: "SENTINEL-2 MSI",
+        baseGsd: 0.55,
+        image: "https://lh3.googleusercontent.com/aida-public/AB6AXuCR-GedhgGKVJ5kieY4dHBbmwBxWnh8gR9-ZmHo6QLRZqcWVSSJzeXTkIviBPK6Ei_Tky0y2MziHIS9MhFJ47mryNnFTBTyJaBY5QcmYAvhdw3GAfGbK6s4VMoaMgwHd-0p7Py6GMPiosE37EL4vyxjM7Y2YhTZwzVP4rAzOIRyr8euQVVjh4gNV-jrAURYd3gGf-Bb0tt8xPIWYJVDvHOphSl_qeYoEydy6RN2WaftSFz5zVoJ3X92Dg",
+        thumb: "https://lh3.googleusercontent.com/aida-public/AB6AXuCR-GedhgGKVJ5kieY4dHBbmwBxWnh8gR9-ZmHo6QLRZqcWVSSJzeXTkIviBPK6Ei_Tky0y2MziHIS9MhFJ47mryNnFTBTyJaBY5QcmYAvhdw3GAfGbK6s4VMoaMgwHd-0p7Py6GMPiosE37EL4vyxjM7Y2YhTZwzVP4rAzOIRyr8euQVVjh4gNV-jrAURYd3gGf-Bb0tt8xPIWYJVDvHOphSl_qeYoEydy6RN2WaftSFz5zVoJ3X92Dg",
+        bbox: { top: "20%", left: "28%", width: "190px", height: "140px", label: "WINTER_WHEAT: 0.918", sub: "Parcel #108" },
+        caption: '"Winter wheat crop parcel showing uniform vegetative emergence with active center-pivot irrigation boundaries."',
+        score: "0.918",
+        c1: ["Yield Projection", "4.8 T/ha (Above average)"],
+        c2: ["Soil Moisture Index", "Normal (NDWI: 0.42)"],
+        c3: ["Phenology Stage", "Tillering to Stem Elongation"]
+      },
+      solar: {
+        name: "Nevada Desert Solar Array",
+        query: "35.8012° N, 114.9821° W (Nevada Desert Photovoltaic Facility)",
+        lat: "35.801204° N",
+        lon: "114.982132° W",
+        elev: "+540.2m MSL",
+        sensor: "WORLDVIEW-3 NIR/SWIR",
+        baseGsd: 0.35,
+        image: "https://lh3.googleusercontent.com/aida-public/AB6AXuBCZwFRl0ZOg36Kih_aiv7SKWK4GjSKtwSLkFjR1qDbDNH9v9Tc4-MTg6InwfwYc7Ollk_KmBSvj3gsHFBUELQWz3D1YU9xjJWZDDqefH18GM1Z0T7LhXvx08Mw1Hd5h_SF6O7RAbF1kS9C7kvpJ1psPgH-xmojGqPOThHz5nN3_iWhfOnkQUdkDWVzfMcwZiaQ1H2yQndtdaYiz2tM_E5knKLmfhx_CzkFm0jtnrWKMXRSnq-lnUExfw",
+        thumb: "https://lh3.googleusercontent.com/aida-public/AB6AXuBCZwFRl0ZOg36Kih_aiv7SKWK4GjSKtwSLkFjR1qDbDNH9v9Tc4-MTg6InwfwYc7Ollk_KmBSvj3gsHFBUELQWz3D1YU9xjJWZDDqefH18GM1Z0T7LhXvx08Mw1Hd5h_SF6O7RAbF1kS9C7kvpJ1psPgH-xmojGqPOThHz5nN3_iWhfOnkQUdkDWVzfMcwZiaQ1H2yQndtdaYiz2tM_E5knKLmfhx_CzkFm0jtnrWKMXRSnq-lnUExfw",
+        bbox: { top: "30%", left: "35%", width: "150px", height: "120px", label: "PV_INVERTER_BLOCK: 0.991", sub: "250 MW Capacity" },
+        caption: '"High-density tracking photovoltaic solar array with contiguous silicon panel arrays oriented south-southwest."',
+        score: "0.991",
+        c1: ["Panel Degradation", "0.0% anomalous thermal hotspots"],
+        c2: ["Soiling Estimation", "< 2.2% transmission drop"],
+        c3: ["Array Integrity", "100% string operational status"]
+      }
+    };
+
+    // Layer filters simulation (RGB, NIR, NDVI, SAR)
+    const layerStyles = {
+      rgb: {
+        filter: "none",
+        label: "WV-3 PAN-SHARPENED 0.3m"
+      },
+      nir: {
+        filter: "hue-rotate(310deg) saturate(180%) contrast(120%)",
+        label: "SENTINEL-2 FALSE COLOR (B8-B4-B3)"
+      },
+      ndvi: {
+        filter: "hue-rotate(85deg) saturate(240%) contrast(140%) brightness(95%)",
+        label: "CALIBRATED NDVI PRODUCT (NIR-RED)"
+      },
+      sar: {
+        filter: "grayscale(100%) contrast(210%) brightness(85%)",
+        label: "SENTINEL-1 C-BAND SAR (VV+VH AMPLITUDE)"
+      }
+    };
+
+    function updateMapTransform() {
+      const visualScale = zoomLevel / 17.5;
+      satelliteContainer.style.transform = `translate(${panX}px, ${panY}px) scale(${visualScale})`;
+      zoomBadge.textContent = `${zoomLevel.toFixed(1)}x`;
+      zoomSlider.value = zoomLevel;
+
+      const curData = presetData[activePreset] || presetData.rotterdam;
+      const effectiveGsd = (curData.baseGsd * (17.5 / zoomLevel)).toFixed(2);
+      telemetryGsd.textContent = `GSD: ${effectiveGsd}m/px`;
+
+      if (zoomLevel >= 24) {
+        scaleBarLabel.textContent = "10 METERS";
+      } else if (zoomLevel >= 18) {
+        scaleBarLabel.textContent = "25 METERS";
+      } else if (zoomLevel >= 14) {
+        scaleBarLabel.textContent = "50 METERS";
+      } else if (zoomLevel >= 10) {
+        scaleBarLabel.textContent = "100 METERS";
+      } else {
+        scaleBarLabel.textContent = "250 METERS";
+      }
+    }
+
+    function setZoom(newZoom) {
+      zoomLevel = Math.min(32, Math.max(8, newZoom));
+      updateMapTransform();
+    }
+
+    // Zoom Buttons
+    zoomInBtn.addEventListener('click', () => setZoom(zoomLevel + 1.5));
+    zoomOutBtn.addEventListener('click', () => setZoom(zoomLevel - 1.5));
+    zoomSlider.addEventListener('input', (e) => setZoom(parseFloat(e.target.value)));
+
+    mapResetBtn.addEventListener('click', () => {
+      panX = 0;
+      panY = 0;
+      setZoom(17.5);
+    });
+
+    if (reCenterBtn) {
+      reCenterBtn.addEventListener('click', () => {
+        panX = 0;
+        panY = 0;
+        setZoom(17.5);
+      });
+    }
+
+    // Mouse drag pan support
+    mapViewport.addEventListener('mousedown', (e) => {
+      if (e.target.closest('#zoomSlider') || e.target.closest('button') || e.target.closest('input')) return;
+      isDragging = true;
+      startX = e.clientX - panX;
+      startY = e.clientY - panY;
+      mapViewport.classList.remove('map-grab');
+      mapViewport.classList.add('map-grabbing');
+    });
+
+    window.addEventListener('mousemove', (e) => {
+      if (!isDragging) return;
+      panX = e.clientX - startX;
+      panY = e.clientY - startY;
+      updateMapTransform();
+    });
+
+    window.addEventListener('mouseup', () => {
+      if (isDragging) {
+        isDragging = false;
+        mapViewport.classList.remove('map-grabbing');
+        mapViewport.classList.add('map-grab');
+      }
+    });
+
+    // Scroll wheel zoom support
+    mapViewport.addEventListener('wheel', (e) => {
+      e.preventDefault();
+      const delta = e.deltaY > 0 ? -0.8 : 0.8;
+      setZoom(zoomLevel + delta);
+    }, { passive: false });
+
+    // Layer Switcher
+    window.switchLayer = function(layerKey) {
+      activeLayer = layerKey;
+      applyLayerAndEpochFilter();
+
+      document.querySelectorAll('.layer-pill').forEach(btn => {
+        if (btn.getAttribute('data-layer') === layerKey) {
+          btn.className = "layer-pill px-2 py-0.5 bg-primary-container text-on-primary-fixed font-bold tracking-tight rounded-none transition-colors border border-primary-container";
+        } else {
+          btn.className = "layer-pill px-2 py-0.5 bg-surface-container hover:bg-surface-container-high text-on-surface-variant transition-colors border border-transparent";
+        }
+      });
+    };
+
+    function applyLayerAndEpochFilter() {
+      const layerConfig = layerStyles[activeLayer] || layerStyles.rgb;
+      const epochConfig = epochs[currentEpochIdx] || epochs[4];
+      
+      let combinedFilter = "";
+      if (layerConfig.filter !== "none") {
+        combinedFilter += layerConfig.filter + " ";
+      }
+      if (epochConfig.filter !== "none") {
+        combinedFilter += epochConfig.filter;
+      }
+      if (currentChangeMode === 'blink') {
+        combinedFilter += " brightness(115%) contrast(125%)";
+      }
+
+      satelliteImage.style.filter = combinedFilter.trim() || "none";
+      activeSensorLabel.textContent = layerConfig.label;
+    }
+
+    // Set Epoch Function
+    window.setEpoch = function(idx) {
+      currentEpochIdx = parseInt(idx, 10);
+      epochSlider.value = currentEpochIdx;
+      const ep = epochs[currentEpochIdx];
+
+      currentEpochDate.textContent = ep.label;
+      currentEpochDelta.textContent = ep.delta;
+      currentEpochSensor.textContent = ep.sensor;
+      currentEpochCloud.textContent = ep.cloud;
+      captionEpochBadge.textContent = `EPOCH ${ep.id}`;
+
+      // Update temporal assertions
+      temporalSpan.textContent = `2023-Q1 → ${ep.label.split(' ')[0]}`;
+      temporalAssertionText.textContent = `"${ep.assertion}"`;
+
+      // Update Delta Indicators
+      deltaBadgeCanopy.innerHTML = `<span class="w-1 h-1 bg-error rounded-full"></span>${ep.metrics.canopy}`;
+      deltaBadgeBuilt.innerHTML = `<span class="w-1 h-1 bg-primary rounded-full"></span>${ep.metrics.built}`;
+
+      // Highlight active step button
+      document.querySelectorAll('.epoch-step-btn').forEach(btn => {
+        const bIdx = parseInt(btn.getAttribute('data-index'), 10);
+        if (bIdx === currentEpochIdx) {
+          btn.className = "epoch-step-btn p-1 bg-primary-container text-on-primary-fixed border border-primary font-bold text-left flex flex-col";
+        } else {
+          btn.className = "epoch-step-btn p-1 bg-surface-container text-outline hover:text-on-surface hover:bg-surface-container-high text-left flex flex-col";
+        }
+      });
+
+      applyLayerAndEpochFilter();
+    };
+
+    // Scrubbing input listener
+    epochSlider.addEventListener('input', (e) => {
+      setEpoch(e.target.value);
+    });
+
+    // Timelapse playback controller
+    function toggleTimelapse() {
+      isPlaying = !isPlaying;
+      if (isPlaying) {
+        playIcon.textContent = "pause";
+        playLabel.textContent = "PAUSE";
+        timelapsePlayBtn.classList.remove('bg-primary-container');
+        timelapsePlayBtn.classList.add('bg-error-container', 'text-on-error-container');
+        playInterval = setInterval(() => {
+          let nextEpoch = (currentEpochIdx + 1) % epochs.length;
+          setEpoch(nextEpoch);
+        }, playSpeed);
+      } else {
+        playIcon.textContent = "play_arrow";
+        playLabel.textContent = "PLAY TIMELAPSE";
+        timelapsePlayBtn.classList.add('bg-primary-container');
+        timelapsePlayBtn.classList.remove('bg-error-container', 'text-on-error-container');
+        clearInterval(playInterval);
+      }
+    }
+
+    timelapsePlayBtn.addEventListener('click', toggleTimelapse);
+
+    // Playback Speed Toggle
+    playbackSpeedBtn.addEventListener('click', () => {
+      if (playSpeed === 1200) {
+        playSpeed = 500;
+        playbackSpeedBtn.textContent = "5x SPEED";
+      } else {
+        playSpeed = 1200;
+        playbackSpeedBtn.textContent = "2x SPEED";
+      }
+      if (isPlaying) {
+        clearInterval(playInterval);
+        playInterval = setInterval(() => {
+          let nextEpoch = (currentEpochIdx + 1) % epochs.length;
+          setEpoch(nextEpoch);
+        }, playSpeed);
+      }
+    });
+
+    // Change Detection Mode Switcher
+    window.setChangeMode = function(modeKey) {
+      currentChangeMode = modeKey;
+
+      // Update button styling
+      document.querySelectorAll('.change-mode-pill').forEach(btn => {
+        if (btn.getAttribute('data-cmode') === modeKey) {
+          btn.className = "change-mode-pill px-1.5 py-0.5 bg-primary-container text-on-primary-fixed font-semibold text-[9px] border border-primary-container";
+        } else {
+          btn.className = "change-mode-pill px-1.5 py-0.5 bg-surface-container hover:bg-surface-container-high text-on-surface text-[9px] border border-transparent";
+        }
+      });
+
+      // Overlay Handling
+      if (modeKey === 'diff') {
+        changeMaskOverlay.classList.remove('opacity-0');
+        changeMaskOverlay.classList.add('opacity-100');
+        swipeSplitDivider.classList.add('hidden');
+        satelliteImage.classList.remove('animate-pulse-fast');
+      } else if (modeKey === 'swipe') {
+        changeMaskOverlay.classList.remove('opacity-100');
+        changeMaskOverlay.classList.add('opacity-0');
+        swipeSplitDivider.classList.remove('hidden');
+        satelliteImage.classList.remove('animate-pulse-fast');
+      } else if (modeKey === 'blink') {
+        changeMaskOverlay.classList.remove('opacity-100');
+        changeMaskOverlay.classList.add('opacity-0');
+        swipeSplitDivider.classList.add('hidden');
+        satelliteImage.classList.add('animate-pulse-fast');
+      } else {
+        // Single epoch
+        changeMaskOverlay.classList.remove('opacity-100');
+        changeMaskOverlay.classList.add('opacity-0');
+        swipeSplitDivider.classList.add('hidden');
+        satelliteImage.classList.remove('animate-pulse-fast');
+      }
+
+      applyLayerAndEpochFilter();
+    };
+
+    // Preset Selector
+    window.selectPreset = function(presetKey) {
+      const p = presetData[presetKey];
+      if (!p) return;
+      activePreset = presetKey;
+      panX = 0;
+      panY = 0;
+      setZoom(17.5);
+
+      // Imagery update
+      satelliteImage.style.backgroundImage = `url('${p.image}')`;
+      satelliteImage.setAttribute('data-location', p.name);
+
+      // Search input update
+      searchInput.value = p.query;
+      searchInput.classList.add('bg-primary-container/20');
+      setTimeout(() => searchInput.classList.remove('bg-primary-container/20'), 300);
+
+      // Readouts
+      telemetryLat.textContent = `LAT: ${p.lat}`;
+      telemetryLon.textContent = `LON: ${p.lon}`;
+      activeSensorLabel.textContent = p.sensor;
+
+      // Bounding box
+      targetBoundingBox.style.top = p.bbox.top;
+      targetBoundingBox.style.left = p.bbox.left;
+      targetBoundingBox.style.width = p.bbox.width;
+      targetBoundingBox.style.height = p.bbox.height;
+      targetBboxLabel.textContent = p.bbox.label;
+      targetBboxSub.textContent = p.bbox.sub;
+
+      // Multimodal reasoning inspector
+      inspectorThumb.src = p.thumb;
+      inspectorCaption.textContent = p.caption;
+      inspectorScore.textContent = p.score;
+      claim1Title.textContent = p.c1[0];
+      claim1Desc.textContent = p.c1[1];
+      claim2Title.textContent = p.c2[0];
+      claim2Desc.textContent = p.c2[1];
+      claim3Title.textContent = p.c3[0];
+      claim3Desc.textContent = p.c3[1];
+
+      // Highlight active preset button
+      document.querySelectorAll('.aoi-btn').forEach(b => {
+        if (b.getAttribute('data-preset') === presetKey) {
+          b.classList.remove('border-transparent');
+          b.classList.add('border-primary');
+        } else {
+          b.classList.remove('border-primary');
+          b.classList.add('border-transparent');
+        }
+      });
+    };
+
+    // Mode Toggle Logic
+    let isExpandedWorkstation = false;
+    function toggleView(expanded) {
+      isExpandedWorkstation = expanded !== undefined ? expanded : !isExpandedWorkstation;
+      if (isExpandedWorkstation) {
+        landingHud.classList.add('opacity-0', 'h-0', 'overflow-hidden', 'mt-0');
+        landingHud.classList.remove('mt-space-xl');
+        viewToggleBtn.querySelector('span:last-child').textContent = 'MODE: COMPACT HUD';
+      } else {
+        landingHud.classList.remove('opacity-0', 'h-0', 'overflow-hidden', 'mt-0');
+        landingHud.classList.add('mt-space-xl');
+        viewToggleBtn.querySelector('span:last-child').textContent = 'MODE: FULL WORKSTATION';
+      }
+    }
+
+    launchBtn.addEventListener('click', () => toggleView(true));
+    viewToggleBtn.addEventListener('click', () => toggleView());
+
+    // Hotkey [W] Listener
+    window.addEventListener('keydown', (e) => {
+      if ((e.key === 'w' || e.key === 'W') && document.activeElement !== searchInput) {
+        toggleView(!isExpandedWorkstation);
+      }
+    });
+
+    // Initialize
+    updateMapTransform();
+    setEpoch(4);
+  </script>
+</div></main></body></html>

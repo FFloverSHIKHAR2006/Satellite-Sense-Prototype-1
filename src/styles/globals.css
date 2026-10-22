@@ -1,0 +1,176 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg-canvas: #06080b;
+  --bg-workstation: #0c1017;
+  --bg-panel: #121721;
+  --bg-surface-raised: #19202e;
+  --bg-surface-hover: #202a3d;
+  --bg-surface-active: #27344d;
+
+  --border-subtle: #1e2638;
+  --border-contrast: #313f59;
+  --border-focus: #38bdf8;
+
+  --accent-cyan: #38bdf8;
+  --accent-hover: #0ea5e9;
+
+  --status-verified: #10b981;
+  --status-uncertain: #f59e0b;
+  --status-unsupported: #f43f5e;
+  --status-uncalibrated: #94a3b8;
+
+  --text-primary: #f1f5f9;
+  --text-secondary: #94a3b8;
+  --text-muted: #64748b;
+}
+
+/* Custom dark scrollbar for dense data panels */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0c1017;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #1e2638;
+  border-radius: 2px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #313f59;
+}
+
+/* High-contrast halo for bounding boxes over varied satellite terrain */
+.vector-halo {
+  filter: drop-shadow(0px 0px 1.5px rgba(0, 0, 0, 0.95)) drop-shadow(0px 0px 2.5px rgba(0, 0, 0, 0.85));
+}
+
+/* Tabular figures for numbers, coordinates, timestamps */
+.tabular-numbers {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Remove default focus outlines in favor of precision 2px focus ring */
+:focus-visible {
+  outline: 2px solid var(--accent-cyan);
+  outline-offset: -1px;
+}
+
+/* Atmospheric & Glowing Typography from Stitch Designs */
+.hero-title-glow {
+  color: #ffffff;
+  text-shadow: 
+    0 0 18px rgba(186, 230, 253, 0.95),
+    0 0 38px rgba(56, 189, 248, 0.75),
+    0 0 70px rgba(14, 165, 233, 0.55),
+    0 0 120px rgba(3, 105, 161, 0.45);
+  letter-spacing: -0.035em;
+}
+
+.badge-backdrop {
+  background-color: rgba(2, 4, 10, 0.88);
+  box-shadow: 0 0 25px rgba(0, 0, 0, 0.9), inset 0 0 0 1px rgba(255, 255, 255, 0.16);
+}
+
+.badge-backdrop:hover {
+  box-shadow: 0 0 30px rgba(56, 189, 248, 0.25), inset 0 0 0 1px rgba(125, 211, 252, 0.4);
+}
+
+/* Realistic Curved Earth Limb & Atmosphere */
+.earth-curvature {
+  position: absolute;
+  left: -20%;
+  right: -20%;
+  bottom: -620px;
+  height: 1050px;
+  border-radius: 50% 50% 0 0 / 100% 100% 0 0;
+  background: radial-gradient(ellipse at 50% 0%, #1e4b85 0%, #0d274f 24%, #081734 46%, #030a17 72%, #01040a 100%);
+  box-shadow: 
+    0 -10px 40px rgba(125, 211, 252, 0.5),
+    0 -35px 120px rgba(56, 189, 248, 0.42),
+    0 -80px 220px rgba(14, 116, 144, 0.28);
+}
+
+.earth-airglow-rim {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 8px;
+  border-radius: 50% 50% 0 0 / 100% 100% 0 0;
+  background: linear-gradient(90deg, 
+    rgba(56,189,248,0.05) 0%, 
+    rgba(147,197,253,0.7) 20%, 
+    rgba(255,255,255,0.98) 50%, 
+    rgba(147,197,253,0.7) 80%, 
+    rgba(56,189,248,0.05) 100%);
+  filter: blur(1.5px);
+}
+
+.earth-cloud-texture {
+  background-image: 
+    radial-gradient(ellipse at 25% 30%, rgba(255,255,255,0.18) 0%, transparent 45%),
+    radial-gradient(ellipse at 70% 35%, rgba(255,255,255,0.14) 0%, transparent 50%),
+    radial-gradient(ellipse at 45% 20%, rgba(255,255,255,0.22) 0%, transparent 35%),
+    radial-gradient(ellipse at 85% 45%, rgba(255,255,255,0.12) 0%, transparent 40%);
+}
+
+.star-bg {
+  background-image: 
+    radial-gradient(1px 1px at 20px 30px, #ffffff, rgba(0,0,0,0)),
+    radial-gradient(1.5px 1.5px at 140px 90px, rgba(255,255,255,0.85), rgba(0,0,0,0)),
+    radial-gradient(1px 1px at 300px 210px, #e2e8f0, rgba(0,0,0,0)),
+    radial-gradient(2px 2px at 520px 80px, rgba(224,242,254,0.9), rgba(0,0,0,0)),
+    radial-gradient(1px 1px at 780px 180px, #ffffff, rgba(0,0,0,0)),
+    radial-gradient(1.5px 1.5px at 940px 60px, rgba(186,230,253,0.8), rgba(0,0,0,0)),
+    radial-gradient(1px 1px at 1120px 140px, #ffffff, rgba(0,0,0,0)),
+    radial-gradient(1px 1px at 450px 320px, #cbd5e1, rgba(0,0,0,0)),
+    radial-gradient(2px 2px at 1240px 260px, #ffffff, rgba(0,0,0,0));
+  background-size: 1300px 600px;
+}
+
+.glass-hud {
+  background: rgba(3, 7, 18, 0.78);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.reticle-grid {
+  background-size: 24px 24px;
+  background-image: 
+    linear-gradient(to right, rgba(56, 189, 248, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(56, 189, 248, 0.04) 1px, transparent 1px);
+}
+
+/* Corner Reticle Brackets */
+.corner-brackets {
+  position: relative;
+}
+.corner-brackets::before,
+.corner-brackets::after {
+  content: "";
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  border-color: #38bdf8;
+  pointer-events: none;
+}
+.corner-brackets::before {
+  top: -1px;
+  left: -1px;
+  border-top-width: 2px;
+  border-left-width: 2px;
+}
+.corner-brackets::after {
+  bottom: -1px;
+  right: -1px;
+  border-bottom-width: 2px;
+  border-right-width: 2px;
+}

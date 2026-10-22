@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_dashboard" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base { html, body { margin: 0; padding: 0; } body { overscroll-behavior: none; } main > :first-child { margin-top: 0 !important; } main > :last-child { margin-bottom: 0 !important; } } ::-webkit-scrollbar { display: none; }</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { "colors": { "secondary": "#b4c5ff", "on-background": "#dfe2ee", "primary-fixed": "#c9e6ff", "on-surface-variant": "#bec8d2", "primary-fixed-dim": "#89ceff", "inverse-surface": "#dfe2ee", "surface-tint": "#89ceff", "on-tertiary-fixed": "#2c0051", "error-container": "#93000a", "inverse-on-surface": "#2c3039", "on-secondary-fixed-variant": "#003ea8", "on-error-container": "#ffdad6", "on-surface": "#dfe2ee", "outline": "#88929b", "surface-variant": "#31353e", "on-primary-fixed": "#001e2f", "on-secondary-container": "#cdd7ff", "on-tertiary-fixed-variant": "#6900b3", "on-primary": "#00344d", "tertiary-container": "#bf7dff", "on-secondary": "#002a78", "on-secondary-fixed": "#00174b", "background": "#0f131b", "on-primary-container": "#003751", "surface-container-low": "#181c24", "surface-bright": "#353942", "on-tertiary": "#490080", "on-tertiary-container": "#4d0087", "error": "#ffb4ab", "primary-container": "#0ea5e9", "surface-container-lowest": "#0a0e16", "on-primary-fixed-variant": "#004c6e", "surface-dim": "#0f131b", "secondary-container": "#0053db", "on-error": "#690005", "surface": "#0f131b", "secondary-fixed-dim": "#b4c5ff", "surface-container-high": "#262a33", "tertiary": "#ddb7ff", "surface-container": "#1c2028", "primary": "#89ceff", "outline-variant": "#3e4850", "secondary-fixed": "#dbe1ff", "surface-container-highest": "#31353e", "tertiary-fixed": "#f0dbff", "tertiary-fixed-dim": "#ddb7ff", "inverse-primary": "#006591" }, "borderRadius": { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, "spacing": { "space-md": "0.5rem", "margin": "0.5rem", "space-sm": "0.25rem", "space-xl": "1rem", "gutter": "0.5rem", "margin-mobile": "0.25rem", "gutter-mobile": "0.25rem", "space-lg": "0.75rem", "space-xs": "0.125rem" }, "fontFamily": { "code-dense": [ "JetBrains Mono" ], "label-md": [ "JetBrains Mono" ], "label-lg": [ "JetBrains Mono" ], "label-sm": [ "JetBrains Mono" ], "headline-lg": [ "Inter" ], "body-md": [ "Inter" ], "body-sm": [ "Inter" ], "headline-sm": [ "Inter" ], "headline-md": [ "Inter" ], "headline-lg-mobile": [ "Inter" ], "body-lg": [ "Inter" ] }, "fontSize": { "code-dense": [ "9px", { "lineHeight": "12px", "letterSpacing": "0.02em", "fontWeight": "400" } ], "label-md": [ "11px", { "lineHeight": "14px", "letterSpacing": "-0.015em", "fontWeight": "500" } ], "label-lg": [ "12px", { "lineHeight": "16px", "letterSpacing": "-0.02em", "fontWeight": "500" } ], "label-sm": [ "10px", { "lineHeight": "12px", "letterSpacing": "0em", "fontWeight": "500" } ], "headline-lg": [ "18px", { "lineHeight": "24px", "letterSpacing": "-0.01em", "fontWeight": "600" } ], "body-md": [ "12px", { "lineHeight": "16px", "letterSpacing": "0em", "fontWeight": "400" } ], "body-sm": [ "11px", { "lineHeight": "15px", "letterSpacing": "0.01em", "fontWeight": "400" } ], "headline-sm": [ "13px", { "lineHeight": "18px", "letterSpacing": "0em", "fontWeight": "600" } ], "headline-md": [ "15px", { "lineHeight": "20px", "letterSpacing": "-0.005em", "fontWeight": "600" } ], "headline-lg-mobile": [ "16px", { "lineHeight": "22px", "letterSpacing": "-0.01em", "fontWeight": "600" } ], "body-lg": [ "13px", { "lineHeight": "18px", "letterSpacing": "0em", "fontWeight": "400" } ] } } } };</script></head><body class="bg-background text-on-surface antialiased selection:bg-primary-container selection:text-on-primary-container min-h-screen"><header class="fixed top-0 left-0 right-0 z-50 h-14 bg-surface-container-lowest border-b border-outline-variant"><div class="h-14 w-full px-space-md flex items-center justify-between gap-space-md"><div class="flex items-center gap-space-lg flex-shrink-0"><div class="flex items-center gap-space-md"><img alt="SatelliteSense Radar Reticle Logo" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1WRwykct3bJ46UrYF60qwO5dswWdIYmsuWEPOqtJ1--jdne5UEZDTwoZVFSRU7vQyQ3X2T3jc6tVho67oeXRWvnR6m3-6jh6OI4eQMF5IF2iYSuwiJiBJUUiPOFjwLfTzfa5AeE85lvWZEfzNoY9bbxWKSmF_h1fU5-swuq1YkeyQNTnZ4kssDwS0VRPnfHXJ1wyqJxjp1PQF0fsGFnjxVjy2DEkXf2b28eAKaKTIzkDDmGswUk0wNVfVU"/><div class="flex flex-col"><div class="flex items-center gap-space-xs"><span class="font-headline-sm text-headline-sm text-on-surface font-bold tracking-tight uppercase">SatelliteSense</span><span class="font-code-dense text-code-dense px-1 py-0.5 bg-surface-container-high text-primary border border-outline-variant">v2.4-EO</span></div><span class="font-code-dense text-code-dense text-on-surface-variant uppercase tracking-wider">Multimodal Reasoning OS</span></div></div><div class="h-6 w-px bg-outline-variant hidden sm:block"></div><div class="hidden xl:flex items-center gap-space-sm font-label-sm text-label-sm"><div class="flex items-center bg-surface-container-low border border-outline-variant px-space-sm py-1 gap-space-xs"><span class="w-1.5 h-1.5 rounded-full bg-primary"></span><span class="text-on-surface-variant font-code-dense text-code-dense">CRS:</span><span class="text-primary font-label-sm text-label-sm">EPSG:4326</span><span class="text-outline text-[10px]">|</span><span class="text-on-surface font-code-dense text-code-dense">45°25'12"N 12°19'48"E</span></div><div class="flex items-center bg-surface-container-low border border-outline-variant px-space-sm py-1 gap-space-xs"><span class="text-on-surface-variant font-code-dense text-code-dense">GSD:</span><span class="text-on-surface font-code-dense text-code-dense">0.50m/px</span><span class="text-outline text-[10px]">|</span><span class="text-on-surface-variant font-code-dense text-code-dense">SUN:</span><span class="text-on-surface font-code-dense text-code-dense">58.4° EL</span></div><div class="flex items-center bg-surface-container-low border border-outline-variant px-space-sm py-1 gap-space-xs"><span class="px-1 bg-surface-container-highest text-primary font-code-dense text-code-dense">RGB+NIR</span><span class="text-on-surface-variant font-code-dense text-code-dense">WV-3 / S2A</span></div></div></div><div class="flex items-center gap-space-md flex-shrink-0"><div class="hidden lg:flex items-center gap-space-sm"><div class="flex items-center bg-surface-container-low border border-outline-variant px-space-sm py-1 gap-space-xs"><span class="text-on-surface-variant font-code-dense text-code-dense uppercase">CLIP Conf:</span><span class="text-primary font-label-sm text-label-sm font-bold">94.2%</span><div class="w-12 h-1.5 bg-surface-variant rounded-none overflow-hidden ml-1"><div class="bg-primary h-full w-[94.2%]"></div></div></div><div class="flex items-center bg-surface-container-low border border-outline-variant px-space-sm py-1 gap-space-xs"><span class="text-on-surface-variant font-code-dense text-code-dense uppercase">VRAM:</span><span class="text-on-surface font-code-dense text-code-dense">18.4 / 24 GB</span></div></div><div class="flex items-center gap-space-xs"><button class="h-8 px-space-md bg-surface-container border border-outline-variant text-on-surface hover:bg-surface-container-high hover:text-on-surface font-label-md text-label-md flex items-center gap-1 transition-colors" type="button"><span class="material-symbols-outlined text-[16px] text-primary">satellite_alt</span><span class="hidden md:inline font-code-dense text-code-dense">SCENE INGEST</span></button><button class="h-8 px-space-md bg-primary-container text-on-primary hover:bg-primary hover:text-on-primary-fixed font-label-md text-label-md flex items-center gap-1 transition-colors" type="button"><span class="material-symbols-outlined text-[16px]">bolt</span><span class="font-code-dense text-code-dense font-bold uppercase">Run CLIP</span></button></div><div class="h-6 w-px bg-outline-variant"></div><div class="flex items-center gap-space-xs"><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></div></header><aside class="fixed left-0 top-14 bottom-0 w-64 bg-surface-container-lowest border-r border-outline-variant z-40 flex flex-col justify-between"><div class="flex flex-col"><div class="px-space-md py-space-sm border-b border-outline-variant bg-surface-container-low flex items-center justify-between"><span class="font-code-dense text-code-dense uppercase tracking-wider text-on-surface-variant">Workspaces &amp; Engines</span><span class="px-1 py-0.5 bg-surface-container-high text-primary font-code-dense text-code-dense border border-outline-variant">LIVE</span></div><nav class="flex flex-col py-space-xs" data-active-classes="bg-primary-container text-on-primary font-semibold border-l-2 border-primary"><a class="flex items-center gap-space-md px-space-md py-space-sm text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors font-label-md text-label-md" data-path="single-analysis" href="#"><span class="material-symbols-outlined text-[18px]">save_as</span><span>Single Analysis</span></a><a class="flex items-center gap-space-md px-space-md py-space-sm text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors font-label-md text-label-md" data-path="claim-verification" href="#"><span class="material-symbols-outlined text-[18px]">fact_check</span><span>Claim Verification</span></a><a aria-current="page" class="flex items-center gap-space-md px-space-md py-space-sm transition-colors bg-primary-container text-on-primary font-semibold border-l-2 border-primary" data-path="scene-graph" href="#"><span class="material-symbols-outlined text-[18px]">hub</span><span>Scene Graph</span></a><a class="flex items-center gap-space-md px-space-md py-space-sm text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors font-label-md text-label-md" data-path="temporal-comparison" href="#"><span class="material-symbols-outlined text-[18px]">history_toggle_off</span><span>Temporal Comparison</span></a><a class="flex items-center gap-space-md px-space-md py-space-sm text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors font-label-md text-label-md" data-path="analysis-history" href="#"><span class="material-symbols-outlined text-[18px]">dataset</span><span>Analysis History</span></a><a class="flex items-center gap-space-md px-space-md py-space-sm text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors font-label-md text-label-md" data-path="experiments-and-benchmark" href="#"><span class="material-symbols-outlined text-[18px]">science</span><span>Experiments &amp; Benchmark</span></a></nav><div class="mt-space-sm px-space-md py-space-xs border-t border-outline-variant"><div class="font-code-dense text-code-dense text-on-surface-variant uppercase mb-space-xs tracking-wider">Active Pipeline</div><div class="bg-surface-container-low border border-outline-variant p-space-sm space-y-1"><div class="flex justify-between font-code-dense text-code-dense"><span class="text-on-surface-variant">Backbone</span><span class="text-primary">RemoteCLIP-ViT/L</span></div><div class="flex justify-between font-code-dense text-code-dense"><span class="text-on-surface-variant">Resolution</span><span class="text-on-surface">1024x1024</span></div><div class="flex justify-between font-code-dense text-code-dense"><span class="text-on-surface-variant">Tokenizer</span><span class="text-on-surface">Bio-Geo-WordPiece</span></div></div></div></div><div class="p-space-md border-t border-outline-variant bg-surface-container-lowest"><div class="flex items-center justify-between text-on-surface-variant font-code-dense text-code-dense mb-space-xs"><span>NODE TELEMETRY</span><span class="text-primary">ONLINE</span></div><div class="flex items-center gap-space-sm text-on-surface-variant font-code-dense text-code-dense"><span class="material-symbols-outlined text-[14px] text-primary">dns</span><span>gpu-cluster-eu-04</span></div></div></aside><div class="pl-64"><main class="relative pt-14 bg-background min-h-screen"><div class="flex flex-col w-full">
+<!-- Top Utility Context Bar -->
+<div class="w-full bg-surface-container-lowest px-space-md py-space-xs flex flex-wrap items-center justify-between gap-space-md shadow-sm">
+<div class="flex items-center flex-wrap gap-space-md">
+<!-- View Mode Segmented Switcher -->
+<div class="flex items-center bg-surface-container-low p-0.5 rounded-none">
+<button class="px-space-md py-1 font-label-md text-label-md bg-primary-container text-on-primary font-bold uppercase transition-colors" id="view-split-btn" type="button">
+          Split Canvas + Graph
+        </button>
+<button class="px-space-md py-1 font-label-md text-label-md text-on-surface-variant hover:text-on-surface transition-colors" id="view-graph-btn" type="button">
+          Graph Canvas Only
+        </button>
+<button class="px-space-md py-1 font-label-md text-label-md text-on-surface-variant hover:text-on-surface transition-colors" id="view-matrix-btn" type="button">
+          Matrix / Table View
+        </button>
+</div>
+<div class="h-4 w-px bg-outline-variant hidden sm:block"></div>
+<!-- Graph Entity Filters -->
+<div class="flex items-center gap-space-xs flex-wrap">
+<span class="font-code-dense text-code-dense uppercase text-on-surface-variant mr-1">Entities:</span>
+<button class="entity-chip px-2 py-0.5 bg-surface-container-high text-primary font-code-dense text-code-dense transition-all flex items-center gap-1" type="button">
+<span class="w-1.5 h-1.5 bg-primary"></span>VESSELS
+        </button>
+<button class="entity-chip px-2 py-0.5 bg-surface-container-high text-primary font-code-dense text-code-dense transition-all flex items-center gap-1" type="button">
+<span class="w-1.5 h-1.5 bg-primary"></span>INFRASTRUCTURE
+        </button>
+<button class="entity-chip px-2 py-0.5 bg-surface-container text-on-surface-variant hover:text-on-surface font-code-dense text-code-dense transition-all flex items-center gap-1" type="button">
+<span class="w-1.5 h-1.5 bg-outline"></span>HYDROLOGY
+        </button>
+<button class="entity-chip px-2 py-0.5 bg-surface-container text-on-surface-variant hover:text-on-surface font-code-dense text-code-dense transition-all flex items-center gap-1" type="button">
+<span class="w-1.5 h-1.5 bg-outline"></span>VEGETATION
+        </button>
+<button class="entity-chip px-2 py-0.5 bg-surface-container-high text-primary font-code-dense text-code-dense transition-all flex items-center gap-1" type="button">
+<span class="w-1.5 h-1.5 bg-primary"></span>VEHICLES/RAIL
+        </button>
+</div>
+</div>
+<!-- Relation Depth & Graph Statistics -->
+<div class="flex items-center gap-space-md">
+<div class="flex items-center gap-space-xs bg-surface-container-low px-space-md py-1">
+<span class="font-code-dense text-code-dense text-on-surface-variant uppercase">Hop Depth:</span>
+<div class="flex items-center gap-0.5">
+<button class="px-1.5 py-0.5 font-code-dense text-code-dense bg-surface-variant text-on-surface hover:bg-surface-container-high" type="button">1-HOP</button>
+<button class="px-1.5 py-0.5 font-code-dense text-code-dense bg-primary-container text-on-primary font-bold" type="button">2-HOP</button>
+<button class="px-1.5 py-0.5 font-code-dense text-code-dense bg-surface-variant text-on-surface hover:bg-surface-container-high" type="button">TOPOLOGICAL</button>
+</div>
+</div>
+<div class="hidden lg:flex items-center gap-space-sm bg-surface-container-low px-space-md py-1">
+<span class="font-code-dense text-code-dense text-on-surface-variant">GRAPH DENSITY:</span>
+<span class="font-label-md text-label-md text-primary font-bold">0.428 (SPARSE)</span>
+<span class="text-outline text-[10px]">|</span>
+<span class="font-code-dense text-code-dense text-on-surface-variant">NODES:</span>
+<span class="font-code-dense text-code-dense text-on-surface">6</span>
+<span class="font-code-dense text-code-dense text-on-surface-variant">EDGES:</span>
+<span class="font-code-dense text-code-dense text-on-surface">9</span>
+</div>
+</div>
+</div>
+<!-- Main Split Canvas Area -->
+<div class="grid grid-cols-1 xl:grid-cols-12 gap-space-xs p-space-xs w-full" id="dual-canvas-container">
+<!-- LEFT: High-Resolution Satellite Sensor Viewport with Bounding Entities & Spatial Vectors -->
+<div class="xl:col-span-6 bg-surface-container-lowest relative flex flex-col min-h-[580px] overflow-hidden group" id="satellite-pane">
+<!-- Canvas Header Overlay -->
+<div class="absolute top-2 left-2 right-2 z-20 flex items-center justify-between pointer-events-none">
+<div class="bg-surface-container-lowest/90 px-space-md py-1 flex items-center gap-space-sm backdrop-blur-sm pointer-events-auto">
+<span class="w-2 h-2 bg-primary"></span>
+<span class="font-headline-sm text-headline-sm text-on-surface font-bold tracking-tight">ROTHERHAM SEAPORT TERMINAL 3</span>
+<span class="font-code-dense text-code-dense text-on-surface-variant bg-surface-container px-1 py-0.5">WV-3 0.31m/px</span>
+</div>
+<div class="flex items-center gap-space-xs pointer-events-auto">
+<span class="bg-surface-container-lowest/90 px-space-sm py-1 font-code-dense text-code-dense text-primary backdrop-blur-sm">PROJECTION: UTM 30N</span>
+<button class="w-7 h-7 bg-surface-container-lowest/90 text-on-surface hover:text-primary flex items-center justify-center transition-colors" type="button">
+<span class="material-symbols-outlined text-[16px]">layers</span>
+</button>
+<button class="w-7 h-7 bg-surface-container-lowest/90 text-on-surface hover:text-primary flex items-center justify-center transition-colors" type="button">
+<span class="material-symbols-outlined text-[16px]">tune</span>
+</button>
+</div>
+</div>
+<!-- Raster Image Container -->
+<div class="relative w-full h-[580px] bg-surface-container overflow-hidden select-none">
+<img class="w-full h-full object-cover filter brightness-[0.92] contrast-[1.08]" data-alt="Orthorectified ultra high resolution satellite imagery of an industrial deepwater container port basin. Giant cargo vessel docked alongside concrete quayside berth with multiple rail mounted gantry cranes, massive colored shipping container stacks, freight railway lines, and calm dark turquoise water surface in sharp midday sun." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBT6AzrDo-yxaouG1YwFZvJAR7gI2uph5YzNy0UG4sSi4ZAS904_LDLNrV737_BuwIE2D2NtjuhIPDfpgPa7dT6uxhp3zqqPBujpolWwUtswWxioSEYUnN1ryLnVbdvpJ03I_5JRh3bQ63u3lCyESsH7UyA1QPVDlIaOrHv-3PUwP1Kz3SoxHYfQGBLB9eoFQp_UnC6MebEp7vYU-zMLxBaA5g3kVbALTIERV95SJkJ7QvU9XKebU9JCA"/>
+<!-- Vector Spatial HUD Overlay (SVG) -->
+<svg class="absolute inset-0 w-full h-full pointer-events-none z-10" preserveaspectratio="none" viewbox="0 0 1000 700">
+<defs>
+<marker id="arrow-vector" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="6" refy="5" viewbox="0 0 10 10">
+<path d="M 0 1 L 8 5 L 0 9 z" fill="#89ceff"></path>
+</marker>
+<marker id="arrow-vector-sec" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="6" refy="5" viewbox="0 0 10 10">
+<path d="M 0 1 L 8 5 L 0 9 z" fill="#b4c5ff"></path>
+</marker>
+</defs>
+<!-- Directed Relation Vectors -->
+<!-- Crane to Vessel (loading_from) -->
+<line marker-end="url(#arrow-vector)" stroke="#89ceff" stroke-dasharray="4 3" stroke-width="1.75" x1="420" x2="270" y1="260" y2="340"></line>
+<!-- Crane to Apron Pier (mounted_on) -->
+<line marker-end="url(#arrow-vector)" stroke="#89ceff" stroke-dasharray="4 3" stroke-width="1.75" x1="420" x2="520" y1="260" y2="310"></line>
+<!-- Vessel to Pier (berthed_at) -->
+<line marker-end="url(#arrow-vector)" stroke="#89ceff" stroke-width="2" x1="270" x2="520" y1="340" y2="310"></line>
+<!-- Container Stack to Crane (adjacent_to) -->
+<line marker-end="url(#arrow-vector-sec)" stroke="#b4c5ff" stroke-dasharray="3 3" stroke-width="1.5" x1="680" x2="420" y1="210" y2="260"></line>
+<!-- Railway Siding to Stack (parallel_to) -->
+<line marker-end="url(#arrow-vector-sec)" stroke="#b4c5ff" stroke-dasharray="3 3" stroke-width="1.5" x1="840" x2="680" y1="360" y2="210"></line>
+</svg>
+<!-- HTML Interactive Bounding Entities (Absolute Overlay) -->
+<!-- Node #101: Gantry Crane A -->
+<div class="absolute left-[38%] top-[31%] z-20 cursor-pointer group/node" onclick="inspectNode('node-crane')">
+<div class="px-1.5 py-0.5 bg-primary-container text-on-primary font-code-dense text-code-dense font-bold flex items-center gap-1 shadow-sm">
+<span class="w-1.5 h-1.5 bg-on-primary"></span>
+            #101: GANTRY CRANE A [98.4%]
+          </div>
+<div class="w-28 h-20 bg-primary/15 border-2 border-primary group-hover/node:bg-primary/30 transition-colors flex items-center justify-center">
+<span class="font-code-dense text-[10px] text-primary bg-surface-container-lowest/80 px-1 py-0.5">32.4m LOA</span>
+</div>
+</div>
+<!-- Node #102: Container Vessel -->
+<div class="absolute left-[8%] top-[38%] z-20 cursor-pointer group/node" onclick="inspectNode('node-vessel')">
+<div class="px-1.5 py-0.5 bg-secondary-container text-on-secondary-container font-code-dense text-code-dense font-bold flex items-center gap-1 shadow-sm">
+<span class="w-1.5 h-1.5 bg-secondary"></span>
+            #102: CONTAINER VESSEL (M/V ASTRA) [99.1%]
+          </div>
+<div class="w-48 h-36 bg-secondary/15 border-2 border-secondary group-hover/node:bg-secondary/30 transition-colors flex items-start justify-end p-1">
+<span class="font-code-dense text-[10px] text-secondary bg-surface-container-lowest/80 px-1">294m TEU-CLASS</span>
+</div>
+</div>
+<!-- Node #103: Container Stack 4B -->
+<div class="absolute left-[62%] top-[20%] z-20 cursor-pointer group/node" onclick="inspectNode('node-stack')">
+<div class="px-1.5 py-0.5 bg-surface-container-high text-on-surface font-code-dense text-code-dense font-bold flex items-center gap-1">
+<span class="w-1.5 h-1.5 bg-primary"></span>
+            #103: CONTAINER STACK 4B [95.7%]
+          </div>
+<div class="w-32 h-24 bg-surface-container-highest/30 border border-outline group-hover/node:bg-surface-container-highest/50 transition-colors"></div>
+</div>
+<!-- Node #104: Railway Siding -->
+<div class="absolute left-[78%] top-[45%] z-20 cursor-pointer group/node" onclick="inspectNode('node-rail')">
+<div class="px-1.5 py-0.5 bg-surface-container-high text-on-surface font-code-dense text-code-dense font-bold flex items-center gap-1">
+<span class="w-1.5 h-1.5 bg-tertiary"></span>
+            #104: INTERMODAL RAIL SIDING [94.0%]
+          </div>
+<div class="w-20 h-40 bg-tertiary-container/20 border border-tertiary group-hover/node:bg-tertiary-container/30 transition-colors"></div>
+</div>
+<!-- Node #105: Apron Pier -->
+<div class="absolute left-[46%] top-[39%] z-20 cursor-pointer group/node" onclick="inspectNode('node-pier')">
+<div class="px-1.5 py-0.5 bg-surface-container-low text-on-surface font-code-dense text-code-dense font-bold flex items-center gap-1">
+<span class="w-1.5 h-1.5 bg-primary"></span>
+            #105: BERTH APRON PIER 04 [99.8%]
+          </div>
+<div class="w-28 h-28 bg-surface-container-highest/20 border border-outline-variant group-hover/node:bg-surface-container-highest/40 transition-colors"></div>
+</div>
+</div>
+<!-- Left Bottom Viewport Telemetry Indicator -->
+<div class="w-full bg-surface-container-lowest px-space-md py-1 flex items-center justify-between text-on-surface-variant font-code-dense text-code-dense">
+<div class="flex items-center gap-space-md">
+<span>CURSOR: 53°24'44.12"N 01°22'09.84"W</span>
+<span class="text-outline">|</span>
+<span>SUN AZ: 142.6°</span>
+<span class="text-outline">|</span>
+<span class="text-primary">GROUND COVER: QUAYSIDE HARBOR</span>
+</div>
+<div class="flex items-center gap-space-xs text-primary">
+<span class="material-symbols-outlined text-[14px]">my_location</span>
+<span>CALIBRATED</span>
+</div>
+</div>
+</div>
+<!-- RIGHT: Interactive Scene Graph Canvas & Node Detail Inspector -->
+<div class="xl:col-span-6 flex flex-col gap-space-xs" id="graph-pane">
+<!-- Force-Directed Graph Visualizer Card -->
+<div class="bg-surface-container-lowest p-space-xs flex flex-col h-[380px] relative">
+<div class="flex items-center justify-between px-space-sm py-1 bg-surface-container-low">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-primary text-[18px]">account_tree</span>
+<span class="font-headline-sm text-headline-sm text-on-surface font-semibold">SCENE GRAPH TOPOLOGY CANVAS</span>
+<span class="font-code-dense text-code-dense text-on-surface-variant bg-surface-container-high px-1 py-0.5">DIRECTED MULTIGRAPH</span>
+</div>
+<div class="flex items-center gap-1">
+<button class="w-6 h-6 bg-surface-container text-on-surface hover:text-primary flex items-center justify-center font-code-dense text-code-dense" title="Center Topology" type="button">
+<span class="material-symbols-outlined text-[14px]">filter_center_focus</span>
+</button>
+<button class="w-6 h-6 bg-surface-container text-on-surface hover:text-primary flex items-center justify-center font-code-dense text-code-dense" title="Physics Simulation Run" type="button">
+<span class="material-symbols-outlined text-[14px]">play_arrow</span>
+</button>
+</div>
+</div>
+<!-- Graph Render Stage (SVG) -->
+<div class="relative w-full flex-1 bg-surface-container-lowest overflow-hidden">
+<!-- Subtle Blueprint Coordinate Grid Pattern -->
+<svg class="absolute inset-0 w-full h-full opacity-20 pointer-events-none" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<pattern height="40" id="graph-grid" patternunits="userSpaceOnUse" width="40">
+<path d="M 40 0 L 0 0 0 40" fill="none" stroke="#88929b" stroke-width="0.5"></path>
+</pattern>
+</defs>
+<rect fill="url(#graph-grid)" height="100%" width="100%"></rect>
+</svg>
+<!-- Interactive Topology Elements -->
+<svg class="w-full h-full" id="scene-graph-svg" viewbox="0 0 600 340">
+<defs>
+<marker id="edge-arrow" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="21" refy="5" viewbox="0 0 10 10">
+<path d="M 0 1 L 8 5 L 0 9 z" fill="#89ceff"></path>
+</marker>
+<marker id="edge-arrow-dim" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="21" refy="5" viewbox="0 0 10 10">
+<path d="M 0 1 L 8 5 L 0 9 z" fill="#88929b"></path>
+</marker>
+</defs>
+<!-- Graph Edges (Directed Predicate Lines) -->
+<!-- Vessel -> Pier (berthed_at) -->
+<g class="graph-edge group cursor-pointer">
+<line marker-end="url(#edge-arrow)" stroke="#89ceff" stroke-width="2" x1="120" x2="280" y1="180" y2="120"></line>
+<rect fill="#181c24" height="15" rx="2" width="76" x="160" y="138"></rect>
+<text fill="#89ceff" font-family="JetBrains Mono" font-size="8.5" font-weight="600" text-anchor="middle" x="198" y="149">berthed_at</text>
+</g>
+<!-- Crane -> Vessel (loading_from) -->
+<g class="graph-edge group cursor-pointer">
+<line marker-end="url(#edge-arrow)" stroke="#89ceff" stroke-width="2" x1="280" x2="120" y1="260" y2="180"></line>
+<rect fill="#181c24" height="15" rx="2" width="90" x="150" y="210"></rect>
+<text fill="#89ceff" font-family="JetBrains Mono" font-size="8.5" font-weight="600" text-anchor="middle" x="195" y="221">loading_from</text>
+</g>
+<!-- Crane -> Pier (adjacent_to) -->
+<g class="graph-edge group cursor-pointer">
+<line marker-end="url(#edge-arrow-dim)" stroke="#88929b" stroke-dasharray="3 2" stroke-width="1.5" x1="280" x2="280" y1="260" y2="120"></line>
+<rect fill="#181c24" height="15" rx="2" width="76" x="242" y="180"></rect>
+<text fill="#bec8d2" font-family="JetBrains Mono" font-size="8.5" text-anchor="middle" x="280" y="191">adjacent_to</text>
+</g>
+<!-- Stack -> Crane (adjacent_to) -->
+<g class="graph-edge group cursor-pointer">
+<line marker-end="url(#edge-arrow-dim)" stroke="#88929b" stroke-width="1.5" x1="430" x2="280" y1="130" y2="260"></line>
+<rect fill="#181c24" height="15" rx="2" width="80" x="315" y="188"></rect>
+<text fill="#bec8d2" font-family="JetBrains Mono" font-size="8.5" text-anchor="middle" x="355" y="199">adjacent_to</text>
+</g>
+<!-- Rail -> Stack (parallel_to) -->
+<g class="graph-edge group cursor-pointer">
+<line marker-end="url(#edge-arrow)" stroke="#89ceff" stroke-width="1.5" x1="510" x2="430" y1="250" y2="130"></line>
+<rect fill="#181c24" height="15" rx="2" width="80" x="430" y="180"></rect>
+<text fill="#89ceff" font-family="JetBrains Mono" font-size="8.5" font-weight="600" text-anchor="middle" x="470" y="191">parallel_to</text>
+</g>
+<!-- Vessel -> Water Basin (surrounded_by) -->
+<g class="graph-edge group cursor-pointer">
+<line marker-end="url(#edge-arrow-dim)" stroke="#88929b" stroke-dasharray="4 2" stroke-width="1.5" x1="120" x2="90" y1="180" y2="50"></line>
+<rect fill="#181c24" height="15" rx="2" width="94" x="60" y="105"></rect>
+<text fill="#bec8d2" font-family="JetBrains Mono" font-size="8.5" text-anchor="middle" x="107" y="116">surrounded_by</text>
+</g>
+<!-- Graph Entity Nodes -->
+<!-- Node: Container Vessel -->
+<g class="cursor-pointer transition-transform duration-150 hover:scale-105" onclick="inspectNode('node-vessel')">
+<circle cx="120" cy="180" fill="#002a78" r="24" stroke="#89ceff" stroke-width="2"></circle>
+<text fill="#89ceff" font-family="Material Symbols Outlined" font-size="18" text-anchor="middle" x="120" y="184">directions_boat</text>
+<text fill="#dfe2ee" font-family="JetBrains Mono" font-size="9" font-weight="600" text-anchor="middle" x="120" y="214">Container Vessel</text>
+<text fill="#88929b" font-family="JetBrains Mono" font-size="7.5" text-anchor="middle" x="120" y="224">#102 [0.991]</text>
+</g>
+<!-- Node: Quayside Gantry Crane -->
+<g class="cursor-pointer transition-transform duration-150 hover:scale-105" onclick="inspectNode('node-crane')">
+<circle cx="280" cy="260" fill="#0ea5e9" r="22" stroke="#dfe2ee" stroke-width="2"></circle>
+<text fill="#0c0f14" font-family="Material Symbols Outlined" font-size="18" text-anchor="middle" x="280" y="264">precision_manufacturing</text>
+<text fill="#dfe2ee" font-family="JetBrains Mono" font-size="9" font-weight="600" text-anchor="middle" x="280" y="292">Quayside Gantry</text>
+<text fill="#88929b" font-family="JetBrains Mono" font-size="7.5" text-anchor="middle" x="280" y="302">#101 [0.984]</text>
+</g>
+<!-- Node: Berth Apron Pier -->
+<g class="cursor-pointer transition-transform duration-150 hover:scale-105" onclick="inspectNode('node-pier')">
+<circle cx="280" cy="120" fill="#262a33" r="20" stroke="#88929b" stroke-width="1.5"></circle>
+<text fill="#dfe2ee" font-family="Material Symbols Outlined" font-size="16" text-anchor="middle" x="280" y="124">dock</text>
+<text fill="#dfe2ee" font-family="JetBrains Mono" font-size="9" font-weight="600" text-anchor="middle" x="280" y="94">Berth Apron</text>
+<text fill="#88929b" font-family="JetBrains Mono" font-size="7.5" text-anchor="middle" x="280" y="104">#105 [0.998]</text>
+</g>
+<!-- Node: Container Stack -->
+<g class="cursor-pointer transition-transform duration-150 hover:scale-105" onclick="inspectNode('node-stack')">
+<circle cx="430" cy="130" fill="#262a33" r="20" stroke="#88929b" stroke-width="1.5"></circle>
+<text fill="#dfe2ee" font-family="Material Symbols Outlined" font-size="16" text-anchor="middle" x="430" y="134">inventory_2</text>
+<text fill="#dfe2ee" font-family="JetBrains Mono" font-size="9" font-weight="600" text-anchor="middle" x="430" y="104">Container Stack</text>
+<text fill="#88929b" font-family="JetBrains Mono" font-size="7.5" text-anchor="middle" x="430" y="114">#103 [0.957]</text>
+</g>
+<!-- Node: Access Rail Siding -->
+<g class="cursor-pointer transition-transform duration-150 hover:scale-105" onclick="inspectNode('node-rail')">
+<circle cx="510" cy="250" fill="#262a33" r="20" stroke="#ddb7ff" stroke-width="1.5"></circle>
+<text fill="#ddb7ff" font-family="Material Symbols Outlined" font-size="16" text-anchor="middle" x="510" y="254">train</text>
+<text fill="#dfe2ee" font-family="JetBrains Mono" font-size="9" font-weight="600" text-anchor="middle" x="510" y="280">Access Rail Siding</text>
+<text fill="#88929b" font-family="JetBrains Mono" font-size="7.5" text-anchor="middle" x="510" y="290">#104 [0.940]</text>
+</g>
+<!-- Node: Water Basin -->
+<g class="cursor-pointer transition-transform duration-150 hover:scale-105" onclick="inspectNode('node-basin')">
+<circle cx="90" cy="50" fill="#181c24" r="18" stroke="#89ceff" stroke-width="1"></circle>
+<text fill="#89ceff" font-family="Material Symbols Outlined" font-size="15" text-anchor="middle" x="90" y="54">water</text>
+<text fill="#dfe2ee" font-family="JetBrains Mono" font-size="9" font-weight="600" text-anchor="middle" x="90" y="28">Water Basin</text>
+</g>
+</svg>
+</div>
+</div>
+<!-- Live Node Detail Inspector Panel -->
+<div class="bg-surface-container-lowest p-space-md flex flex-col justify-between flex-1" id="inspector-card">
+<div>
+<div class="flex items-center justify-between pb-space-xs mb-space-sm bg-surface-container-low px-space-md py-1">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-primary text-[18px]">biotech</span>
+<span class="font-headline-sm text-headline-sm text-on-surface font-semibold uppercase tracking-wider">SELECTED ENTITY TELEMETRY</span>
+</div>
+<div class="flex items-center gap-1">
+<span class="px-1.5 py-0.5 bg-primary-container text-on-primary font-code-dense text-code-dense font-bold" id="inspect-tag">NODE #101 ACTIVE</span>
+</div>
+</div>
+<!-- Inspector Key-Value Metrics Grid -->
+<div class="grid grid-cols-2 md:grid-cols-4 gap-space-xs mb-space-sm">
+<div class="bg-surface-container-low p-space-sm flex flex-col">
+<span class="font-code-dense text-code-dense text-on-surface-variant uppercase">Bounding Box</span>
+<span class="font-code-dense text-[11px] text-primary font-bold mt-1" id="inspect-bbox">[534, 189, 612, 310]</span>
+<span class="font-code-dense text-code-dense text-outline mt-0.5">Norm. Pixel UV</span>
+</div>
+<div class="bg-surface-container-low p-space-sm flex flex-col">
+<span class="font-code-dense text-code-dense text-on-surface-variant uppercase">Footprint Area</span>
+<span class="font-code-dense text-[11px] text-on-surface font-bold mt-1" id="inspect-area">1,248.5 m²</span>
+<span class="font-code-dense text-code-dense text-primary mt-0.5">± 4.2% uncertainty</span>
+</div>
+<div class="bg-surface-container-low p-space-sm flex flex-col">
+<span class="font-code-dense text-code-dense text-on-surface-variant uppercase">Class Confidence</span>
+<span class="font-code-dense text-[11px] text-primary font-bold mt-1" id="inspect-conf">98.4% (RemoteCLIP)</span>
+<div class="w-full bg-surface-variant h-1 mt-1 overflow-hidden">
+<div class="bg-primary h-full w-[98.4%]" id="inspect-bar"></div>
+</div>
+</div>
+<div class="bg-surface-container-low p-space-sm flex flex-col">
+<span class="font-code-dense text-code-dense text-on-surface-variant uppercase">Graph Centrality</span>
+<span class="font-code-dense text-[11px] text-on-surface font-bold mt-1" id="inspect-centrality">deg: 3 (high hub)</span>
+<span class="font-code-dense text-code-dense text-on-surface-variant mt-0.5">Betweenness: 0.612</span>
+</div>
+</div>
+<!-- Semantic Graph Neighborhood List -->
+<div class="bg-surface-container-low p-space-sm">
+<div class="font-code-dense text-code-dense uppercase text-on-surface-variant mb-1 flex items-center justify-between">
+<span>Relational Predicates / Neighbor Links</span>
+<span class="text-primary font-code-dense text-code-dense">3 CONNECTED</span>
+</div>
+<div class="space-y-1" id="inspect-relations">
+<div class="flex items-center justify-between bg-surface-container px-2 py-1 text-on-surface font-code-dense text-code-dense">
+<span class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 bg-primary"></span><span>(loading_from) → #102: Container Vessel</span></span>
+<span class="text-primary font-semibold">DIST: 14.2m</span>
+</div>
+<div class="flex items-center justify-between bg-surface-container px-2 py-1 text-on-surface font-code-dense text-code-dense">
+<span class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 bg-primary"></span><span>(adjacent_to) → #105: Berth Apron</span></span>
+<span class="text-primary font-semibold">DIST: 0.0m (TOUCHING)</span>
+</div>
+<div class="flex items-center justify-between bg-surface-container px-2 py-1 text-on-surface font-code-dense text-code-dense">
+<span class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 bg-outline"></span><span>(adjacent_to) → #103: Container Stack 4B</span></span>
+<span class="text-on-surface-variant font-semibold">DIST: 38.5m</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Inline Reasoning Verification Indicator -->
+<div class="mt-space-sm p-space-sm bg-surface-container-low flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[18px]">verified</span>
+<div class="flex flex-col">
+<span class="font-headline-sm text-headline-sm text-on-surface">Spatial Coherence Assertion</span>
+<span class="font-code-dense text-code-dense text-on-surface-variant">Validated against Rule GEOP-401 (Gantry crane must contact quay boundary)</span>
+</div>
+</div>
+<span class="px-2 py-1 bg-surface-container-high text-primary font-code-dense text-code-dense font-bold uppercase">PASSED (P=1.0)</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Bottom Drawer: Accessible Tabular Matrix & Serialized Export Suite -->
+<div class="w-full bg-surface-container-lowest p-space-xs mt-space-xs shadow-md">
+<!-- Matrix Toolbar & Export Suite -->
+<div class="flex flex-wrap items-center justify-between px-space-md py-space-sm bg-surface-container-low gap-space-md">
+<div class="flex items-center gap-space-md">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-primary text-[18px]">table_chart</span>
+<span class="font-headline-sm text-headline-sm text-on-surface font-semibold tracking-tight uppercase">Knowledge Graph Relational Matrix</span>
+</div>
+<span class="font-code-dense text-code-dense px-1.5 py-0.5 bg-surface-container-high text-primary">TRIPLES: 7 ACTIVE</span>
+</div>
+<!-- Export Buttons -->
+<div class="flex items-center flex-wrap gap-space-xs">
+<span class="font-code-dense text-code-dense text-on-surface-variant uppercase mr-1">Serialization:</span>
+<button class="h-7 px-space-md bg-surface-container text-on-surface hover:bg-surface-container-high hover:text-primary font-code-dense text-code-dense flex items-center gap-1 transition-colors" onclick="exportData('GraphML')" type="button">
+<span class="material-symbols-outlined text-[14px]">file_download</span>
+<span>GraphML</span>
+</button>
+<button class="h-7 px-space-md bg-surface-container text-on-surface hover:bg-surface-container-high hover:text-primary font-code-dense text-code-dense flex items-center gap-1 transition-colors" onclick="exportData('JSON-LD')" type="button">
+<span class="material-symbols-outlined text-[14px]">code</span>
+<span>JSON-LD</span>
+</button>
+<button class="h-7 px-space-md bg-surface-container text-on-surface hover:bg-surface-container-high hover:text-primary font-code-dense text-code-dense flex items-center gap-1 transition-colors" onclick="exportData('RDF Turtle')" type="button">
+<span class="material-symbols-outlined text-[14px]">account_tree</span>
+<span>RDF Turtle</span>
+</button>
+<button class="h-7 px-space-md bg-primary-container text-on-primary hover:bg-primary font-code-dense text-code-dense font-bold flex items-center gap-1 transition-colors" onclick="exportData('GeoJSON-LD')" type="button">
+<span class="material-symbols-outlined text-[14px]">public</span>
+<span>GeoJSON-LD</span>
+</button>
+</div>
+</div>
+<!-- Tabular Knowledge Matrix -->
+<div class="w-full overflow-x-auto">
+<table class="w-full text-left font-code-dense text-code-dense">
+<thead>
+<tr class="bg-surface-container text-on-surface-variant uppercase border-b border-outline-variant">
+<th class="py-2 px-space-md font-semibold">Subject Entity</th>
+<th class="py-2 px-space-md font-semibold text-primary">Predicate / Spatial Relation</th>
+<th class="py-2 px-space-md font-semibold">Object Entity</th>
+<th class="py-2 px-space-md font-semibold text-right">Euclidean Distance / Offset</th>
+<th class="py-2 px-space-md font-semibold text-right">Confidence</th>
+<th class="py-2 px-space-md font-semibold text-center">Status</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant/30 text-on-surface">
+<tr class="hover:bg-surface-container/60 transition-colors bg-surface-container-low">
+<td class="py-2 px-space-md flex items-center gap-2">
+<span class="w-1.5 h-1.5 bg-primary"></span>
+<span class="font-bold text-primary">#102: Container Vessel</span>
+</td>
+<td class="py-2 px-space-md text-primary font-semibold">berthed_at</td>
+<td class="py-2 px-space-md">#105: Berth Apron Pier 04</td>
+<td class="py-2 px-space-md text-right font-code-dense">0.00 m (Boundary Contact)</td>
+<td class="py-2 px-space-md text-right font-bold text-primary">0.994</td>
+<td class="py-2 px-space-md text-center">
+<span class="px-1.5 py-0.5 bg-surface-container-high text-primary font-bold">VERIFIED</span>
+</td>
+</tr>
+<tr class="hover:bg-surface-container/60 transition-colors bg-surface-container-lowest">
+<td class="py-2 px-space-md flex items-center gap-2">
+<span class="w-1.5 h-1.5 bg-primary"></span>
+<span class="font-bold text-primary">#101: Gantry Crane A</span>
+</td>
+<td class="py-2 px-space-md text-primary font-semibold">loading_from</td>
+<td class="py-2 px-space-md">#102: Container Vessel</td>
+<td class="py-2 px-space-md text-right font-code-dense">14.20 m (Overreach Boom)</td>
+<td class="py-2 px-space-md text-right font-bold text-primary">0.984</td>
+<td class="py-2 px-space-md text-center">
+<span class="px-1.5 py-0.5 bg-surface-container-high text-primary font-bold">VERIFIED</span>
+</td>
+</tr>
+<tr class="hover:bg-surface-container/60 transition-colors bg-surface-container-low">
+<td class="py-2 px-space-md flex items-center gap-2">
+<span class="w-1.5 h-1.5 bg-primary"></span>
+<span class="font-bold text-on-surface">#101: Gantry Crane A</span>
+</td>
+<td class="py-2 px-space-md text-on-surface-variant font-semibold">mounted_on</td>
+<td class="py-2 px-space-md">#105: Berth Apron Pier 04</td>
+<td class="py-2 px-space-md text-right font-code-dense">0.00 m (Coincident Rail)</td>
+<td class="py-2 px-space-md text-right font-bold text-on-surface">0.998</td>
+<td class="py-2 px-space-md text-center">
+<span class="px-1.5 py-0.5 bg-surface-container-high text-primary font-bold">VERIFIED</span>
+</td>
+</tr>
+<tr class="hover:bg-surface-container/60 transition-colors bg-surface-container-lowest">
+<td class="py-2 px-space-md flex items-center gap-2">
+<span class="w-1.5 h-1.5 bg-secondary"></span>
+<span class="font-bold text-on-surface">#103: Container Stack 4B</span>
+</td>
+<td class="py-2 px-space-md text-on-surface-variant font-semibold">adjacent_to</td>
+<td class="py-2 px-space-md">#101: Gantry Crane A</td>
+<td class="py-2 px-space-md text-right font-code-dense">38.50 m (Radial Clearance)</td>
+<td class="py-2 px-space-md text-right font-bold text-on-surface">0.957</td>
+<td class="py-2 px-space-md text-center">
+<span class="px-1.5 py-0.5 bg-surface-container-high text-primary font-bold">VERIFIED</span>
+</td>
+</tr>
+<tr class="hover:bg-surface-container/60 transition-colors bg-surface-container-low">
+<td class="py-2 px-space-md flex items-center gap-2">
+<span class="w-1.5 h-1.5 bg-tertiary"></span>
+<span class="font-bold text-on-surface">#104: Railway Siding</span>
+</td>
+<td class="py-2 px-space-md text-primary font-semibold">parallel_to</td>
+<td class="py-2 px-space-md">#103: Container Stack 4B</td>
+<td class="py-2 px-space-md text-right font-code-dense">21.80 m (Vector Align: 4.2°)</td>
+<td class="py-2 px-space-md text-right font-bold text-primary">0.940</td>
+<td class="py-2 px-space-md text-center">
+<span class="px-1.5 py-0.5 bg-surface-container-high text-primary font-bold">VERIFIED</span>
+</td>
+</tr>
+<tr class="hover:bg-surface-container/60 transition-colors bg-surface-container-lowest">
+<td class="py-2 px-space-md flex items-center gap-2">
+<span class="w-1.5 h-1.5 bg-primary"></span>
+<span class="font-bold text-on-surface">#102: Container Vessel</span>
+</td>
+<td class="py-2 px-space-md text-on-surface-variant font-semibold">surrounded_by</td>
+<td class="py-2 px-space-md">#106: Water Basin Harbour</td>
+<td class="py-2 px-space-md text-right font-code-dense">0.00 m (Hydro-surface Hull)</td>
+<td class="py-2 px-space-md text-right font-bold text-primary">0.999</td>
+<td class="py-2 px-space-md text-center">
+<span class="px-1.5 py-0.5 bg-surface-container-high text-primary font-bold">VERIFIED</span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Export Confirmation Toast / Status Notice -->
+<div class="hidden mt-space-sm p-space-sm bg-primary-container text-on-primary font-code-dense text-code-dense flex items-center justify-between" id="export-toast">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px]">task_alt</span>
+<span id="export-msg">Graph serialized successfully into payload.</span>
+</div>
+<button class="font-bold uppercase underline" onclick="document.getElementById('export-toast').classList.add('hidden')" type="button">DISMISS</button>
+</div>
+</div>
+</div>
+<script>
+  // Dynamic Node Telemetry Data Dictionary
+  const nodeDatabase = {
+    'node-crane': {
+      tag: 'NODE #101 ACTIVE: GANTRY CRANE A',
+      bbox: '[534, 189, 612, 310]',
+      area: '1,248.5 m²',
+      conf: '98.4% (RemoteCLIP)',
+      bar: '98.4%',
+      centrality: 'deg: 3 (high hub)',
+      relations: [
+        { pred: 'loading_from', target: '#102: Container Vessel', dist: '14.2m', active: true },
+        { pred: 'adjacent_to', target: '#105: Berth Apron', dist: '0.0m (TOUCHING)', active: true },
+        { pred: 'adjacent_to', target: '#103: Container Stack 4B', dist: '38.5m', active: false }
+      ]
+    },
+    'node-vessel': {
+      tag: 'NODE #102 ACTIVE: CONTAINER VESSEL',
+      bbox: '[112, 420, 394, 680]',
+      area: '14,890.2 m²',
+      conf: '99.1% (RemoteCLIP)',
+      bar: '99.1%',
+      centrality: 'deg: 3 (keystone)',
+      relations: [
+        { pred: 'berthed_at', target: '#105: Berth Apron Pier 04', dist: '0.0m (Coincident)', active: true },
+        { pred: 'loading_from', target: '#101: Gantry Crane A', dist: '14.2m', active: true },
+        { pred: 'surrounded_by', target: '#106: Water Basin', dist: '0.0m (Submerged)', active: false }
+      ]
+    },
+    'node-stack': {
+      tag: 'NODE #103 ACTIVE: CONTAINER STACK 4B',
+      bbox: '[620, 204, 750, 328]',
+      area: '4,620.0 m²',
+      conf: '95.7% (RemoteCLIP)',
+      bar: '95.7%',
+      centrality: 'deg: 2 (depot)',
+      relations: [
+        { pred: 'adjacent_to', target: '#101: Gantry Crane A', dist: '38.5m', active: false },
+        { pred: 'parallel_to', target: '#104: Railway Siding', dist: '21.8m', active: true }
+      ]
+    },
+    'node-rail': {
+      tag: 'NODE #104 ACTIVE: RAIL SIDING',
+      bbox: '[780, 450, 860, 610]',
+      area: '2,910.4 m²',
+      conf: '94.0% (RemoteCLIP)',
+      bar: '94.0%',
+      centrality: 'deg: 1 (terminal link)',
+      relations: [
+        { pred: 'parallel_to', target: '#103: Container Stack 4B', dist: '21.8m', active: true }
+      ]
+    },
+    'node-pier': {
+      tag: 'NODE #105 ACTIVE: BERTH APRON PIER 04',
+      bbox: '[460, 390, 572, 502]',
+      area: '8,420.0 m²',
+      conf: '99.8% (RemoteCLIP)',
+      bar: '99.8%',
+      centrality: 'deg: 2 (foundation)',
+      relations: [
+        { pred: 'adjacent_to', target: '#101: Gantry Crane A', dist: '0.0m', active: true },
+        { pred: 'berthed_at', target: '#102: Container Vessel', dist: '0.0m', active: true }
+      ]
+    },
+    'node-basin': {
+      tag: 'NODE #106 ACTIVE: WATER BASIN',
+      bbox: '[010, 010, 420, 690]',
+      area: '64,120.0 m²',
+      conf: '99.9% (NDWI Hydro)',
+      bar: '99.9%',
+      centrality: 'deg: 1 (environmental)',
+      relations: [
+        { pred: 'surrounds', target: '#102: Container Vessel', dist: '0.0m', active: true }
+      ]
+    }
+  };
+
+  function inspectNode(nodeKey) {
+    const data = nodeDatabase[nodeKey];
+    if (!data) return;
+
+    document.getElementById('inspect-tag').innerText = data.tag;
+    document.getElementById('inspect-bbox').innerText = data.bbox;
+    document.getElementById('inspect-area').innerText = data.area;
+    document.getElementById('inspect-conf').innerText = data.conf;
+    document.getElementById('inspect-bar').style.width = data.bar;
+    document.getElementById('inspect-centrality').innerText = data.centrality;
+
+    const relContainer = document.getElementById('inspect-relations');
+    relContainer.innerHTML = '';
+    data.relations.forEach(r => {
+      const row = document.createElement('div');
+      row.className = 'flex items-center justify-between bg-surface-container px-2 py-1 text-on-surface font-code-dense text-code-dense';
+      row.innerHTML = `
+        <span class="flex items-center gap-1.5">
+          <span class="w-1.5 h-1.5 ${r.active ? 'bg-primary' : 'bg-outline'}"></span>
+          <span>(${r.pred}) &rarr; ${r.target}</span>
+        </span>
+        <span class="${r.active ? 'text-primary' : 'text-on-surface-variant'} font-semibold">DIST: ${r.dist}</span>
+      `;
+      relContainer.appendChild(row);
+    });
+  }
+
+  function exportData(format) {
+    const toast = document.getElementById('export-toast');
+    const msg = document.getElementById('export-msg');
+    msg.innerText = `Scene Knowledge Graph successfully serialized and prepared in [${format}] payload format with CRS EPSG:4326 metadata.`;
+    toast.classList.remove('hidden');
+  }
+
+  // View Mode Toggles
+  const splitBtn = document.getElementById('view-split-btn');
+  const graphBtn = document.getElementById('view-graph-btn');
+  const matrixBtn = document.getElementById('view-matrix-btn');
+  const satPane = document.getElementById('satellite-pane');
+  const graphPane = document.getElementById('graph-pane');
+
+  splitBtn.addEventListener('click', () => {
+    satPane.classList.remove('hidden');
+    satPane.className = 'xl:col-span-6 bg-surface-container-lowest relative flex flex-col min-h-[580px] overflow-hidden group';
+    graphPane.classList.remove('hidden');
+    graphPane.className = 'xl:col-span-6 flex flex-col gap-space-xs';
+    updateViewButtons(splitBtn);
+  });
+
+  graphBtn.addEventListener('click', () => {
+    satPane.classList.add('hidden');
+    graphPane.classList.remove('hidden');
+    graphPane.className = 'xl:col-span-12 flex flex-col gap-space-xs';
+    updateViewButtons(graphBtn);
+  });
+
+  matrixBtn.addEventListener('click', () => {
+    window.scrollTo({
+      top: document.body.scrollHeight,
+      behavior: 'smooth'
+    });
+    updateViewButtons(matrixBtn);
+  });
+
+  function updateViewButtons(activeBtn) {
+    [splitBtn, graphBtn, matrixBtn].forEach(btn => {
+      if (btn === activeBtn) {
+        btn.className = 'px-space-md py-1 font-label-md text-label-md bg-primary-container text-on-primary font-bold uppercase transition-colors';
+      } else {
+        btn.className = 'px-space-md py-1 font-label-md text-label-md text-on-surface-variant hover:text-on-surface transition-colors';
+      }
+    });
+  }
+</script></main></div></body></html>
